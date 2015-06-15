@@ -46,11 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IHouseRepository.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFHouseRepository.cs" />
     <Compile Include="Entities\House.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

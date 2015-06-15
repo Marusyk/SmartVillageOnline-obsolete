@@ -4,9 +4,13 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Houses: </h2>
 
 @foreach (var p in Model)
 {
-    @p.KadastrNr
+    <div class="item">
+        <h3>House number: @p.HouseNr</h3>
+        Kadastr number: @p.KadastrNr
+        <h4>HouseID: @p.HouseID</h4>
+    </div>
 }
