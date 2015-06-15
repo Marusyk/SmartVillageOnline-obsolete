@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Domain.Entities.House>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+@foreach (var p in Model)
+{
+    @p.KadastrNr
+}
