@@ -46,8 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IHouseRepository.cs" />
+    <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFHouseRepository.cs" />
+    <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\House.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

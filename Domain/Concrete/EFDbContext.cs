@@ -7,6 +7,8 @@ namespace Domain.Concrete
     {
         public DbSet<House> House { get; set; }
 
+        public DbSet<Country> Country { get; set; }
+
         //protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
         //{
             //var config = modelBuilder.Entity<House>();
