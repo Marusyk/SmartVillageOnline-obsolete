@@ -30,7 +30,8 @@ namespace WebUI.Infrastructure
         private void AddBindings()
         {
             //конфігурування контейнеру
-            ninjectKernel.Bind<IHouseRepository>().To<EFHouseRepository>();
+            //ninjectKernel.Bind<IHouseRepository>().To<EFHouseRepository>();
+            ninjectKernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
         }
     }
 }
