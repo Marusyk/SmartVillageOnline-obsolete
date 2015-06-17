@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
+    [Table("House")]
     public class House
     {
         public int HouseID { get; set; }
@@ -13,19 +14,9 @@ namespace Domain.Entities
         public string PhoneNr { get; set; }
         public string PhoneCode { get; set; }
         public string FaxNr { get; set; }
-        public int Year { get; set; }
+        public Nullable<int> Year { get; set; }
         public string Code { get; set; }
-        private DateTime LastUpdDT
-        {
-            get
-            {
-                return LastUpdDT;
-            }
-            set
-            {
-                value = DateTime.Now;
-            }
-        }
+        public System.DateTime LastUpdDT { get; set; }
         public string LastUpdUS { get; set; }
     }
 }

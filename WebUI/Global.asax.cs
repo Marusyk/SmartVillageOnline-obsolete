@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -23,7 +24,7 @@ namespace WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<Domain.Concrete.EFDbContext, Domain.Migrations.Configuration>());
             ControllerBuilder.Current.SetControllerFactory(new NinjectControlFactory());
         }
     }

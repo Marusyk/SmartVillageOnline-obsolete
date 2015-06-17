@@ -1,20 +1,22 @@
 ﻿using System.Web.Mvc;
 using Domain.Abstract;
+using Domain.Entities;
 
 namespace WebUI.Controllers
 {
     public class HouseController : Controller
     {
         IHouseRepository repository;
+        IRepository<House> rep;
 
-        public HouseController(IHouseRepository repository)
+        public HouseController(IRepository<House> repository)
         {
-            this.repository = repository;
+            this.rep = repository;
         }
 
         public ViewResult List()
         {
-            return View(repository.House);
+            return View(rep.House);
         }
 
     }

@@ -4,8 +4,6 @@
     ViewBag.Title = "List";
 }
 
-<h2>Houses: </h2>
-
 @foreach (var p in Model)
 {
     <div class="item">
@@ -14,23 +12,3 @@
         <h4>HouseID: @p.HouseID</h4>
     </div>
 }
-
-<button id="button">Отримати дані з API</button>
-<p id="house"></p>
-
-<script src="~/Scripts/jquery-1.8.2.min.js"></script>
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#button").click(getData);
-    });
-
-    function getData() {
-        var url = "http://localhost:2009/api/House"
-        $.getJSON(url, function (data) {
-            $("#house").text(data);
-        });
-    }
-
-</script>

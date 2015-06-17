@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Abstract;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Domain.Concrete
 {
-    public class EFRepository<T> where T : class
+    public class EFRepository<T> : IRepository<T> where T : class
     {
         private EFDbContext context = new EFDbContext();
-
-        public IQueryable<House> House
+      
+        IQueryable<T> IRepository<T>.House
         {
-            get { return context.House; }
+            get { return context.House as IQueryable<T>; }
         }
 
-        public IQueryable<Country> Country
+        IQueryable<T> IRepository<T>.Country
         {
-            get { return context.Country; }
+            get { return context.Country as IQueryable<T>; }
         }
     }
 }
