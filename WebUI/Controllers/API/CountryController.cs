@@ -12,22 +12,38 @@ namespace WebUI.Controllers.API
 {
     public class CountryController : ApiController
     {
-        private IRepository<Country> rep;
+        private IRepository<Country> repository = null;
 
         public CountryController()
         {
-            this.rep = new EFRepository<Country>();
+            this.repository = new EFRepository<Country>();
         }
 
-        public CountryController(IRepository<Country> repo)
+        public CountryController(IRepository<Country> repository)
         {
-            this.rep = repo;
+            this.repository = repository;
         }
 
-        [HttpGet]
         public IQueryable<Country> Get()
         {
-            return rep.Country;
+            return repository.SelectAll();
+        }
+
+
+        public HttpResponseMessage Post([FromBody]Country country)
+        {
+            try
+            {
+                int id = 6; // repository.SelectAll().Max(x => x.CountryID);
+                country.CountryID = id + 1;
+                country.Name = "TEST";
+                repository.Insert(country);
+                return Request.CreateResponse(HttpStatusCode.Created, country);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

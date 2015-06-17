@@ -6,18 +6,18 @@ namespace WebUI.Controllers
 {
     public class HouseController : Controller
     {
-        IHouseRepository repository;
-        IRepository<House> rep;
+        //IHouseRepository repository;
+        //IRepository<House> rep;
 
-        public HouseController(IRepository<House> repository)
-        {
-            this.rep = repository;
-        }
+        //public HouseController(IRepository<House> repository)
+        //{
+        //    this.rep = repository;
+        //}
 
-        public ViewResult List()
-        {
-            return View(rep.House);
-        }
+        //public ViewResult List()
+        //{
+        //    return View(rep.House);
+        //}
 
     }
 }

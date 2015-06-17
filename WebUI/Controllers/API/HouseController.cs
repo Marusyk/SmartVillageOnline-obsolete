@@ -8,22 +8,22 @@ namespace WebUI.Controllers.API
 {
     public class HouseController : ApiController
     {
-        private IRepository<House> rep;
+        //private IRepository<House> rep;
 
-        public HouseController()
-        {
-            this.rep = new EFRepository<House>();
-        }
+        //public HouseController()
+        //{
+        //    this.rep = new EFRepository<House>();
+        //}
 
-        public HouseController(IRepository<House> repo)
-        {
-            this.rep = repo;
-        }
+        //public HouseController(IRepository<House> repo)
+        //{
+        //    this.rep = repo;
+        //}
 
-        [HttpGet]
-        public IQueryable<House> Get()
-        {
-            return rep.House;
-        }
+        //[HttpGet]
+        //public IQueryable<House> Get()
+        //{
+        //    return rep.House;
+        //}
     }
 }

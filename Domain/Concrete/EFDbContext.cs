@@ -5,22 +5,10 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Domain.Concrete
 {
-    public class EFDbContext : DbContext
+    public class EFDbContext<T> : DbContext where T : class
     {
-        public DbSet<House> House { get; set; }
 
-        public DbSet<Country> Country { get; set; }
+        public DbSet<T> TableName { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    var config = modelBuilder.Entity<House>();
-        //       config.ToTable("House");
-        //}
-
-        //protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
-        //{
-        //    var config = modelBuilder.Entity<House>();
-        //    config.ToTable("House");
-        //}
     }
 }
