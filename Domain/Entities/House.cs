@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Domain.Abstract;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
     [Table("House")]
-    public class House
+    public class House : BaseEntity
     {
-        public int HouseID { get; set; }
         public string HouseNr { get; set; }
         public string KadastrNr { get; set; }
         public string BuildNr { get; set; }
@@ -16,7 +16,5 @@ namespace Domain.Entities
         public string FaxNr { get; set; }
         public Nullable<int> Year { get; set; }
         public string Code { get; set; }
-        public System.DateTime LastUpdDT { get; set; }
-        public string LastUpdUS { get; set; }
     }
 }

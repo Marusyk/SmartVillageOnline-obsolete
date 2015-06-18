@@ -7,27 +7,84 @@ using System.Web.Http;
 using Domain.Entities;
 using Domain.Abstract;
 using Domain.Concrete;
+using Domain;
 
 namespace WebUI.Controllers.API
 {
     public class CountryController : ApiController
     {
-        private IRepository<Country> rep;
+        private UnitOfWork unitOfWork = new UnitOfWork();
+        private EFRepository<Country> repository;
 
         public CountryController()
         {
-            this.rep = new EFRepository<Country>();
+            repository = unitOfWork.EFRepository<Country>();
         }
 
-        public CountryController(IRepository<Country> repo)
+        public IEnumerable<Country> Get()
         {
-            this.rep = repo;
+            IEnumerable<Country> country = repository.Table.ToList();
+            return country;
         }
 
-        [HttpGet]
-        public IQueryable<Country> Get()
+        public HttpResponseMessage Post([FromBody]Country country)
         {
-            return rep.Country;
+            try
+            {                         
+                repository.Insert(country);
+                return Request.CreateResponse(HttpStatusCode.Created, country);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+
+        }
+
+        public HttpResponseMessage Delete(int id)
+        {
+            Country toDelete = repository.GetById(id);
+            
+            if (toDelete == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            try
+            {
+                repository.Delete(toDelete);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        public HttpResponseMessage Put([FromBody]Country country)
+        {
+            Country oldCountry = repository.GetById(country.ID);
+            
+            if (oldCountry == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            try
+            {
+                oldCountry.Name = country.Name;
+                oldCountry.LastUpdDT = DateTime.Now;
+                repository.Update(oldCountry);
+                return Request.CreateResponse(HttpStatusCode.OK, oldCountry);
+            }
+            catch (Exception)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

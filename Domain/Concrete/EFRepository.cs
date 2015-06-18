@@ -1,25 +1,122 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
 using System;
-using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Concrete
 {
-    public class EFRepository<T> : IRepository<T> where T : class
+    public class EFRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private EFDbContext context = new EFDbContext();
-      
-        IQueryable<T> IRepository<T>.House
+        private readonly EFDbContext context;
+        private IDbSet<T> entities;
+        private string errorMessage = string.Empty;
+
+        public EFRepository(EFDbContext context)
         {
-            get { return context.House as IQueryable<T>; }
+            this.context = context;
         }
 
-        IQueryable<T> IRepository<T>.Country
+        public T GetById(object id)
         {
-            get { return context.Country as IQueryable<T>; }
+            return this.Entities.Find(id);
         }
+
+        public void Insert(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.Entities.Add(entity);
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public void Update(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public void Delete(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.Entities.Remove(entity);
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public IQueryable<T> Table
+        {
+            get
+            {
+                return this.Entities;
+            }
+        }
+
+        public IDbSet<T> Entities
+        {
+            get
+            {
+                if (entities == null)
+                {
+                    entities = context.Set<T>();
+                }
+                return entities;
+            }
+        }
+
     }
 }
