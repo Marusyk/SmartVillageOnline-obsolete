@@ -8,13 +8,13 @@ namespace Domain.Abstract
     {
         IQueryable<T> SelectAll();
 
-        T SelectByID(object id);
+        //T SelectByID(object id);
 
         void Insert(T obj);
 
-        void Update(T obj);
+        //void Update(T obj);
 
-        void Delete(object id);
+        //void Delete(object id);
 
         void Save();
         
