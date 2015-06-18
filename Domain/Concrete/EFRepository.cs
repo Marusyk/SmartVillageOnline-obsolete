@@ -1,14 +1,122 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using System;
 using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 
 namespace Domain.Concrete
 {
-    public class EFRepository<T> : IRepository<T> where T : class
+    public class EFRepository<T> where T : BaseEntity
     {
-        private EFDbContext<T> context = new EFDbContext<T>();
+        private readonly EFDbContext context;
+        private IDbSet<T> entities;
+        string errorMessage = string.Empty;
 
+        public EFRepository(EFDbContext context)
+        {
+            this.context = context;
+        }
+
+        public T GetById(object id)
+        {
+            return this.entities.Find(id);
+        }
+
+        public void Insert(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.entities.Add(entity);
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public void Update(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }                
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public void Delete(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentNullException("entity");
+                }
+                this.entities.Remove(entity);
+                this.context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        errorMessage += string.Format("Property: {0} Error: {1}",
+                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    }
+                }
+                throw new Exception(errorMessage, dbEx);
+            }
+        }
+
+        public virtual IQueryable<T> Table
+        {
+            get
+            {
+                return this.entities;
+            }
+        }
+
+        private IDbSet<T> Entities
+        {
+            get
+            {
+                if (entities == null)
+                {
+                    entities = context.Set<T>();
+                }
+                return entities;
+            }
+        }
         //public void Delete(object id)
         //{
         //    T existing = context.TableName.Find(id);

@@ -53,6 +53,7 @@
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\House.cs" />
+    <Compile Include="Mapping\CountryMap.cs" />
     <Compile Include="Migrations\201506162235398_InitialCreate.cs" />
     <Compile Include="Migrations\201506162235398_InitialCreate.Designer.cs">
       <DependentUpon>201506162235398_InitialCreate.cs</DependentUpon>

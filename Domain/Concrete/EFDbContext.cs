@@ -6,6 +6,7 @@ using Domain.Abstract;
 using System.Reflection;
 using System.Linq;
 using System;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Domain.Concrete
 {
