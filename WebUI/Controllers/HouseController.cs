@@ -1,23 +1,28 @@
 ﻿using System.Web.Mvc;
 using Domain.Abstract;
 using Domain.Entities;
+using Domain.Concrete;
+using Domain;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebUI.Controllers
 {
     public class HouseController : Controller
     {
-        //IHouseRepository repository;
-        //IRepository<House> rep;
+        private UnitOfWork unitOfWork = new UnitOfWork();
+        private EFRepository<Country> repository;
 
-        //public HouseController(IRepository<House> repository)
-        //{
-        //    this.rep = repository;
-        //}
+        public HouseController()
+        {
+            repository = unitOfWork.EFRepository<Country>();
+        }
 
-        //public ViewResult List()
-        //{
-        //    return View(rep.House);
-        //}
+        public ActionResult List()
+        {
+            IEnumerable<Country> country = repository.Table.ToList();
+            return View(country);
+        }
 
     }
 }

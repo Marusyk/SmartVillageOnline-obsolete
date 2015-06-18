@@ -1,15 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Abstract
 {
     public abstract class BaseEntity
     {
+
+        public BaseEntity()
+        {
+            LastUpdUS = "SV";
+            LastUpdDT = DateTime.Now;
+        }
+
         public int ID { get; set; }
-        public DateTime LastUpDt { get; set; }
-        public string LastUpUs { get; set; }
+
+        //[System.ComponentModel.DefaultValue()]
+        public DateTime LastUpdDT { get; set; }
+        
+        public string LastUpdUS { get; set; }
     }
 }

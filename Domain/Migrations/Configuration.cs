@@ -5,7 +5,7 @@ namespace Domain.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Domain.Concrete.EFDbContext<T>>
+    public sealed class Configuration : DbMigrationsConfiguration<Domain.Concrete.EFDbContext>
     {
         public Configuration()
         {

@@ -1,7 +1,5 @@
 ﻿using System.Linq;
-using Domain.Entities;
 using System.Data.Entity;
-using Domain.Concrete;
 
 namespace Domain.Abstract
 {

@@ -1,7 +1,4 @@
-﻿using Domain.Entities;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
+﻿using System.Data.Entity;
 using Domain.Abstract;
 using System.Reflection;
 using System.Linq;
@@ -13,7 +10,7 @@ namespace Domain.Concrete
     public class EFDbContext : DbContext   
     {
         public EFDbContext()
-            :base("name=DbConnectionString")
+            :base("EFDbContext")
         { }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
@@ -33,8 +30,6 @@ namespace Domain.Concrete
                 modelBuilder.Configurations.Add(configurationInstance);
             }
         }
-        //public DbSet<T> TableName { get; set; }
-        //public DbSet<T> Country { get; set; }
 
     }
 }
