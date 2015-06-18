@@ -24,7 +24,7 @@ namespace WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Domain.Concrete.EFDbContext, Domain.Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<Domain.Concrete.EFDbContext, Domain.Migrations.Configuration>());
             ControllerBuilder.Current.SetControllerFactory(new NinjectControlFactory());
         }
     }
