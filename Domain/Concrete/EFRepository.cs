@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace Domain.Concrete
 {
-    public class EFRepository<T> where T : BaseEntity
+    public class EFRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly EFDbContext context;
         private IDbSet<T> entities;
-        string errorMessage = string.Empty;
+        private string errorMessage = string.Empty;
 
         public EFRepository(EFDbContext context)
         {
@@ -21,7 +21,7 @@ namespace Domain.Concrete
 
         public T GetById(object id)
         {
-            return this.entities.Find(id);
+            return this.Entities.Find(id);
         }
 
         public void Insert(T entity)
@@ -32,7 +32,7 @@ namespace Domain.Concrete
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.entities.Add(entity);
+                this.Entities.Add(entity);
                 this.context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -56,7 +56,7 @@ namespace Domain.Concrete
                 if (entity == null)
                 {
                     throw new ArgumentNullException("entity");
-                }                
+                }
                 this.context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -81,7 +81,7 @@ namespace Domain.Concrete
                 {
                     throw new ArgumentNullException("entity");
                 }
-                this.entities.Remove(entity);
+                this.Entities.Remove(entity);
                 this.context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -98,15 +98,15 @@ namespace Domain.Concrete
             }
         }
 
-        public virtual IQueryable<T> Table
+        public IQueryable<T> Table
         {
             get
             {
-                return this.entities;
+                return this.Entities;
             }
         }
 
-        private IDbSet<T> Entities
+        public IDbSet<T> Entities
         {
             get
             {
@@ -117,47 +117,6 @@ namespace Domain.Concrete
                 return entities;
             }
         }
-        //public void Delete(object id)
-        //{
-        //    T existing = context.TableName.Find(id);
-        //    context.TableName.Remove(existing);
-        //}
-
-        public void Insert(T obj)
-        {
-            context.Country.Add(obj);
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
-
-        public IQueryable<T> SelectAll()
-        {
-            return context.Country as IQueryable<T>;
-        }
-
-        //public T SelectByID(object id)
-        //{
-        //    return context.TableName.Find(id);
-        //}
-
-        //public void Update(T obj)
-        //{
-        //    context.TableName.Attach(obj);
-        //    context.Entry(obj).State = EntityState.Modified;
-        //}
-
-        //IQueryable<T> IRepository<T>.House
-        //{
-        //    get { return context.House as IQueryable<T>; }
-        //}
-
-        //IQueryable<T> IRepository<T>.Country
-        //{
-        //    get { return context.Country as IQueryable<T>; }
-        //}
 
     }
 }
