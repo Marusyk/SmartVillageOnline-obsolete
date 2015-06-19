@@ -31,7 +31,7 @@ namespace WebUI
             config.EnableSystemDiagnosticsTracing();
 
             // return JSON
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            //config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }
 }

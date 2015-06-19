@@ -10,16 +10,11 @@
 <body>
     <header>
         <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a href="~/">ASP.NET Web API</a></p>
-            </div>
             <div class="float-right">
                 <nav>
                     <ul id="menu">
                         <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                        <li>@Html.RouteLink("My API", new {controller = "api/House", action="Get"})</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>                        
                     </ul>
                 </nav>
             </div>

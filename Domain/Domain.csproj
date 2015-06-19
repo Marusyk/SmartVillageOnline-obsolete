@@ -54,6 +54,7 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\House.cs" />
     <Compile Include="Mapping\CountryMap.cs" />
+    <Compile Include="Mapping\HouseMap.cs" />
     <Compile Include="Migrations\201506182228279_Initial.cs" />
     <Compile Include="Migrations\201506182228279_Initial.Designer.cs">
       <DependentUpon>201506182228279_Initial.cs</DependentUpon>
