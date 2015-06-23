@@ -6,25 +6,40 @@ using System.Net.Http;
 using System.Web.Http;
 using Domain.Entities;
 using Domain.Abstract;
-using Domain.Concrete;
 using Domain;
+using System.Threading.Tasks;
 
 namespace WebUI.Controllers.API
 {
     public class CountryController : ApiController
     {
         private UnitOfWork unitOfWork = new UnitOfWork();
-        private EFRepository<Country> repository;
+        private IRepository<Country> repository;
 
         public CountryController()
         {
             repository = unitOfWork.EFRepository<Country>();
         }
 
+        public CountryController(IRepository<Country> repository)
+        {
+            this.repository = repository;
+        }
+
         public IEnumerable<Country> Get()
         {
             IEnumerable<Country> country = repository.Table.ToList();
-            return country;
+            return country;           
+        }
+
+        public HttpResponseMessage GetById(int id)
+        {
+            var country = repository.GetById(id);
+            if (country == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, country);
         }
 
         public HttpResponseMessage Post([FromBody]Country country)
