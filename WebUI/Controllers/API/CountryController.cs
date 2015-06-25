@@ -32,14 +32,9 @@ namespace WebUI.Controllers.API
             return country;           
         }
 
-        public HttpResponseMessage GetById(int id)
-        {
-            var country = repository.GetById(id);
-            if (country == null)
-            {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, country);
+        public Country GetById(int id)
+        {            
+            return repository.GetById(id);
         }
 
         public HttpResponseMessage Post([FromBody]Country country)
