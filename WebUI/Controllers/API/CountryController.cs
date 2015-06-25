@@ -78,7 +78,7 @@ namespace WebUI.Controllers.API
         public HttpResponseMessage Put([FromBody]Country country)
         {
             Country oldCountry = repository.GetById(country.ID);
-            
+
             if (oldCountry == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
