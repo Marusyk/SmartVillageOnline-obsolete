@@ -49,7 +49,7 @@ namespace WebUI.Controllers.API
                 repository.Insert(country);
                 return Request.CreateResponse(HttpStatusCode.Created, country);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }

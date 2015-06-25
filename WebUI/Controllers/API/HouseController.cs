@@ -33,7 +33,7 @@ namespace WebUI.Controllers.API
                 repository.Insert(house);
                 return Request.CreateResponse(HttpStatusCode.Created, house);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }

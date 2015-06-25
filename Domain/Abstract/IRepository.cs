@@ -10,6 +10,5 @@ namespace Domain.Abstract
         void Update(T entity);
         void Delete(T entity);
         IQueryable<T> Table { get; }
-        IDbSet<T> Entities { get; }
     }
 }

@@ -106,7 +106,7 @@ namespace Domain.Concrete
             }
         }
 
-        public IDbSet<T> Entities
+        private IDbSet<T> Entities
         {
             get
             {
