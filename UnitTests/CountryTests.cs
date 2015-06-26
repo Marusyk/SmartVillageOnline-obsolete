@@ -19,11 +19,11 @@ namespace UnitTests
     {
         #region private
 
+        private readonly string MainUri = "http://localhost/api/country";
+
         private IRepository<Country> CreateMockRepository()
         {
-            // --
-            // Configure the Mock Object
-
+            // creating  fake repository
             var countries = new List<Country>
             {
                 new Country {ID =1, Name ="Country1" },
@@ -32,7 +32,8 @@ namespace UnitTests
                 new Country {ID =4, Name ="Country4" },
                 new Country {ID =5, Name ="Country5" }
             };
-
+            
+            // configure the Mock Object
             Mock<IRepository<Country>> mock = new Mock<IRepository<Country>>();
 
             mock.Setup(m => m.Table).Returns(countries.AsQueryable());
@@ -71,89 +72,81 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Insert_Country()
+        public void Can_Insert_Country()
         {
-            //Arrange - create mock repository               
+            //Arrange - get the mock repository               
             var moq = CreateMockRepository();
 
-            //Arrange - create a controller            
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/country");
-            var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "country" } });
+            //Arrange - create and configure controller            
+            var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
 
             CountryController target = new CountryController(moq);
 
-            target.ControllerContext = new HttpControllerContext(config, routeData, request);
+            target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
 
+            //Arrange - create a new country for insert
             Country newCountry = new Country(){ ID = 10, Name = "TEST" };
 
             //Action
-            var result = target.Post(newCountry);
-            var result2 = target.Get().ToArray();
+            var resultInsert = target.Post(newCountry);
+            var resultSelect = target.Get().ToArray();
 
             //Assert
-            Assert.AreEqual(6, result2.Length);
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
+            Assert.AreEqual(6, resultSelect.Length);
+            Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
         }
 
         [TestMethod]
         public void Can_Edit_Country()
         {
+            //Arrange - get the mock repository
             var moq = CreateMockRepository();
 
-            //Arrange - create a controller            
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Put, "http://localhost/api/country");
-            var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "country" } });
+            //Arrange - create and configure controller                        
+            var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
+
             CountryController target = new CountryController(moq);
-            target.ControllerContext = new HttpControllerContext(config, routeData, request);
+
+            target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
 
-            //Action
-                      
-            var result = target.GetById(2);
-            result.Name = "cc";
-            var result2 = target.Put(result);
-            var result3 = target.Get().ToArray();
-
+            //Action                     
+            var country = target.GetById(1);
+            country.Name = "TEST";
+            var resultUpdate = target.Put(country);
+            var resultSelect = target.Get().ToArray();
 
             //Assert
-            Assert.AreEqual(HttpStatusCode.OK, result2.StatusCode);
-            Assert.AreEqual("cc", result3[1].Name);
+            Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
+            Assert.AreEqual("TEST", resultSelect[0].Name);
         }
 
         [TestMethod]
         public void Can_Remove_Country()
         {
+            //Arrange - get the mock repository
             var moq = CreateMockRepository();
 
-            //Arrange - create a controller            
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Delete, "http://localhost/api/country");
-            var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "country" } });
+            //Arrange - create and configure controller                      
+            var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
+
             CountryController target = new CountryController(moq);
-            target.ControllerContext = new HttpControllerContext(config, routeData, request);
+
+            target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
 
             //Action
-
-            var result = target.GetById(1);
-            var result2 = target.Delete(result.ID);
-            var result3 = target.Get().ToArray();
+            var country = target.GetById(1);
+            var resultDelete = target.Delete(country.ID);
+            var resultSelect = target.Get().ToArray();
 
             //Assert
-            Assert.AreEqual(HttpStatusCode.OK, result2.StatusCode);
-         //   Assert.AreEqual("Country2", result3[0].Name);
-            Assert.AreEqual(4, result3.Length);
+            Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
+            Assert.AreEqual(4, resultSelect.Length);
         }
     }
 }
