@@ -4,8 +4,8 @@ namespace Domain.Entities.SystemTables
 {
     public class SYS_Dictionary : BaseEntity
     {
-        public string Name { get { return Name; } }
-        public string Description { get { return Description; } }
-        public bool IsStatic { get { return IsStatic; } }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsStatic { get; set; }
     }
 }
