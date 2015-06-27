@@ -53,8 +53,10 @@
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\House.cs" />
+    <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
     <Compile Include="Mapping\CountryMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
+    <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
     <Compile Include="Migrations\201506182228279_Initial.cs" />
     <Compile Include="Migrations\201506182228279_Initial.Designer.cs">
       <DependentUpon>201506182228279_Initial.cs</DependentUpon>
@@ -65,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +77,7 @@
       <DependentUpon>201506182228279_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
