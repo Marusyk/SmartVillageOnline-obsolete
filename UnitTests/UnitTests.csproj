@@ -58,6 +58,7 @@
     <Compile Include="DictionariesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CountryTests.cs" />
+    <Compile Include="HouseTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
