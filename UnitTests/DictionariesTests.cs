@@ -16,8 +16,6 @@ namespace UnitTests
     {
         #region private
 
-        private readonly string MainUri = "http://localhost/api/dictionary";
-
         private IRepository<SYS_Dictionary> CreateMockRepository()
         {
             // creating  fake repository

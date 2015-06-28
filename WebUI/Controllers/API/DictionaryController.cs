@@ -1,34 +1,20 @@
-﻿using Domain;
-using Domain.Abstract;
+﻿using Domain.Abstract;
 using Domain.Entities.SystemTables;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
 
 namespace WebUI.Controllers.API
 {
-    public class DictionaryController : ApiController
+    public class DictionaryController : ApiBaseController<SYS_Dictionary>
     {
-        private UnitOfWork unitOfWork = new UnitOfWork();
-        private IRepository<SYS_Dictionary> repository;
 
         public DictionaryController()
-        {
-            repository = unitOfWork.EFRepository<SYS_Dictionary>();
+            : base()
+        {            
         }
 
         public DictionaryController(IRepository<SYS_Dictionary> repository)
+            : base(repository)
         {
             this.repository = repository;
         }
-
-        public IEnumerable<SYS_Dictionary> Get()
-        {
-            return repository.Table.ToList();
-        }
-
     }
 }

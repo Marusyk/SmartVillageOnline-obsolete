@@ -166,6 +166,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\API\ApiBaseController.cs" />
     <Compile Include="Controllers\API\CountryController.cs" />
     <Compile Include="Controllers\API\DictionaryController.cs" />
     <Compile Include="Controllers\API\HouseController.cs" />
