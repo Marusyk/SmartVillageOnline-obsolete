@@ -25,9 +25,16 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        public virtual IEnumerable<T> Get()
+        [Queryable]
+        public virtual IQueryable<T> Get()
         {
-            return repository.Table.ToList();
+            var entity = repository.Table;
+
+            if (entity == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NoContent);
+            }
+            return entity;
         }
 
         public virtual T GetById(int id)
@@ -41,14 +48,16 @@ namespace WebUI.Controllers.API
         }
 
         public virtual HttpResponseMessage Post([FromBody]T entity)
-        {
+        {           
             try
             {
                 repository.Insert(entity);
-                return Request.CreateResponse(HttpStatusCode.Created, entity);
+                HttpResponseMessage msg = Request.CreateResponse(HttpStatusCode.Created, entity);
+                msg.Headers.Location = new Uri(Request.RequestUri + "/" + (repository.Table.Count() - 1));
+                return msg;                
             }
             catch (Exception)
-            {
+            {                
                 return Request.CreateResponse(HttpStatusCode.InternalServerError);
             }
 
@@ -65,7 +74,7 @@ namespace WebUI.Controllers.API
             try
             {
                 repository.Delete(toDelete);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, toDelete.ID);
             }
             catch (Exception)
             {
