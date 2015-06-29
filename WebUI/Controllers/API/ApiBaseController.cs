@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace WebUI.Controllers.API
 {
-    public abstract class ApiBaseController<T> : ApiController where T : BaseEntity
+    public class ApiBaseController<T> : ApiController where T : BaseEntity
     {
         protected UnitOfWork unitOfWork = new UnitOfWork();
 
