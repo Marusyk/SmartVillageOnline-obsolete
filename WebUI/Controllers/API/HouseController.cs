@@ -26,15 +26,14 @@ namespace WebUI.Controllers.API
         [Queryable]
         public IQueryable<House> GetByYear(int year)
         {
-            //var houses = repository.Table.ToList();
+            var houses = repository.Table.Where(f => f.Year == year);
 
-            //if (houses == null)
-            //{
-            //    throw new HttpResponseException(HttpStatusCode.NoContent);
-            //}
-            var houses = base.GetById(1);
+            if (houses == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NoContent);
+            }
 
-            return houses as IQueryable<House>;
+            return houses;
         }
     }
 }
