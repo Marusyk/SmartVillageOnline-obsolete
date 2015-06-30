@@ -92,5 +92,5 @@ WebUI - є проектом [ASP.NET MVC.](http://www.asp.net/mvc)<br>
 * [Twitter Bootstrap](http://getbootstrap.com/)(+/-)
 * [jQuery](https://jquery.com/)
 * [knockoutjs](http://knockoutjs.com/)
-* [Micrisift OData](https://msdn.microsoft.com/en-us/data/hh237663.aspx)
+* [Microsoft OData](https://msdn.microsoft.com/en-us/data/hh237663.aspx)
 
