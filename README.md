@@ -36,7 +36,7 @@ __*SmartVillageOnline*__ - source code <br>
 
 __*SmartVillageOnlineDB*__ - скрипти бази даних, має наступну структуру:
 
- ![Image of Yaktocat](https://lh3.googleusercontent.com/-YefOqI9xuzg/VZIyqoE97LI/AAAAAAAAIxY/nJyxHWeoAPI/w206-h382-no/%25D0%25A1%25D0%25BD%25D0%25B8%25D0%25BC%25D0%25BE%25D0%25BA.PNG)
+ ![Image of Yaktocat](https://lh3.googleusercontent.com/-jycLRblmjS8/VZQ-3t0reQI/AAAAAAAAI0Q/OpfaLwtCWZE/w346-h642/%25D0%25A1%25D0%25BD%25D0%25B8%25D0%25BC%25D0%25BE%25D0%25BA%2B%25281%2529.PNG)
 
 **VI. Domain**
 Бібліотека для роботи з даними реалізована на основі [generic](https://en.wikipedia.org/wiki/Generic_programming)-патерну [Repository](https://msdn.microsoft.com/en-us/library/ff649690.aspx) і патерну [UnitOfWork](http://www.codeproject.com/Articles/581487/Unit-of-Work-Design-Pattern) <br>.
