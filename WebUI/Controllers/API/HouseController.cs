@@ -8,7 +8,7 @@ using Microsoft.Data.OData;
 
 namespace WebUI.Controllers.API
 {
-    public class HouseController : ApiBaseController<House>
+    public class HouseController : BaseApiController<House>
     {        
 
         public HouseController()

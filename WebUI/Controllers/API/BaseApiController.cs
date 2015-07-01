@@ -9,18 +9,18 @@ using System.Web.Http;
 
 namespace WebUI.Controllers.API
 {
-    public class ApiBaseController<T> : ApiController where T : BaseEntity
+    public class BaseApiController<T> : ApiController where T : BaseEntity
     {
         protected UnitOfWork unitOfWork = new UnitOfWork();
 
         protected IRepository<T> repository;
 
-        public ApiBaseController()
+        public BaseApiController()
         {
             repository = unitOfWork.EFRepository<T>();
         }
 
-        public ApiBaseController(IRepository<T> repository)
+        public BaseApiController(IRepository<T> repository)
         {
             this.repository = repository;
         }
@@ -50,15 +50,15 @@ namespace WebUI.Controllers.API
         public virtual HttpResponseMessage Post([FromBody]T entity)
         {           
             try
-            {
+            { 
                 repository.Insert(entity);
                 HttpResponseMessage msg = Request.CreateResponse(HttpStatusCode.Created, entity);
                 msg.Headers.Location = new Uri(Request.RequestUri + "/" + (repository.Table.Count() - 1));
                 return msg;                
             }
-            catch (Exception)
-            {                
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
 
         }
@@ -76,9 +76,9 @@ namespace WebUI.Controllers.API
                 repository.Delete(toDelete);
                 return Request.CreateResponse(HttpStatusCode.OK, toDelete.ID);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
@@ -97,9 +97,9 @@ namespace WebUI.Controllers.API
                 repository.Update(oldEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 

@@ -3,7 +3,7 @@ using Domain.Abstract;
 
 namespace WebUI.Controllers.API
 {
-    public class CountryController : ApiBaseController<Country>
+    public class CountryController : BaseApiController<Country>
     {
         public CountryController()
             : base()

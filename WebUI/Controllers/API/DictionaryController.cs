@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace WebUI.Controllers.API
 {
-    public class DictionaryController : ApiBaseController<SYS_Dictionary>
+    public class DictionaryController : BaseApiController<SYS_Dictionary>
     {
 
         public DictionaryController()
