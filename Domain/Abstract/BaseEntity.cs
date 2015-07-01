@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Domain.Abstract
 {
@@ -11,11 +13,13 @@ namespace Domain.Abstract
             LastUpdDT = DateTime.Now;
         }
 
+        [HiddenInput(DisplayValue = false)]
         public int ID { get; set; }
 
-        //[System.ComponentModel.DefaultValue()]
+        [Required(ErrorMessage = "Please specify a date of the last update")]
         public DateTime LastUpdDT { get; set; }
-        
+
+        [Required(ErrorMessage = "Please specify a user's name of the last update")]
         public string LastUpdUS { get; set; }
     }
 }
