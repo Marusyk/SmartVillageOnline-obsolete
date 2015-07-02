@@ -1,15 +1,15 @@
 ﻿using Domain;
 using Domain.Abstract;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {
-    public class BaseApiController<T> : ApiController where T : BaseEntity
+    public class BaseApiController<T> : ApiController, IBaseApiInterface<T>  where T : BaseEntity
     {
         protected UnitOfWork unitOfWork = new UnitOfWork();
 
