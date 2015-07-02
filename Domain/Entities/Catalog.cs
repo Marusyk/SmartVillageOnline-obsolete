@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Abstract;
+﻿using Domain.Abstract;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    [Table("Country")]
-    public class Country : BaseEntity
+    public class Catalog : BaseEntity
     {
+        public int ParentId { get; set; }
+
         [Required(ErrorMessage = "Please specify a name")]
         public string Name { get; set; }
+        public int ModuleId { get; set; }
     }
 }

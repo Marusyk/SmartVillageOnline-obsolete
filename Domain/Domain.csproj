@@ -47,12 +47,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\BaseDictionary.cs" />
     <Compile Include="Abstract\BaseEntity.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
-    <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\Dictionaries\Animals.cs" />
+    <Compile Include="Entities\Catalog.cs" />
+    <Compile Include="Entities\Dictionaries\CityType.cs" />
+    <Compile Include="Entities\Dictionaries\Country.cs" />
+    <Compile Include="Entities\Dictionaries\DocumentType.cs" />
+    <Compile Include="Entities\Dictionaries\FamilyRelations.cs" />
+    <Compile Include="Entities\Dictionaries\FamilyStatus.cs" />
     <Compile Include="Entities\House.cs" />
+    <Compile Include="Entities\Dictionaries\Materials.cs" />
+    <Compile Include="Entities\Dictionaries\Nationality.cs" />
+    <Compile Include="Entities\Dictionaries\PassAuthority.cs" />
+    <Compile Include="Entities\Dictionaries\PensionType.cs" />
+    <Compile Include="Entities\Dictionaries\Position.cs" />
+    <Compile Include="Entities\Dictionaries\Street.cs" />
+    <Compile Include="Entities\Dictionaries\StreetType.cs" />
     <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
     <Compile Include="Mapping\CountryMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
