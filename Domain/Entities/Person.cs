@@ -29,10 +29,10 @@ namespace Domain.Entities
 
         public int NationalityId { get; set; }
 
-        [MaxLength(10)]
+        [StringLength(10)]
         public string IdentificationCode { get; set; }
 
-        [MaxLength(2)]
+        [StringLength(2)]
         public string PassSeria { get; set; }
 
         public int PassNr { get; set; }
