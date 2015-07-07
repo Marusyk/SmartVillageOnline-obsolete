@@ -7,47 +7,51 @@ using WebUI.Controllers.API;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Routing;
 using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using System.Collections.Generic;
 
 namespace UnitTests.Dictionaries
 {
+    /// <summary>
+    /// Summary description for CityTypeTests
+    /// </summary>
     [TestClass]
-    public class AnimalsTests
-    {
+    public class CityTypeTests
+    {       
         #region private
 
-        private readonly string MainUri = "http://localhost/api/animals";
+        private readonly string MainUri = "http://localhost/api/citytype";
 
-        private IRepository<Animals> CreateMockRepository()
+        private IRepository<CityType> CreateMockRepository()
         {
             // creating  fake repository
-            var animals = new List<Animals>
+            var types = new List<CityType>
             {
-                new Animals {ID =1, Name ="Animal1" },
-                new Animals {ID =2, Name ="Animal2" },
-                new Animals {ID =3, Name ="Animal3" },
-                new Animals {ID =4, Name ="Animal4" },
-                new Animals {ID =5, Name ="Animal5" }
+                new CityType {ID =1, Name ="CityType1" },
+                new CityType {ID =2, Name ="CityType2" },
+                new CityType {ID =3, Name ="CityType3" },
+                new CityType {ID =4, Name ="CityType4" },
+                new CityType {ID =5, Name ="CityType5" }
             };
 
             // configure the Mock Object
-            Mock<IRepository<Animals>> mock = new Mock<IRepository<Animals>>();
+            Mock<IRepository<CityType>> mock = new Mock<IRepository<CityType>>();
 
-            mock.Setup(m => m.Table).Returns(animals.AsQueryable());
+            mock.Setup(m => m.Table).Returns(types.AsQueryable());
 
-            mock.Setup(m => m.Insert(It.IsAny<Animals>()))
-                .Callback<Animals>(c => animals.Add(c));
+            mock.Setup(m => m.Insert(It.IsAny<CityType>()))
+                .Callback<CityType>(c => types.Add(c));
 
-            mock.Setup(m => m.Update(It.IsAny<Animals>()))
-                .Callback<Animals>(c => animals[animals.IndexOf(c)] = c);
+            mock.Setup(m => m.Update(It.IsAny<CityType>()))
+                .Callback<CityType>(c => types[types.IndexOf(c)] = c);
 
             mock.Setup(m => m.GetById(It.IsAny<int>()))
-                .Returns<int>(c => animals.Find(f => f.ID == c));
+                .Returns<int>(c => types.Find(f => f.ID == c));
 
-            mock.Setup(m => m.Delete(It.IsAny<Animals>()))
-                .Callback<Animals>(c => animals.Remove(c));
+            mock.Setup(m => m.Delete(It.IsAny<CityType>()))
+                .Callback<CityType>(c => types.Remove(c));
 
             return mock.Object;
         }
@@ -55,13 +59,13 @@ namespace UnitTests.Dictionaries
         #endregion
 
         [TestMethod]
-        public void Get_All_Animals()
+        public void Get_All_CityTypes()
         {
             //Arrange - create mock repository               
             var moq = CreateMockRepository();
 
             //Arrange - create a controller
-            AnimalsController target = new AnimalsController(moq);
+            CityTypeController target = new CityTypeController(moq);
 
             //Action
             var result = target.Get().ToArray();
@@ -71,7 +75,7 @@ namespace UnitTests.Dictionaries
         }
 
         [TestMethod]
-        public void Can_Insert_Animal()
+        public void Can_Insert_CityType()
         {
             //Arrange - get the mock repository               
             var moq = CreateMockRepository();
@@ -79,17 +83,17 @@ namespace UnitTests.Dictionaries
             //Arrange - create and configure controller            
             var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
 
-            AnimalsController target = new AnimalsController(moq);
+            CityTypeController target = new CityTypeController(moq);
 
             target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
             target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
 
             //Arrange - create a new country for insert
-            Animals newAnimal = new Animals() { ID = 10, Name = "TEST" };
+            var newType = new CityType() { ID = 10, Name = "TEST" };
 
             //Action
-            var resultInsert = target.Post(newAnimal);
+            var resultInsert = target.Post(newType);
             var resultSelect = target.Get().ToArray();
 
             //Assert
@@ -98,7 +102,7 @@ namespace UnitTests.Dictionaries
         }
 
         [TestMethod]
-        public void Can_Edit_Animal()
+        public void Can_Edit_CityType()
         {
             //Arrange - get the mock repository
             var moq = CreateMockRepository();
@@ -106,16 +110,16 @@ namespace UnitTests.Dictionaries
             //Arrange - create and configure controller                        
             var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
 
-            AnimalsController target = new AnimalsController(moq);
+            var target = new CityTypeController(moq);
 
             target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
             target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
 
             //Action                     
-            var animal = target.GetById(1);
-            animal.Name = "TEST";
-            var resultUpdate = target.Put(animal);
+            var type = target.GetById(1);
+            type.Name = "TEST";
+            var resultUpdate = target.Put(type);
             var resultSelect = target.Get().ToArray();
 
             //Assert
@@ -124,7 +128,7 @@ namespace UnitTests.Dictionaries
         }
 
         [TestMethod]
-        public void Can_Remove_Animal()
+        public void Can_Remove_CityType()
         {
             //Arrange - get the mock repository
             var moq = CreateMockRepository();
@@ -132,15 +136,15 @@ namespace UnitTests.Dictionaries
             //Arrange - create and configure controller                      
             var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
 
-            AnimalsController target = new AnimalsController(moq);
+            var target = new CityTypeController(moq);
 
             target.ControllerContext = new HttpControllerContext() { Request = request };
             target.Request = request;
             target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
 
             //Action
-            var animal = target.GetById(1);
-            var resultDelete = target.Delete(animal.ID);
+            var type = target.GetById(1);
+            var resultDelete = target.Delete(type.ID);
             var resultSelect = target.Get().ToArray();
 
             //Assert

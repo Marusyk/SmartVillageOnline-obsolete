@@ -168,6 +168,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\API\AnimalsController.cs" />
     <Compile Include="Controllers\API\BaseApiController.cs" />
+    <Compile Include="Controllers\API\CityTypeController.cs" />
     <Compile Include="Controllers\API\CountryController.cs" />
     <Compile Include="Controllers\API\DictionaryController.cs" />
     <Compile Include="Controllers\API\HouseController.cs" />

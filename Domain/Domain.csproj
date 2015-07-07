@@ -70,6 +70,7 @@
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
     <Compile Include="Mapping\Dictionaries\AnimalsMap.cs" />
+    <Compile Include="Mapping\Dictionaries\CityTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\CountryMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
