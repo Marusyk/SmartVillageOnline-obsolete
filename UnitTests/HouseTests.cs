@@ -5,7 +5,7 @@ using Domain.Entities;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using WebUI.Controllers.API;
+using WebApi.Controllers.API;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
