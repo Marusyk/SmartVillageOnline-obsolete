@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Mapping
 {
-    public class CityTypeMap : EntityTypeConfiguration<Animals>
+    public class CityTypeMap : EntityTypeConfiguration<CityType>
     {
         public CityTypeMap()
         {
