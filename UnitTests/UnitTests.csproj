@@ -72,9 +72,9 @@
       <Project>{fbcf0b8a-474a-42e9-ad14-623b561c0eba}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebApi\WebApi.csproj">
+    <ProjectReference Include="..\WebApi\WebUI.csproj">
       <Project>{bd2f3db8-7006-4af3-8583-95963426016b}</Project>
-      <Name>WebApi</Name>
+      <Name>WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
