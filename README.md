@@ -13,11 +13,11 @@ test deploy on http://deploy-test.apphb.com/ <br>
 
 **IV. Instruments** <br>
 Перелік інструментів які використовуються:
-- [Microsoft Visual Studio 2013](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx) 
+- [Microsoft Visual Studio 2013 or 2015](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx) 
 - [Microsoft SQL Server 2014](https://www.microsoft.com/ru-ru/download/details.aspx?id=42299)
-- [.NET Framework 4.5.1](https://www.microsoft.com/ru-ru/download/details.aspx?id=40779)
+- [.NET Framework 4.6](https://www.microsoft.com/ru-ru/download/details.aspx?id=40779)
 - [Entity Framework 6](https://msdn.microsoft.com/ru-ru/data/ef.aspx)
-- [ASP.NET 4](http://www.asp.net/)
+- [ASP.NET 5](http://www.asp.net/)
 - [IIS 7.0](https://en.wikipedia.org/wiki/Internet_Information_Services)
 - [IB Expert](http://www.ibexpert.net/ibe/)
 - [GIT](https://git-scm.com/)
