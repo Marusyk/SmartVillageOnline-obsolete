@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
-using WebApi.Controllers.API;
+using WebUI.Controllers.API;
+using System.Web.Http;
 
 namespace UnitTests
 {
