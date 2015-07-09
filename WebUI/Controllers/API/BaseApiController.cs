@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.OData;
 using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
@@ -25,7 +26,7 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        [Queryable]
+        [EnableQuery]
         public virtual IQueryable<T> Get()
         {
             var entity = repository.Table;

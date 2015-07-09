@@ -40,8 +40,12 @@
       <HintPath>..\packages\Moq.4.2.1506.2016\lib\net40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -73,7 +77,7 @@
       <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
-      <Project>{473c05f7-8465-48e4-8b3b-819e6f62fdad}</Project>
+      <Project>{bd2f3db8-7006-4af3-8583-95963426016b}</Project>
       <Name>WebUI</Name>
     </ProjectReference>
   </ItemGroup>

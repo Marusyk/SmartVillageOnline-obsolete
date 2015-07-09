@@ -1,10 +1,9 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using Microsoft.Data.OData;
+using System.Web.Http.OData;
 
 namespace WebUI.Controllers.API
 {
@@ -23,12 +22,12 @@ namespace WebUI.Controllers.API
         }
 
         [HttpGet]
-        [Queryable]
+        [EnableQuery]
         public IQueryable<House> GetByYear(int year)
-        {
+        {                        
             var houses = repository.Table.Where(f => f.Year == year);
 
-            if (houses == null)
+            if (houses.Count() == 0)
             {
                 throw new HttpResponseException(HttpStatusCode.NoContent);
             }
