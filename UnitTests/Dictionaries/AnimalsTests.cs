@@ -18,8 +18,6 @@ namespace UnitTests.Dictionaries
     {
         #region private
 
-        private readonly string MainUri = "http://localhost/api/Animals";
-
         private IRepository<Animals> CreateMockRepository()
         {
             // creating  fake repository
@@ -52,19 +50,26 @@ namespace UnitTests.Dictionaries
             return mock.Object;
         }
 
+        private AnimalsController ArrangeController()
+        {
+            // Get the mock repository
+            var moq = CreateMockRepository();
+            var controller = new AnimalsController(moq);            
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+            return controller;
+        }
+
         #endregion
 
         [TestMethod]
         public void Get_All_Animals()
         {
-            //Arrange - create mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create a controller
-            AnimalsController target = new AnimalsController(moq);
+            //Arrange
+            var controller = ArrangeController();
 
             //Action
-            var result = target.Get().ToArray();
+            var result = controller.Get().ToArray();
 
             //Assert
             Assert.AreEqual(5, result.Length);
@@ -73,24 +78,15 @@ namespace UnitTests.Dictionaries
         [TestMethod]
         public void Can_Insert_Animal()
         {
-            //Arrange - get the mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller            
-            var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
-
-            AnimalsController target = new AnimalsController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
+            //Arrange
+            var controller = ArrangeController();
 
             //Arrange - create a new country for insert
             Animals newAnimal = new Animals() { ID = 10, Name = "TEST" };
 
             //Action
-            var resultInsert = target.Post(newAnimal);
-            var resultSelect = target.Get().ToArray();
+            var resultInsert = controller.Post(newAnimal);
+            var resultSelect = controller.Get().ToArray();
 
             //Assert
             Assert.AreEqual(6, resultSelect.Length);
@@ -100,49 +96,30 @@ namespace UnitTests.Dictionaries
         [TestMethod]
         public void Can_Edit_Animal()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller    
-                                
-            AnimalsController target = new AnimalsController(moq);
-            var animal = target.GetById(1);
-            animal.Name = "TEST";
-            var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var controller = ArrangeController();
 
             //Action                     
-            
-            var resultUpdate = target.Put(animal);
-            //var resultSelect = target.Get().ToArray();
+            var animal = controller.GetById(1);
+            animal.Name = "TEST";
+            var resultUpdate = controller.Put(animal);
+            var resultSelect = controller.Get().ToArray();
 
             //Assert
-         //   Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-           // Assert.AreEqual("TEST", resultSelect[0].Name);
+            Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
+            Assert.AreEqual("TEST", resultSelect[0].Name);
         }
 
         [TestMethod]
         public void Can_Remove_Animal()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                      
-            var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
-
-            AnimalsController target = new AnimalsController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var controller = ArrangeController();
 
             //Action
-            var animal = target.GetById(1);
-            var resultDelete = target.Delete(animal.ID);
-            var resultSelect = target.Get().ToArray();
+            var animal = controller.GetById(1);
+            var resultDelete = controller.Delete(animal.ID);
+            var resultSelect = controller.Get().ToArray();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);

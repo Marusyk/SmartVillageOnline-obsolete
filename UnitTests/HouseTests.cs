@@ -19,8 +19,6 @@ namespace UnitTests
     {
         #region private
 
-        private readonly string MainUri = "http://localhost/api/house";
-
         private IRepository<House> CreateMockRepository()
         {
             // creating  fake repository
@@ -53,16 +51,23 @@ namespace UnitTests
             return mock.Object;
         }
 
+        private HouseController ArrangeController()
+        {
+            // Get the mock repository
+            var moq = CreateMockRepository();
+            var controller = new HouseController(moq);
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+            return controller;
+        }
+
         #endregion
 
         [TestMethod]
         public void Get_All_Houses()
         {
-            //Arrange - create mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create a controller
-            HouseController target = new HouseController(moq);
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var result = target.Get().ToArray();
@@ -74,17 +79,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Insert_House()
         {
-            //Arrange - get the mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller            
-            var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
-
-            HouseController target = new HouseController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
+            //Arrange
+            var target = ArrangeController();
 
             //Arrange - create a new country for insert
             House newHouse = new House() { ID = 10, BuildNr = "010", HouseNr = "10" };
@@ -101,17 +97,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Edit_House()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                        
-            var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
-
-            HouseController target = new HouseController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action                     
             var house = target.GetById(1);
@@ -127,17 +114,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Remove_House()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                      
-            var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
-
-            HouseController target = new HouseController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var house = target.GetById(1);

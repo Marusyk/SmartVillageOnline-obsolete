@@ -19,8 +19,6 @@ namespace UnitTests
     {
         #region private
 
-        private readonly string MainUri = "http://localhost/api/country";
-
         private IRepository<Country> CreateMockRepository()
         {
             // creating  fake repository
@@ -53,16 +51,23 @@ namespace UnitTests
             return mock.Object;
         }
 
+        private CountryController ArrangeController()
+        {
+            // Get the mock repository
+            var moq = CreateMockRepository();
+            var controller = new CountryController(moq);
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+            return controller;
+        }
+
         #endregion
 
         [TestMethod]
         public void Get_All_Country()
         {
-            //Arrange - create mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create a controller
-            CountryController target = new CountryController(moq);
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var result = target.Get().ToArray();
@@ -74,17 +79,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Insert_Country()
         {
-            //Arrange - get the mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller            
-            var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
-
-            CountryController target = new CountryController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
+            //Arrange
+            var target = ArrangeController();
 
             //Arrange - create a new country for insert
             Country newCountry = new Country(){ ID = 10, Name = "TEST" };
@@ -101,17 +97,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Edit_Country()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                        
-            var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
-
-            CountryController target = new CountryController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action                     
             var country = target.GetById(1);
@@ -127,17 +114,8 @@ namespace UnitTests
         [TestMethod]
         public void Can_Remove_Country()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                      
-            var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
-
-            CountryController target = new CountryController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var country = target.GetById(1);

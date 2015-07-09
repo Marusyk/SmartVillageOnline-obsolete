@@ -56,16 +56,23 @@ namespace UnitTests.Dictionaries
             return mock.Object;
         }
 
+        private CityTypeController ArrangeController()
+        {
+            // Get the mock repository
+            var moq = CreateMockRepository();
+            var controller = new CityTypeController(moq);
+            controller.Request = new HttpRequestMessage();
+            controller.Request.SetConfiguration(new HttpConfiguration());
+            return controller;
+        }
+
         #endregion
 
         [TestMethod]
         public void Get_All_CityTypes()
         {
-            //Arrange - create mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create a controller
-            CityTypeController target = new CityTypeController(moq);
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var result = target.Get().ToArray();
@@ -77,17 +84,8 @@ namespace UnitTests.Dictionaries
         [TestMethod]
         public void Can_Insert_CityType()
         {
-            //Arrange - get the mock repository               
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller            
-            var request = new HttpRequestMessage(HttpMethod.Post, MainUri);
-
-            CityTypeController target = new CityTypeController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration();
+            //Arrange
+            var target = ArrangeController();
 
             //Arrange - create a new country for insert
             var newType = new CityType() { ID = 10, Name = "TEST" };
@@ -104,17 +102,8 @@ namespace UnitTests.Dictionaries
         [TestMethod]
         public void Can_Edit_CityType()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                        
-            var request = new HttpRequestMessage(HttpMethod.Put, MainUri);
-
-            var target = new CityTypeController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action                     
             var type = target.GetById(1);
@@ -130,17 +119,8 @@ namespace UnitTests.Dictionaries
         [TestMethod]
         public void Can_Remove_CityType()
         {
-            //Arrange - get the mock repository
-            var moq = CreateMockRepository();
-
-            //Arrange - create and configure controller                      
-            var request = new HttpRequestMessage(HttpMethod.Delete, MainUri);
-
-            var target = new CityTypeController(moq);
-
-            target.ControllerContext = new HttpControllerContext() { Request = request };
-            target.Request = request;
-            target.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = new HttpConfiguration(); ;
+            //Arrange
+            var target = ArrangeController();
 
             //Action
             var type = target.GetById(1);

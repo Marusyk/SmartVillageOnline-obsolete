@@ -54,7 +54,7 @@ namespace WebUI.Controllers.API
             { 
                 repository.Insert(entity);
                 HttpResponseMessage msg = Request.CreateResponse(HttpStatusCode.Created, entity);
-                msg.Headers.Location = new Uri(Request.RequestUri + "/" + (repository.Table.Count() - 1));
+                //msg.Headers.Location = new Uri(Request.RequestUri + "/" + (repository.Table.Count() - 1));
                 return msg;                
             }
             catch (Exception ex)
