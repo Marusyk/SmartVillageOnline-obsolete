@@ -80,6 +80,8 @@
     <Compile Include="Mapping\Dictionaries\AnimalsMap.cs" />
     <Compile Include="Mapping\Dictionaries\CityTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\CountryMap.cs" />
+    <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
+    <Compile Include="Mapping\Dictionaries\StreetTypeMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
     <Compile Include="Migrations\201506182228279_Initial.cs" />
