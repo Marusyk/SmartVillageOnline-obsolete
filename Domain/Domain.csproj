@@ -56,13 +56,17 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Dictionaries\Animals.cs" />
     <Compile Include="Entities\Catalog.cs" />
+    <Compile Include="Entities\Dictionaries\City.cs" />
     <Compile Include="Entities\Dictionaries\CityType.cs" />
     <Compile Include="Entities\Dictionaries\Country.cs" />
+    <Compile Include="Entities\Dictionaries\District.cs" />
     <Compile Include="Entities\Dictionaries\DocumentType.cs" />
     <Compile Include="Entities\Dictionaries\FamilyRelations.cs" />
     <Compile Include="Entities\Dictionaries\FamilyStatus.cs" />
+    <Compile Include="Entities\Dictionaries\Region.cs" />
     <Compile Include="Entities\House.cs" />
     <Compile Include="Entities\Dictionaries\Materials.cs" />
     <Compile Include="Entities\Dictionaries\Nationality.cs" />
