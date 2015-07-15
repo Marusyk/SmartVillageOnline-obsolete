@@ -33,7 +33,7 @@ namespace WebUI.Controllers.API
 
             if (entity == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NoContent);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NoContent));
             }
             return entity;
         }
@@ -43,7 +43,7 @@ namespace WebUI.Controllers.API
             var entity = repository.GetById(id);
             if (entity == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             }
             return entity;
         }
