@@ -94,8 +94,7 @@ namespace UnitTests
         {
             TestRouteMatch("~/Home/Index", "Home", "Index");
             TestRouteMatch("~/One/Two", "One", "Two");
-            TestRouteFail("~/Home/Index/Segment");
-            TestRouteFail("~/Home");
+            TestRouteFail("~/Home/Index/Segment1/Segment2");
         }
     }
 }
