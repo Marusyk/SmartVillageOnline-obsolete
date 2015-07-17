@@ -78,8 +78,8 @@
     <Compile Include="DictionariesTests.cs" />
     <Compile Include="Dictionaries\AnimalsTests.cs" />
     <Compile Include="Dictionaries\CityTypeTests.cs" />
+    <Compile Include="Dictionaries\CountryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CountryTests.cs" />
     <Compile Include="HouseTests.cs" />
     <Compile Include="RouteTests.cs" />
   </ItemGroup>

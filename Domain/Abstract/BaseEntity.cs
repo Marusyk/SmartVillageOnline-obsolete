@@ -13,7 +13,6 @@ namespace Domain.Abstract
             LastUpdDT = DateTime.Now;
         }
 
-        [HiddenInput(DisplayValue = false)]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Please specify a date of the last update")]

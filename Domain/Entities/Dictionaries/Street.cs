@@ -9,7 +9,7 @@ namespace Domain.Entities
         [Required(ErrorMessage = "Please specify a type of street")]        
         public int StreetTypeID { get; set; }
 
-        [ForeignKey("StreetTypeID")]
-        public StreetType StreetType { get; set; }
+        // create foreign key using Lazy Load (virtual)
+        public virtual StreetType StreetType { get; set; }
     }
 }

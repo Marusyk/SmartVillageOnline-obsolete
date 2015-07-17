@@ -5,6 +5,11 @@ namespace Domain.Entities
 {
     public class StreetType : BaseDictionary
     {
-        public ICollection<Street> Street { get; set; }
+        //public StreetType()
+        //{
+        //    Streets = new HashSet<Street>();
+        //}
+
+        public virtual ICollection<Street> Streets { get; set; }
     }
 }
