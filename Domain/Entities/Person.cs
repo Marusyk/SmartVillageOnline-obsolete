@@ -29,10 +29,8 @@ namespace Domain.Entities
 
         public int NationalityId { get; set; }
 
-        [StringLength(10)]
         public string IdentificationCode { get; set; }
 
-        [StringLength(2)]
         public string PassSeria { get; set; }
 
         public int PassNr { get; set; }

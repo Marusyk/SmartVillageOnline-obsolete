@@ -11,7 +11,6 @@ namespace Domain.Entities
         [Required(ErrorMessage = "Please specify a street")]
         public int StreetID { get; set; }
 
-        [MaxLength(5)]
         public int PostCode { get; set; }
 
         public string BuildNr { get; set; }

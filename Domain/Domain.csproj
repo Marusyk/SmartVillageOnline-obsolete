@@ -77,17 +77,15 @@
     <Compile Include="Entities\Dictionaries\StreetType.cs" />
     <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
+    <Compile Include="Mapping\AddressMap.cs" />
     <Compile Include="Mapping\Dictionaries\AnimalsMap.cs" />
     <Compile Include="Mapping\Dictionaries\CityTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\CountryMap.cs" />
     <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
     <Compile Include="Mapping\Dictionaries\StreetTypeMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
+    <Compile Include="Mapping\PersonMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
-    <Compile Include="Migrations\201506182228279_Initial.cs" />
-    <Compile Include="Migrations\201506182228279_Initial.Designer.cs">
-      <DependentUpon>201506182228279_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork.cs" />
@@ -98,11 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506182228279_Initial.resx">
-      <DependentUpon>201506182228279_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

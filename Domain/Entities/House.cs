@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    [Table("House")]
     public class House : BaseEntity
     {
         [Required(ErrorMessage = "Please specify a number of house")]
