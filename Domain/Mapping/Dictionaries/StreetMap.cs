@@ -11,10 +11,6 @@ namespace Domain.Mapping
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired();
-            HasRequired(t => t.StreetType)
-                .WithMany()
-                .HasForeignKey(t => t.ID)
-                .WillCascadeOnDelete(false);
             ToTable("Street");
         }
     }
