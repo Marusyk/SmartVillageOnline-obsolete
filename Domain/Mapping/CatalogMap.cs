@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Mapping
 {
-    public class StreetMap : EntityTypeConfiguration<Street>
+    public class CatalogMap: EntityTypeConfiguration<Catalog>
     {
-        public StreetMap()
+        public CatalogMap()
         {
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
-            ToTable("Street");
+            ToTable("Catalog");
         }
     }
 }

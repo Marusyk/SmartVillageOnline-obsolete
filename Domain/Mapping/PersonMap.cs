@@ -10,14 +10,21 @@ namespace Domain.Mapping
         {
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(t => t.FirstName).IsRequired();
-            Property(t => t.Name).IsRequired();
-            Property(t => t.LastName).IsRequired();
+            Property(t => t.FirstName).IsRequired().HasMaxLength(60);
+            Property(t => t.Name).IsRequired().HasMaxLength(60);
+            Property(t => t.LastName).IsRequired().HasMaxLength(60);
             Property(t => t.DateBith).IsRequired();
             Property(t => t.Sex).IsRequired();
             Property(t => t.IdentificationCode).HasMaxLength(10);
             Property(t => t.PassSeria).HasMaxLength(2);
             Property(t => t.CatalogId).IsRequired();
+            Property(t => t.PadFirstName).HasMaxLength(60);
+            Property(t => t.PadName).HasMaxLength(60);
+            Property(t => t.PadLastName).HasMaxLength(60);
+            Property(t => t.DatFirstName).HasMaxLength(60);
+            Property(t => t.DatName).HasMaxLength(60);
+            Property(t => t.DatLastName).HasMaxLength(60);
+            Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Person");
         }
     }

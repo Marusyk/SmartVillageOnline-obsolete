@@ -11,7 +11,9 @@ namespace Domain.Mapping
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.CityID).IsRequired();
-            Property(t => t.StreetID).IsRequired();
+            Property(t => t.BuildNr).HasMaxLength(10);
+            Property(t => t.FlatNr).HasMaxLength(10);
+            Property(t => t.LastUpdUS).HasMaxLength(50);
             ToTable("Address");
         }
     }
