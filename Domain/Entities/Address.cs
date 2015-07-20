@@ -1,5 +1,5 @@
 ﻿using Domain.Abstract;
-using System.ComponentModel.DataAnnotations;
+using Domain.Entities.Dictionaries;
 
 namespace Domain.Entities
 {
@@ -14,5 +14,12 @@ namespace Domain.Entities
         public string BuildNr { get; set; }
 
         public string FlatNr { get; set; }
+
+        //FK to City
+        public virtual City City { get; set; }
+
+        //FK to Street
+        public virtual Street Street { get; set; }
+
     }
 }

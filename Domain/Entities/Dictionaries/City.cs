@@ -1,15 +1,23 @@
 ﻿using Domain.Abstract;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Domain.Entities.Dictionaries
 {
     public class City : BaseDictionary
     {
-        [Required(ErrorMessage = "Please specify a type of city")]
         public int CityTypeID { get; set; }
 
-        public int DistrictID { get; set; }
+        public int? DistrictID { get; set; }
 
         public int RegionID { get; set; }
+
+        // FK to CityType
+        public virtual CityType CityType { get; set; }
+        // FK to District
+        public virtual District District { get; set; }
+        // FK to Region
+        public virtual Region Region { get; set; }
+
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

@@ -79,16 +79,19 @@
     <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
     <Compile Include="Mapping\AddressMap.cs" />
     <Compile Include="Mapping\Dictionaries\AnimalsMap.cs" />
+    <Compile Include="Mapping\Dictionaries\CityMap.cs" />
     <Compile Include="Mapping\Dictionaries\CityTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\CountryMap.cs" />
+    <Compile Include="Mapping\Dictionaries\DistrictMap.cs" />
+    <Compile Include="Mapping\Dictionaries\RegionMap.cs" />
     <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
     <Compile Include="Mapping\Dictionaries\StreetTypeMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
     <Compile Include="Mapping\PersonMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
-    <Compile Include="Migrations\201507201947479_Migration_20.07.cs" />
-    <Compile Include="Migrations\201507201947479_Migration_20.07.Designer.cs">
-      <DependentUpon>201507201947479_Migration_20.07.cs</DependentUpon>
+    <Compile Include="Migrations\201507202142108_M01_21.07.cs" />
+    <Compile Include="Migrations\201507202142108_M01_21.07.Designer.cs">
+      <DependentUpon>201507202142108_M01_21.07.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,8 +105,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507201947479_Migration_20.07.resx">
-      <DependentUpon>201507201947479_Migration_20.07.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507202142108_M01_21.07.resx">
+      <DependentUpon>201507202142108_M01_21.07.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
