@@ -56,6 +56,8 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="CustomDbConfiguration.cs" />
+    <Compile Include="CustomSqlGenerator.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Dictionaries\Animals.cs" />
     <Compile Include="Entities\Catalog.cs" />
@@ -89,9 +91,9 @@
     <Compile Include="Mapping\HouseMap.cs" />
     <Compile Include="Mapping\PersonMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
-    <Compile Include="Migrations\201507202142108_M01_21.07.cs" />
-    <Compile Include="Migrations\201507202142108_M01_21.07.Designer.cs">
-      <DependentUpon>201507202142108_M01_21.07.cs</DependentUpon>
+    <Compile Include="Migrations\201507222031230_M01-22.07.cs" />
+    <Compile Include="Migrations\201507222031230_M01-22.07.Designer.cs">
+      <DependentUpon>201507222031230_M01-22.07.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,8 +107,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201507202142108_M01_21.07.resx">
-      <DependentUpon>201507202142108_M01_21.07.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507222031230_M01-22.07.resx">
+      <DependentUpon>201507222031230_M01-22.07.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

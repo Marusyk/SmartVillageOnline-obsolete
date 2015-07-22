@@ -3,7 +3,7 @@ namespace Domain.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class M01_2107 : DbMigration
+    public partial class M012207 : DbMigration
     {
         public override void Up()
         {
@@ -21,8 +21,8 @@ namespace Domain.Migrations
                         LastUpdUS = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.City", t => t.CityID, cascadeDelete: false, name: "Address_FKC_City")
-                .ForeignKey("dbo.Street", t => t.StreetID, name: "Address_FKC_Street")
+                .ForeignKey("dbo.City", t => t.CityID)
+                .ForeignKey("dbo.Street", t => t.StreetID)
                 .Index(t => t.CityID)
                 .Index(t => t.StreetID);
             
@@ -39,9 +39,9 @@ namespace Domain.Migrations
                         LastUpdUS = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.CityType", t => t.CityTypeID, cascadeDelete: false, name: "City_FKC_CityType")
-                .ForeignKey("dbo.District", t => t.DistrictID, name: "City_FKC_District")
-                .ForeignKey("dbo.Region", t => t.RegionID, cascadeDelete: false, name: "City_FKC_Region")
+                .ForeignKey("dbo.CityType", t => t.CityTypeID)
+                .ForeignKey("dbo.District", t => t.DistrictID)
+                .ForeignKey("dbo.Region", t => t.RegionID)
                 .Index(t => t.CityTypeID)
                 .Index(t => t.DistrictID)
                 .Index(t => t.RegionID);
@@ -68,7 +68,7 @@ namespace Domain.Migrations
                         LastUpdUS = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Region", t => t.RegionID, cascadeDelete: false, name: "District_FKC_Region")
+                .ForeignKey("dbo.Region", t => t.RegionID)
                 .Index(t => t.RegionID);
             
             CreateTable(
@@ -82,7 +82,7 @@ namespace Domain.Migrations
                         LastUpdUS = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Country", t => t.CountryID, cascadeDelete: false, name: "Region_FKC_Country")
+                .ForeignKey("dbo.Country", t => t.CountryID)
                 .Index(t => t.CountryID);
             
             CreateTable(
@@ -107,7 +107,7 @@ namespace Domain.Migrations
                         LastUpdUS = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.StreetType", t => t.StreetTypeID, cascadeDelete: false, name: "Street_FKC_StreetType")
+                .ForeignKey("dbo.StreetType", t => t.StreetTypeID)
                 .Index(t => t.StreetTypeID);
             
             CreateTable(
