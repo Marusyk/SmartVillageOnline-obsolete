@@ -4,7 +4,7 @@ using System.Web.Http;
 
 namespace WebUI.Infrastructure
 {
-    interface IBaseApiInterface<T>
+    public interface IBaseApiInterface<T>
     {
         // Get all entities
         IQueryable<T> Get();
