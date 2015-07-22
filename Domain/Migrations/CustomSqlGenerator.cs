@@ -20,12 +20,29 @@ namespace Domain
             base.Generate(dropForeignKeyOperation);
         }
 
+        protected override void Generate(AddPrimaryKeyOperation addPrimaryKeyOperation)
+        {
+            addPrimaryKeyOperation.Name = getPkName(addPrimaryKeyOperation.Table);
+            base.Generate(addPrimaryKeyOperation);
+        }
+
+        protected override void Generate(DropPrimaryKeyOperation dropPrimaryKeyOperation)
+        {
+            dropPrimaryKeyOperation.Name = getPkName(dropPrimaryKeyOperation.Table);
+            base.Generate(dropPrimaryKeyOperation);
+        }
+
         private static string getFkName(string primaryKeyTable, string foreignKeyTable, params string[] foreignTableFields)
         {
-            //District_FKC_Region 
             primaryKeyTable = primaryKeyTable.Replace("dbo.", "");
             foreignKeyTable = foreignKeyTable.Replace("dbo.", "");
-            return primaryKeyTable + "_FK_" + foreignKeyTable;
+            return string.Format("{0}_FK_{1}", primaryKeyTable, foreignKeyTable);
+        }
+
+        private static string getPkName(string primaryKeyTable)
+        {
+            primaryKeyTable = primaryKeyTable.Replace("dbo.", "");
+            return "SYS_" + primaryKeyTable + "_PKY";
         }
     }
 }
