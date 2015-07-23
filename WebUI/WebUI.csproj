@@ -204,6 +204,7 @@
     <Compile Include="Controllers\API\HouseController.cs" />
     <Compile Include="Controllers\API\MaterialsController.cs" />
     <Compile Include="Controllers\API\NationalityController.cs" />
+    <Compile Include="Controllers\API\PassAuthorityController.cs" />
     <Compile Include="Controllers\API\RegionController.cs" />
     <Compile Include="Controllers\API\StreetController.cs" />
     <Compile Include="Controllers\API\StreetTypeController.cs" />
