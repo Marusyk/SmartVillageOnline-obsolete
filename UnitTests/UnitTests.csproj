@@ -75,6 +75,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddressTests.cs" />
     <Compile Include="DictionariesTests.cs" />
     <Compile Include="Dictionaries\AnimalsTests.cs" />
     <Compile Include="Dictionaries\BaseDictionaryTests.cs" />
