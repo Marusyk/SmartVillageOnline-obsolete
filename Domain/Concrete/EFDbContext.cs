@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Linq;
 using System;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Domain.Concrete
 {
@@ -21,6 +22,9 @@ namespace Domain.Concrete
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // remove a convention to enable cascade delete for any required relationships
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();            
+
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(type => !string.IsNullOrEmpty(type.Namespace))
                 .Where(type => type.BaseType != null && type.BaseType.IsGenericType
