@@ -12,23 +12,18 @@ using System.Collections.Generic;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class AnimalsTests : GenericDictionaryTests<Animals>
+    public class AnimalsTests : BaseDictionaryTests<Animals>
     {
-        GenericDictionaryTests<Animals> a;
-
         public AnimalsTests()
+            : base()
         {
-            var animals = new List<Animals>
-            {
-                new Animals {ID =1, Name ="Animal1" },
-                new Animals {ID =2, Name ="Animal2" },
-                new Animals {ID =3, Name ="Animal3" },
-                new Animals {ID =4, Name ="Animal4" },
-                new Animals {ID =5, Name ="Animal5" }
-            };
+            // get Mock repository from base class
+            var moq = base.CreateMockRepository();
 
-            var moq = base.CreateMockRepository(animals);
+            // create controller with Mock
             var controller = new AnimalsController(moq);
+
+            // Init params of controller
             base.ArrangeController(controller);
         }
 
@@ -39,55 +34,22 @@ namespace UnitTests.Dictionaries
             base.GetAll();
         }
 
-        //[TestMethod]
-        //public void Can_Insert_Animal()
-        //{
-        //    //Arrange
-        //    var controller = ArrangeController();
+        [TestMethod]
+        public void Animal_Can_Insert()
+        {          
+           base.Insert();
+        }
 
-        //    //Arrange - create a new country for insert
-        //    Animals newAnimal = new Animals() { ID = 10, Name = "TEST" };
+        [TestMethod]
+        public void Animal_Can_Edit()
+        {
+            base.Edit();
+        }
 
-        //    //Action
-        //    var resultInsert = controller.Post(newAnimal);
-        //    var resultSelect = controller.Get().ToArray();
-
-        //    //Assert
-        //    Assert.AreEqual(6, resultSelect.Length);
-        //    Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
-        //}
-
-        //[TestMethod]
-        //public void Can_Edit_Animal()
-        //{
-        //    //Arrange
-        //    var controller = ArrangeController();
-
-        //    //Action                     
-        //    var animal = controller.GetById(1);
-        //    animal.Name = "TEST";
-        //    var resultUpdate = controller.Put(animal);
-        //    var resultSelect = controller.Get().ToArray();
-
-        //    //Assert
-        //    Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-        //    Assert.AreEqual("TEST", resultSelect[0].Name);
-        //}
-
-        //[TestMethod]
-        //public void Can_Remove_Animal()
-        //{
-        //    //Arrange
-        //    var controller = ArrangeController();
-
-        //    //Action
-        //    var animal = controller.GetById(1);
-        //    var resultDelete = controller.Delete(animal.ID);
-        //    var resultSelect = controller.Get().ToArray();
-
-        //    //Assert
-        //    Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-        //    Assert.AreEqual(4, resultSelect.Length);
-        //}
+        [TestMethod]
+        public void Animal_Can_Remove()
+        {
+            base.Remove();
+        }
     }
 }
