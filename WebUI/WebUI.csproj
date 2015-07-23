@@ -195,6 +195,7 @@
     <Compile Include="Controllers\API\CityTypeController.cs" />
     <Compile Include="Controllers\API\CountryController.cs" />
     <Compile Include="Controllers\API\DictionaryController.cs" />
+    <Compile Include="Controllers\API\DistrictController.cs" />
     <Compile Include="Controllers\API\HouseController.cs" />
     <Compile Include="Controllers\API\RegionController.cs" />
     <Compile Include="Controllers\API\StreetController.cs" />
