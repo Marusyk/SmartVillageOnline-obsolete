@@ -1,16 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Domain.Abstract;
 using Domain.Entities;
-using System.Linq;
 using WebUI.Controllers.API;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
-using System.Web.Http.Controllers;
-using System.Web.Http.Hosting;
-using System.Collections.Generic;
 using UnitTests.Dictionaries;
 
 namespace UnitTests
@@ -35,6 +25,12 @@ namespace UnitTests
         public void Country_Get_All()
         {
             base.GetAll();
+        }
+
+        [TestMethod]
+        public void Country_Get_By_Id()
+        {
+            base.GetById();
         }
 
         [TestMethod]

@@ -1,13 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Domain.Abstract;
 using Domain.Entities;
-using System.Linq;
 using WebUI.Controllers.API;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Collections.Generic;
 
 namespace UnitTests.Dictionaries
 {
@@ -29,9 +22,15 @@ namespace UnitTests.Dictionaries
 
 
         [TestMethod]
-        public void Get_All_Animals()
+        public void Animal_Get_All()
         {
             base.GetAll();
+        }
+
+        [TestMethod]
+        public void Animal_Get_By_Id()
+        {
+            base.GetById();
         }
 
         [TestMethod]

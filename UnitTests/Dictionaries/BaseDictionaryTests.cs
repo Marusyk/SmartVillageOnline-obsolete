@@ -1,15 +1,11 @@
 ﻿using Domain.Abstract;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebUI.Infrastructure;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Dictionaries
@@ -36,7 +32,7 @@ namespace UnitTests.Dictionaries
             this.entitiesList = entitiesList;
         }
 
-        protected IRepository<T> CreateMockRepository()
+        protected virtual IRepository<T> CreateMockRepository()
         {            
             // configure the standart Mock Object for CRUD operations
             Mock<IRepository<T>> mock = new Mock<IRepository<T>>();
@@ -58,7 +54,7 @@ namespace UnitTests.Dictionaries
             return mock.Object;
         }
 
-        protected void ArrangeController(IBaseApiInterface<T> controller)
+        protected virtual void ArrangeController(IBaseApiInterface<T> controller)
         {
             this.controller = controller;
             (controller as ApiController).Request = new HttpRequestMessage();
@@ -72,6 +68,15 @@ namespace UnitTests.Dictionaries
 
             //Assert
             Assert.AreEqual(5, result.Length);
+        }
+
+        protected virtual void GetById()
+        {
+            // Action
+            var result = controller.GetById(1);
+
+            // Accert
+            Assert.IsNotNull(result);
         }
 
         protected virtual void Insert()

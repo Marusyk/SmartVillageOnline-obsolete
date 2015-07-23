@@ -1,16 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Domain.Abstract;
 using Domain.Entities;
-using System.Linq;
 using WebUI.Controllers.API;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
-using System.Web.Http.Controllers;
-using System.Web.Http.Hosting;
-using System.Collections.Generic;
 
 namespace UnitTests.Dictionaries
 {
@@ -31,25 +21,31 @@ namespace UnitTests.Dictionaries
         }
 
         [TestMethod]
-        public void CityTypes_Get_All()
+        public void CityType_Get_All()
         {
             base.GetAll();
         }
 
         [TestMethod]
-        public void CityTypes_Can_Insert()
+        public void CityType_Get_By_Id()
+        {
+            base.GetById();
+        }
+
+        [TestMethod]
+        public void CityType_Can_Insert()
         {
             base.Insert();
         }
 
         [TestMethod]
-        public void CityTypes_Can_Edit()
+        public void CityType_Can_Edit()
         {
             base.Edit();
         }
 
         [TestMethod]
-        public void CityTypes_Can_Remove()
+        public void CityType_Can_Remove()
         {
             base.Remove();
         }
