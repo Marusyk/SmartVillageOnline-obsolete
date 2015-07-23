@@ -56,6 +56,7 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
     <Compile Include="Entities\Address.cs" />
