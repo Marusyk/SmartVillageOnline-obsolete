@@ -59,6 +59,7 @@
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyRelationsMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyStatusMap.cs" />
+    <Compile Include="Mapping\Dictionaries\MaterialsMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
     <Compile Include="Entities\Address.cs" />
