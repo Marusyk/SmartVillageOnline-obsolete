@@ -206,6 +206,7 @@
     <Compile Include="Controllers\API\NationalityController.cs" />
     <Compile Include="Controllers\API\PassAuthorityController.cs" />
     <Compile Include="Controllers\API\PensionTypeController.cs" />
+    <Compile Include="Controllers\API\PositionController.cs" />
     <Compile Include="Controllers\API\RegionController.cs" />
     <Compile Include="Controllers\API\StreetController.cs" />
     <Compile Include="Controllers\API\StreetTypeController.cs" />

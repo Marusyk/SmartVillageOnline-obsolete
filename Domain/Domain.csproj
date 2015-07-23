@@ -63,6 +63,7 @@
     <Compile Include="Mapping\Dictionaries\NationalityMap.cs" />
     <Compile Include="Mapping\Dictionaries\PassAuthorityMap.cs" />
     <Compile Include="Mapping\Dictionaries\PensionTypeMap.cs" />
+    <Compile Include="Mapping\Dictionaries\PositionMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
     <Compile Include="Entities\Address.cs" />
