@@ -5,7 +5,7 @@ using Domain.Entities.Dictionaries;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    class CityTests : BaseDictionaryTests<City>
+    public class CityTests : BaseDictionaryTests<City>
     {
         public CityTests()
             : base()
