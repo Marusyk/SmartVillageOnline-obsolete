@@ -89,6 +89,7 @@
     <Compile Include="Dictionaries\MaterialsTests.cs" />
     <Compile Include="Dictionaries\NationalityTests.cs" />
     <Compile Include="Dictionaries\PassAuthorityTests.cs" />
+    <Compile Include="Dictionaries\PensionTypeTests.cs" />
     <Compile Include="Dictionaries\RegionTests.cs" />
     <Compile Include="Dictionaries\StreetTests.cs" />
     <Compile Include="Dictionaries\StreetTypeTests.cs" />
