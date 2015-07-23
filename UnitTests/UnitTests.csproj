@@ -81,6 +81,7 @@
     <Compile Include="Dictionaries\CityTypeTests.cs" />
     <Compile Include="Dictionaries\CountryTests.cs" />
     <Compile Include="Dictionaries\RegionTests.cs" />
+    <Compile Include="Dictionaries\StreetTests.cs" />
     <Compile Include="Dictionaries\StreetTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HouseTests.cs" />
