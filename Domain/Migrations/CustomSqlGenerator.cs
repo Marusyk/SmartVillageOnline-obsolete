@@ -20,23 +20,17 @@ namespace Domain
             base.Generate(dropForeignKeyOperation);
         }
 
-        protected override void Generate(AddPrimaryKeyOperation addPrimaryKeyOperation)
+        protected override void Generate(CreateTableOperation table)
         {
-            addPrimaryKeyOperation.Name = getPkName(addPrimaryKeyOperation.Table);
-            base.Generate(addPrimaryKeyOperation);
-        }
-
-        protected override void Generate(DropPrimaryKeyOperation dropPrimaryKeyOperation)
-        {
-            dropPrimaryKeyOperation.Name = getPkName(dropPrimaryKeyOperation.Table);
-            base.Generate(dropPrimaryKeyOperation);
+            table.PrimaryKey.Name = getPkName(table.Name);
+            base.Generate(table);
         }
 
         private static string getFkName(string primaryKeyTable, string foreignKeyTable, params string[] foreignTableFields)
         {
             primaryKeyTable = primaryKeyTable.Replace("dbo.", "");
             foreignKeyTable = foreignKeyTable.Replace("dbo.", "");
-            return string.Format("{0}_FK_{1}", primaryKeyTable, foreignKeyTable);
+            return string.Format("{0}_FKC_{1}", primaryKeyTable, foreignKeyTable);
         }
 
         private static string getPkName(string primaryKeyTable)
