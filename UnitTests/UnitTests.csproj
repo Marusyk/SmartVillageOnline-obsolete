@@ -84,6 +84,7 @@
     <Compile Include="Dictionaries\CountryTests.cs" />
     <Compile Include="Dictionaries\DistrictTests.cs" />
     <Compile Include="Dictionaries\DocumentTypeTests.cs" />
+    <Compile Include="Dictionaries\FamilyRelationsTests.cs" />
     <Compile Include="Dictionaries\RegionTests.cs" />
     <Compile Include="Dictionaries\StreetTests.cs" />
     <Compile Include="Dictionaries\StreetTypeTests.cs" />
