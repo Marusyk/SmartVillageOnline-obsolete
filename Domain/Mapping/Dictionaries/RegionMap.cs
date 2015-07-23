@@ -12,8 +12,8 @@ namespace Domain.Mapping.Dictionaries
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
             Property(t => t.CountryID).IsRequired();
-            HasMany(a => a.Districts).WithRequired(p => p.Regions).HasForeignKey(p => p.RegionID).WillCascadeOnDelete(false);
-            HasMany(a => a.Cities).WithRequired(p => p.Region).HasForeignKey(p => p.RegionID).WillCascadeOnDelete(false);
+            HasMany(a => a.Districts).WithRequired(p => p.Regions).HasForeignKey(p => p.RegionID);
+            HasMany(a => a.Cities).WithRequired(p => p.Region).HasForeignKey(p => p.RegionID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Region");
         }

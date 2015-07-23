@@ -14,7 +14,7 @@ namespace Domain.Mapping.Dictionaries
             Property(t => t.Name).IsRequired().HasMaxLength(50);
             Property(t => t.CityTypeID).IsRequired();
             Property(t => t.RegionID).IsRequired();
-            HasMany(a => a.Addresses).WithRequired(p => p.City).HasForeignKey(p => p.CityID).WillCascadeOnDelete(false);
+            HasMany(a => a.Addresses).WithRequired(p => p.City).HasForeignKey(p => p.CityID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("City");
         }

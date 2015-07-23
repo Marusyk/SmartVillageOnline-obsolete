@@ -12,7 +12,7 @@ namespace Domain.Mapping.Dictionaries
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
             Property(t => t.RegionID).IsRequired();
-            HasMany(a => a.Cities).WithOptional(p => p.District).HasForeignKey(p => p.DistrictID).WillCascadeOnDelete(false);
+            HasMany(a => a.Cities).WithOptional(p => p.District).HasForeignKey(p => p.DistrictID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("District");
         }
