@@ -14,122 +14,44 @@ using System.Collections.Generic;
 
 namespace UnitTests.Dictionaries
 {
-    /// <summary>
-    /// Summary description for CityTypeTests
-    /// </summary>
     [TestClass]
-    public class CityTypeTests
-    {       
-        #region private
-
-        private readonly string MainUri = "http://localhost/api/citytype";
-
-        private IRepository<CityType> CreateMockRepository()
+    public class CityTypeTests : BaseDictionaryTests<CityType>
+    {
+        public CityTypeTests()
+            : base()
         {
-            // creating  fake repository
-            var types = new List<CityType>
-            {
-                new CityType {ID =1, Name ="CityType1" },
-                new CityType {ID =2, Name ="CityType2" },
-                new CityType {ID =3, Name ="CityType3" },
-                new CityType {ID =4, Name ="CityType4" },
-                new CityType {ID =5, Name ="CityType5" }
-            };
+            // get Mock repository from base class
+            var moq = base.CreateMockRepository();
 
-            // configure the Mock Object
-            Mock<IRepository<CityType>> mock = new Mock<IRepository<CityType>>();
-
-            mock.Setup(m => m.Table).Returns(types.AsQueryable());
-
-            mock.Setup(m => m.Insert(It.IsAny<CityType>()))
-                .Callback<CityType>(c => types.Add(c));
-
-            mock.Setup(m => m.Update(It.IsAny<CityType>()))
-                .Callback<CityType>(c => types[types.IndexOf(c)] = c);
-
-            mock.Setup(m => m.GetById(It.IsAny<int>()))
-                .Returns<int>(c => types.Find(f => f.ID == c));
-
-            mock.Setup(m => m.Delete(It.IsAny<CityType>()))
-                .Callback<CityType>(c => types.Remove(c));
-
-            return mock.Object;
-        }
-
-        private CityTypeController ArrangeController()
-        {
-            // Get the mock repository
-            var moq = CreateMockRepository();
+            // create controller with Mock
             var controller = new CityTypeController(moq);
-            controller.Request = new HttpRequestMessage();
-            controller.Request.SetConfiguration(new HttpConfiguration());
-            return controller;
-        }
 
-        #endregion
-
-        [TestMethod]
-        public void Get_All_CityTypes()
-        {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action
-            var result = target.Get().ToArray();
-
-            //Assert
-            Assert.AreEqual(5, result.Length);
+            // Init params of controller
+            base.ArrangeController(controller);
         }
 
         [TestMethod]
-        public void Can_Insert_CityType()
+        public void CityTypes_Get_All()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Arrange - create a new country for insert
-            var newType = new CityType() { ID = 10, Name = "TEST" };
-
-            //Action
-            var resultInsert = target.Post(newType);
-            var resultSelect = target.Get().ToArray();
-
-            //Assert
-            Assert.AreEqual(6, resultSelect.Length);
-            Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            base.GetAll();
         }
 
         [TestMethod]
-        public void Can_Edit_CityType()
+        public void CityTypes_Can_Insert()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action                     
-            var type = target.GetById(1);
-            type.Name = "TEST";
-            var resultUpdate = target.Put(type);
-            var resultSelect = target.Get().ToArray();
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("TEST", resultSelect[0].Name);
+            base.Insert();
         }
 
         [TestMethod]
-        public void Can_Remove_CityType()
+        public void CityTypes_Can_Edit()
         {
-            //Arrange
-            var target = ArrangeController();
+            base.Edit();
+        }
 
-            //Action
-            var type = target.GetById(1);
-            var resultDelete = target.Delete(type.ID);
-            var resultSelect = target.Get().ToArray();
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Length);
+        [TestMethod]
+        public void CityTypes_Can_Remove()
+        {
+            base.Remove();
         }
     }
 }
