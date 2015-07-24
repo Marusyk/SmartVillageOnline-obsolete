@@ -14,5 +14,10 @@ namespace WebUI.Controllers
 
             return View();
         }
+
+        public ActionResult GitHub()
+        {
+            return Redirect("https://github.com/Marusyk/SmartVillageOnline");
+        }
     }
 }
