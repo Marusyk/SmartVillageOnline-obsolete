@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Mapping.Dictionaries
 {
-    public class MaterialsMap : EntityTypeConfiguration<FamilyStatus>
+    public class MaterialsMap : EntityTypeConfiguration<Materials>
     {
         public MaterialsMap()
         {
