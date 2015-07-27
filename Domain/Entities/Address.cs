@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities.Dictionaries;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -16,9 +17,11 @@ namespace Domain.Entities
         public string FlatNr { get; set; }
 
         //FK to City
+        [IgnoreDataMember]
         public virtual City City { get; set; }
 
         //FK to Street
+        [IgnoreDataMember]
         public virtual Street Street { get; set; }
 
     }

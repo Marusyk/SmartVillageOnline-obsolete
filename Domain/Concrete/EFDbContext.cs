@@ -13,7 +13,10 @@ namespace Domain.Concrete
     {
         public EFDbContext()
             :base("EFDbContext")
-        { }
+        {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.ProxyCreationEnabled = false;
+        }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
         {
