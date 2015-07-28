@@ -1,30 +1,44 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Test simple dictionary";
+    ViewBag.Title = "Test dictionary:";
 }
     <section>
         <div class="content-wrapper">
             <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
+                <h1>@ViewBag.Title</h1>
                 <h2>@ViewBag.Message</h2>
             </hgroup>
             <div>
-                <table>
+                <input class="form-control" type="text" id="txtDictName" />
+                <br />
+                <table class="table table-hover">
                     <tr>
-                        <td><button onclick="GetAllEntities();return false;">Get All Entities</button></td>
-                        <td>Enter Entity Id: <input type="text" id="txtId" style="width:50PX" /></td>
-                        <td><button onclick="GetEntity(); return false;">Get Entity</button></td>
                         <td>
-                            <table>
-                                <tr><td>Name:</td><td><input type="text" id="txtaddName" /></td></tr>
-                                <tr><td>LastUpdUS:</td><td><input type="text" id="txtaddUs" /></td></tr>
-                                <tr><td>LastUpdDT:</td><td><input type="datetime" id="txtaddDt" /></td></tr>
-                            </table>
+                          <button class="btn btn-primary btn-sm btn-block" onclick="GetAllEntities();return false;">Get All Entities</button>
                         </td>
-                        <td><button onclick="AddEntity();return false;">Add Entity</button></td>
-                        <td>Delete Entity <input type="text" id="txtdelId" style="width:50PX" /></td>
-                        <td><button onclick="DeleteEntity(); return false;">Delete Entity</button></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm btn-block" onclick="GetEntity(); return false;">Get Entity</button>                        
+                            <br />
+                            Enter Entity Id:
+                            <input class="form-control input-sm" type="text" id="txtId" style="width:50PX" /> 
+                        </td>
+                        <td>                           
+                            <button class="btn btn-primary btn-sm btn-block" onclick="AddEntity();return false;">Add Entity</button>
+                            <br />
+                            <div class="form-group">
+                                <table>
+                                    <tr><td>Name:</td><td><input class="form-control" type="text" id="txtaddName" /></td></tr>
+                                    <tr><td>LastUpdUS:</td><td><input class="form-control" type="text" id="txtaddUs" /></td></tr>
+                                    <tr><td>LastUpdDT:</td><td><input class="form-control" type="datetime" id="txtaddDt" /></td></tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                          <button class="btn btn-primary btn-sm btn-block" onclick="DeleteEntity(); return false;">Delete Entity</button>
+                          <br />
+                          Delete Entity <input type="text" class="form-control input-sm" id="txtdelId" style="width:50PX" />
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -32,18 +46,14 @@
     </section>
 
 <h3>Oputput of action done through WEB API:</h3>
-<ol class="round">
-    <li>
-        <div id="divResult"></div>
-
-    </li>
-</ol>
+<div id="divResult"></div>
 
 <script type="text/javascript">
     function GetAllEntities() {
         jQuery.support.cors = true;
+        var Dict = $('#txtDictName').val();
         $.ajax({
-            url: 'http://localhost:3761/api/Country',
+            url: 'http://localhost:3761/api/' + Dict,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -58,8 +68,9 @@
     function GetEntity() {
         jQuery.support.cors = true;
         var id = $('#txtId').val();
+        var Dict = $('#txtDictName').val();
         $.ajax({
-            url: 'http://localhost:3761/api/Country/' + id,
+            url: 'http://localhost:3761/api/' + Dict + '/' + id,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -73,6 +84,7 @@
 
     function AddEntity() {
         jQuery.support.cors = true;
+        var Dict = $('#txtDictName').val();
         var entities = {
             Name: $('#txtaddName').val(),
             LastUpdUS: $('#txtaddUs').val(),
@@ -80,7 +92,7 @@
         };
 
         $.ajax({
-            url: 'http://localhost:3761/api/Country',
+            url: 'http://localhost:3761/api/' + Dict,
             type: 'POST',
             data: JSON.stringify(entities),
             contentType: "application/json;charset=utf-8",
@@ -95,10 +107,11 @@
 
     function DeleteEntity() {
         jQuery.support.cors = true;
+        var Dict = $('#txtDictName').val();
         var id = $('#txtdelId').val()
 
         $.ajax({
-            url: 'http://localhost:3761/api/Country/' + id,
+            url: 'http://localhost:3761/api/' + Dict + '/' + id,
             type: 'DELETE',
             contentType: "application/json;charset=utf-8",
             success: function (data) {
@@ -112,7 +125,7 @@
 
 
     function WriteResponse(entities) {
-        var strResult = "<table><th>ID</th><th>Name</th><th>LastUpdUS</th><th>LastUpdDT</th>";
+        var strResult = "<table class='table table-hover'><th>ID</th><th>Name</th><th>LastUpdUS</th><th>LastUpdDT</th>";
         $.each(entities, function (index, entity) {
             strResult += "<tr><td>" + entity.ID + "</td><td> " + entity.Name + "</td><td>" + entity.LastUpdUS + "</td><td>" + entity.LastUpdDT + "</td></tr>";
         });
@@ -122,7 +135,7 @@
 
     function ShowEntity(entity) {
         if (entity != null) {
-            var strResult = "<table><th>ID</th><th>Name</th><th>LastUpdUS</th><th>LastUpdDT</th>";
+            var strResult = "<table class='table table-hover'><th>ID</th><th>Name</th><th>LastUpdUS</th><th>LastUpdDT</th>";
             strResult += "<tr><td>" + entity.ID + "</td><td> " + entity.Name + "</td><td>" + entity.LastUpdUS + "</td><td>" + entity.LastUpdDT + "</td></tr>";
             strResult += "</table>";
             $("#divResult").html(strResult);
