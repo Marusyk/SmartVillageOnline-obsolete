@@ -8,8 +8,7 @@ namespace Domain.Entities
     {       
         public int StreetTypeID { get; set; }
 
-        // create foreign key using Lazy Load (virtual)
-        [IgnoreDataMember]
+        // create foreign key using Lazy Load (virtual)    
         public virtual StreetType StreetType { get; set; }
 
         [IgnoreDataMember]

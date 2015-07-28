@@ -9,10 +9,11 @@ namespace Domain.Entities.Dictionaries
         public int CountryID { get; set; }
 
         // FK to Country
-        [IgnoreDataMember]
-        public virtual Country Countries { get; set; }
+        public virtual Country Country { get; set; }
+
         [IgnoreDataMember]
         public virtual ICollection<District> Districts { get; set; }
+
         [IgnoreDataMember]
         public virtual ICollection<City> Cities { get; set; }
     }

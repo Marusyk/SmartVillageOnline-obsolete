@@ -8,9 +8,8 @@ namespace Domain.Entities.Dictionaries
     {
         public int RegionID { get; set; }
 
-        // FK to Region
-        [IgnoreDataMember]
-        public virtual Region Regions { get; set; }
+        // FK to Region        
+        public virtual Region Region { get; set; }
 
         [IgnoreDataMember]
         public virtual ICollection<City> Cities { get; set; }
