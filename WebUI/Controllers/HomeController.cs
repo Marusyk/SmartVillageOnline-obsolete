@@ -19,5 +19,10 @@ namespace WebUI.Controllers
         {
             return Redirect("https://github.com/Marusyk/SmartVillageOnline");
         }
+
+        public ViewResult TestDict()
+        {
+            return View();
+        }
     }
 }
