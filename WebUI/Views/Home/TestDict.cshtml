@@ -3,6 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Test dictionary:";
 }
+@section scripts {
+    @Scripts.Render("~/bundles/dictionaryTest")
+}
     <section>
         <div class="content-wrapper">
             <hgroup class="title">
@@ -10,7 +13,7 @@
                 <h2>@ViewBag.Message</h2>
             </hgroup>
             <div>
-                <input class="form-control" type="text" id="txtDictName" value="Country" />
+                <select id="sysDictList" onchange="GetStructur()"></select>
                 <br />
                 <table class="table table-hover">
                     <tr>
@@ -29,7 +32,10 @@
                             <div class="form-group">
                                 <table>
                                     <tr><td>Name:</td><td><input class="form-control" type="text" id="txtaddName" /></td></tr>
-                                    <tr><td>LastUpdUS:</td><td><input class="form-control" type="text" id="txtaddUs" /></td></tr>
+                                    <tr>
+                                        <td><label id="linked">Linked:</label></td>:
+                                        <td><select id="sysDictList" onchange="GetStructur()"></select></td>
+                                    </tr>
                                     <tr><td>LastUpdDT:</td><td><input class="form-control" type="datetime" id="txtaddDt" /></td></tr>
                                 </table>
                             </div>
@@ -48,6 +54,43 @@
 <h3>Oputput of action done through WEB API:</h3>
 <div id="divResult"></div>
 
-@section scripts {
-    @Scripts.Render("~/bundles/dictionaryTest")
-}
+<select id="StudentDropDown" ><option>11</option></select>
+<button class="btn btn-primary btn-sm btn-block" onclick="Getsel(); return false;">ddy</button>
+
+<script type="text/javascript">
+    GetDictionary();
+    function GetDictionary() {
+        jQuery.support.cors = true;
+        $.ajax({
+            type: "get",
+            url: "http://localhost:3761/api/Dictionary",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: {},
+            success: function (result) {
+                $.each(result, function (i) {
+                    $('#sysDictList').append($('<option></option>').val(result[i].ID).html(result[i].Name));
+                });
+            },
+            failure: function () {
+                alert("Error");
+            }
+        });
+    }
+
+    function GetStructur() {
+        jQuery.support.cors = true;
+        var name = $('#sysDictList :selected').text();
+        if (name == 'Country') 
+        {
+            $('#linked').hide();
+            alert('dd');
+        }
+        else 
+        {
+            alert('no' + name);
+        }
+    };
+
+
+</script> 

@@ -38,7 +38,8 @@ function AddEntity() {
     var entities = {
         Name: $('#txtaddName').val(),
         LastUpdUS: $('#txtaddUs').val(),
-        LastUpdDT: $('#txtaddDtb').val()
+        LastUpdDT: $('#txtaddDtb').val(),
+        CountryID: $('#StudentDropDown').val()
     };
 
     $.ajax({
