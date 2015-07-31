@@ -13,6 +13,7 @@ namespace Domain.Mapping
             Property(t => t.CityID).IsRequired();
             Property(t => t.BuildNr).HasMaxLength(10);
             Property(t => t.FlatNr).HasMaxLength(10);
+            HasMany(a => a.Houses).WithRequired(p => p.Address).HasForeignKey(p => p.AddressID);
             Property(t => t.LastUpdUS).HasMaxLength(50);
             ToTable("Address");
         }

@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities.Dictionaries;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Domain.Entities
@@ -22,5 +23,7 @@ namespace Domain.Entities
         //FK to Street
         public virtual Street Street { get; set; }
 
+        [IgnoreDataMember]
+        public virtual ICollection<House> Houses { get; set; }
     }
 }

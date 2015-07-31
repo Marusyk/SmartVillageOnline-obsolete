@@ -23,5 +23,8 @@ namespace Domain.Entities
         public int? Year { get; set; }
 
         public string Code { get; set; }
+
+        //FK to Address
+        public virtual Address Address { get; set; }
     }
 }
