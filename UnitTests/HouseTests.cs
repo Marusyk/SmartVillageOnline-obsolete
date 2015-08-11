@@ -64,7 +64,7 @@ namespace UnitTests
         #endregion
 
         [TestMethod]
-        public void Get_All_Houses()
+        public void House_Get_All()
         {
             //Arrange
             var target = ArrangeController();
@@ -77,7 +77,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Can_Insert_House()
+        public void House_Can_Insert()
         {
             //Arrange
             var target = ArrangeController();
@@ -95,7 +95,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Can_Edit_House()
+        public void House_Can_Edit()
         {
             //Arrange
             var target = ArrangeController();
@@ -112,7 +112,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void Can_Remove_House()
+        public void House_Can_Remove()
         {
             //Arrange
             var target = ArrangeController();
