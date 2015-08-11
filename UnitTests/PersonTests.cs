@@ -108,7 +108,7 @@ namespace UnitTests
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("McConnell", resultSelect[0].HouseNr);
+            Assert.AreEqual("McConnell", resultSelect[0].LastName);
         }
 
         [TestMethod]
