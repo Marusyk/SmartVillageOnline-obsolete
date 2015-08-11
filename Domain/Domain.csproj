@@ -57,6 +57,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
+    <Compile Include="Entities\Dictionaries\Person.cs" />
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyRelationsMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyStatusMap.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Mapping\Dictionaries\NationalityMap.cs" />
     <Compile Include="Mapping\Dictionaries\PassAuthorityMap.cs" />
     <Compile Include="Mapping\Dictionaries\PensionTypeMap.cs" />
+    <Compile Include="Mapping\Dictionaries\PersonMap.cs" />
     <Compile Include="Mapping\Dictionaries\PositionMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
@@ -85,7 +87,6 @@
     <Compile Include="Entities\Dictionaries\Position.cs" />
     <Compile Include="Entities\Dictionaries\Street.cs" />
     <Compile Include="Entities\Dictionaries\StreetType.cs" />
-    <Compile Include="Entities\Person.cs" />
     <Compile Include="Entities\SystemTables\SYS_Dictionary.cs" />
     <Compile Include="Mapping\Dictionaries\AddressMap.cs" />
     <Compile Include="Mapping\Dictionaries\AnimalsMap.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Mapping\Dictionaries\StreetMap.cs" />
     <Compile Include="Mapping\Dictionaries\StreetTypeMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
-    <Compile Include="Mapping\PersonMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
