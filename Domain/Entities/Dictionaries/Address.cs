@@ -25,5 +25,11 @@ namespace Domain.Entities
 
         [IgnoreDataMember]
         public virtual ICollection<House> Houses { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Person> PersonBirthAddress { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Person> PersonLiveAddress { get; set; }
     }
 }

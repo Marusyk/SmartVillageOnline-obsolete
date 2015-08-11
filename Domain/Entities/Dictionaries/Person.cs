@@ -55,5 +55,14 @@ namespace Domain.Entities
         public string DatName { get; set; }
 
         public string DatLastName { get; set; }
+
+        // FK
+        public virtual Address AddressBith { get; set; }
+        public virtual Address AddressLive { get; set; }
+        public virtual Nationality Nationality { get; set; }
+        public virtual PassAuthority PassAuthority { get; set; }
+        public virtual FamilyStatus FamilyStatus { get; set; }
+        public virtual Country Citizenship { get; set; }
+        public virtual Catalog Catalog { get; set; }
     }
 }

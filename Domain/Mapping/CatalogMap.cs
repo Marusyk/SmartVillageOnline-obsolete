@@ -11,6 +11,7 @@ namespace Domain.Mapping
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
+            HasMany(a => a.Persons).WithRequired(p => p.Catalog).HasForeignKey(p => p.CatalogId);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Catalog");
         }

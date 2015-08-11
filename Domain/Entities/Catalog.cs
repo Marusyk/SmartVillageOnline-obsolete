@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -10,5 +11,8 @@ namespace Domain.Entities
         public string Name { get; set; }
 
         public int? ModuleId { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Person> Persons { get; set; }
     }
 }
