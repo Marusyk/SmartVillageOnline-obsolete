@@ -193,6 +193,7 @@
     <Compile Include="Controllers\API\AddressController.cs" />
     <Compile Include="Controllers\API\AnimalsController.cs" />
     <Compile Include="Controllers\API\BaseApiController.cs" />
+    <Compile Include="Controllers\API\CatalogController.cs" />
     <Compile Include="Controllers\API\CityController.cs" />
     <Compile Include="Controllers\API\CityTypeController.cs" />
     <Compile Include="Controllers\API\CountryController.cs" />
