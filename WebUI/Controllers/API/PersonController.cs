@@ -22,9 +22,9 @@ namespace WebUI.Controllers.API
 
         [HttpGet]
         [EnableQuery]
-        public IQueryable<Person> GetByFirstName(string name)
+        public IQueryable<Person> GetByFirstName(string firstName)
         {
-            var persons = repository.Table.Where(f => f.FirstName == name);
+            var persons = repository.Table.Where(f => f.FirstName == firstName);
 
             if (persons.Count() == 0)
             {

@@ -12,13 +12,13 @@ namespace Domain.Entities
 
         public string LastName { get; set; }
 
-        public DateTime DateBith { get; set; }
+        public DateTime DateBirth { get; set; }
 
         public bool Sex { get; set; }
 
         public bool IsResident { get; set; }
 
-        public int? AddressBithId { get; set; }
+        public int? AddressBirthId { get; set; }
 
         public int? AddressLiveId { get; set; }
 

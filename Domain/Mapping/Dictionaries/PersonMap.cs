@@ -13,7 +13,7 @@ namespace Domain.Mapping
             Property(t => t.FirstName).IsRequired().HasMaxLength(60);
             Property(t => t.Name).IsRequired().HasMaxLength(60);
             Property(t => t.LastName).IsRequired().HasMaxLength(60);
-            Property(t => t.DateBith).IsRequired();
+            Property(t => t.DateBirth).IsRequired();
             Property(t => t.Sex).IsRequired();
             Property(t => t.IdentificationCode).HasMaxLength(10);
             Property(t => t.PassSeria).HasMaxLength(2);
