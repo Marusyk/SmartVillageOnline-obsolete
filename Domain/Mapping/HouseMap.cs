@@ -11,7 +11,7 @@ namespace Domain.Mapping
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.HouseNr).IsRequired().HasMaxLength(10);
-            Property(t => t.KadastrNr).HasMaxLength(10);
+            Property(t => t.KadastrNr).HasMaxLength(30);
             Property(t => t.BuildNr).IsRequired().HasMaxLength(10);
             Property(t => t.AddressID).IsRequired();
             Property(t => t.PhoneNr).HasMaxLength(12);
