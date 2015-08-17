@@ -2,6 +2,7 @@
 using Domain.Entities;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.OData;
 
@@ -29,7 +30,12 @@ namespace WebUI.Controllers.API
 
             if (houses.Count() == 0)
             {
-                throw new HttpResponseException(HttpStatusCode.NoContent);
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No house where Year = {0}", year)),
+                    ReasonPhrase = "House Not Found"
+                };
+                throw new HttpResponseException(resp);
             }
 
             return houses;

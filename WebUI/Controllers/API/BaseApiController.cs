@@ -33,17 +33,28 @@ namespace WebUI.Controllers.API
 
             if (entity == null)
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NoContent));
+                var resp = new HttpResponseMessage(HttpStatusCode.NoContent)
+                {
+                    Content = new StringContent("There is no content")
+                };
+                throw new HttpResponseException(resp);
             }
             return entity;
         }
 
         public virtual T GetById(int id)
         {
+            string entityName = typeof(T).Name;
             var entity = repository.GetById(id);
+
             if (entity == null)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            {                
+                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("No {0} with ID = {1}", entityName, id)),
+                    ReasonPhrase = string.Format("{0} Not Found", entityName)
+                };
+                throw new HttpResponseException(resp);
             }
             return entity;
         }
@@ -59,7 +70,12 @@ namespace WebUI.Controllers.API
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(string.Format("code: 500, message: {1}", ex.HelpLink, ex.Message)),
+                   // ReasonPhrase = string.Format("{0} Not Found", entityName)
+                };
+                return Request.CreateResponse(resp);
             }
 
         }
