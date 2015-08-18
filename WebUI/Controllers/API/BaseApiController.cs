@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.OData;
 using WebUI.Infrastructure;
@@ -26,9 +27,36 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
+        public virtual HttpResponseMessage GetAll(int id, string all)
+        {
+            if (all == "all")
+            { 
+            string s1 = string.Empty;
+
+            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+            {
+                Type s = prop.PropertyType;
+                if (s.IsClass && !s.FullName.StartsWith("System."))
+                {
+                    s1 += prop.Name + ",";
+                }
+                
+            }
+
+            s1 = s1.Remove(s1.Length - 1);
+            string entityName = typeof(T).Name;
+            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            var response = Request.CreateResponse(HttpStatusCode.Found);
+            
+            response.Headers.Location = new Uri(baseUrl + "/api/"+ entityName +"?$expand=" + s1);
+            return response;
+            }
+            return Request.CreateResponse();
+        }
+
         [EnableQuery]
         public virtual IQueryable<T> Get()
-        {
+        {            
             var entity = repository.Table;
 
             if (entity == null)
@@ -42,6 +70,7 @@ namespace WebUI.Controllers.API
             return entity;
         }
 
+        [EnableQuery]
         public virtual T GetById(int id)
         {
             string entityName = typeof(T).Name;

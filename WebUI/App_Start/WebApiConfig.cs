@@ -19,6 +19,12 @@ namespace WebUI
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi2",
+                routeTemplate: "api/{controller}/{id}/{all}",
+                defaults: new { id = RouteParameter.Optional, all = RouteParameter.Optional }
+            );
+
             //config.Routes.MapHttpRoute(
             //    name: "ActionRoute",
             //    routeTemplate: "api/{controller}/{action}/{id}",
