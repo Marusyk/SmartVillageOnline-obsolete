@@ -14,6 +14,11 @@ namespace WebUI.Controllers.API
     {
         protected UnitOfWork unitOfWork = new UnitOfWork();
 
+        private string GenericTypeName
+        {
+            get { return typeof(T).Name; }
+        }
+
         protected IRepository<T> repository;
 
         public BaseApiController()
@@ -31,28 +36,22 @@ namespace WebUI.Controllers.API
         {
             var entity = repository.Table;
 
-            if (entity == null)
+            if (entity.Count() == 0 || entity == null) 
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NoContent)
-                {
-                    Content = new StringContent("There is no content")
-                };
-                throw new HttpResponseException(resp);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NoContent));
             }
             return entity;
         }
 
         public virtual T GetById(int id)
         {
-            string entityName = typeof(T).Name;
             var entity = repository.GetById(id);
 
             if (entity == null)
             {                
                 var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
-                    Content = new StringContent(string.Format("No {0} with ID = {1}", entityName, id)),
-                    ReasonPhrase = string.Format("{0} Not Found", entityName)
+                    Content = new StringContent(string.Format("No {0} with ID = {1}", GenericTypeName, id)),
                 };
                 throw new HttpResponseException(resp);
             }
@@ -64,18 +63,11 @@ namespace WebUI.Controllers.API
             try
             { 
                 repository.Insert(entity);
-                HttpResponseMessage msg = Request.CreateResponse(HttpStatusCode.Created, entity);
-                //msg.Headers.Location = new Uri(Request.RequestUri + "/" + (repository.Table.Count() - 1));
-                return msg;                
+                return Request.CreateResponse(HttpStatusCode.Created, entity);             
             }
             catch (Exception ex)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(string.Format("code: 500, message: {1}", ex.HelpLink, ex.Message)),
-                   // ReasonPhrase = string.Format("{0} Not Found", entityName)
-                };
-                return Request.CreateResponse(resp);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
             }
 
         }
@@ -86,7 +78,7 @@ namespace WebUI.Controllers.API
 
             if (toDelete == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, id));
             }
             try
             {
@@ -95,7 +87,7 @@ namespace WebUI.Controllers.API
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
             }
         }
 
@@ -105,7 +97,7 @@ namespace WebUI.Controllers.API
 
             if (oldEntity == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return Request.CreateResponse(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, entity.ID));
             }
             try
             {
@@ -116,7 +108,7 @@ namespace WebUI.Controllers.API
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
             }
         }
 
