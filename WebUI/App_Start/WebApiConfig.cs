@@ -1,29 +1,41 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Http.Routing;
 using System.Web.Http.Tracing;
 
 namespace WebUI
 {
     public static class WebApiConfig
     {
+        public class CustomDirectRouteProvider : DefaultDirectRouteProvider
+        {
+            protected override IReadOnlyList<IDirectRouteFactory> GetActionRouteFactories(HttpActionDescriptor actionDescriptor)
+            {
+                // inherit route attributes decorated on base class controller's actions
+                return actionDescriptor.GetCustomAttributes<IDirectRouteFactory>
+                (inherit: true);
+            }
+        }
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes(new CustomDirectRouteProvider());
+
+            config.Routes.MapHttpRoute(
+                name: "LinkedEntityRoute",
+                routeTemplate: "api/full/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi2",
-                routeTemplate: "api/{controller}/{id}/{all}",
-                defaults: new { id = RouteParameter.Optional, all = RouteParameter.Optional }
-            );
+            );            
 
             //config.Routes.MapHttpRoute(
             //    name: "ActionRoute",
