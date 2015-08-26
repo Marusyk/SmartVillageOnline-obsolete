@@ -42,7 +42,7 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(statusCode, error);
         }
         #endregion
-       
+
         #region GET
 
         [EnableQuery]
@@ -59,19 +59,29 @@ namespace WebUI.Controllers.API
         }
 
         [EnableQuery]
-        public virtual IQueryable<T> Get(int pageIndex, int pageSize)
+        public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
-            pageIndex = pageIndex > 0 ? pageIndex - 1 : 0;
+            pageNo = pageNo > 0 ? pageNo - 1 : 0;
             pageSize = pageSize > 0 ? pageSize : 0;
 
-            var entity = repository.Table.OrderBy(c => c.ID).Skip(pageIndex * pageSize).Take(pageSize);
+            int total = repository.Table.Count();
+            int pageCount = total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
+
+            var entity = repository.Table.OrderBy(c => c.ID).Skip(pageNo * pageSize).Take(pageSize);
 
             if (entity.Count() == 0 || entity == null)
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
-                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
+                return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            return entity;
+
+            var response = Request.CreateResponse(HttpStatusCode.OK, entity);
+            response.Headers.Add("X-Paging-PageNo", (pageNo + 1).ToString());
+            response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
+            response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
+            response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
+
+            return response;
         }
 
         [EnableQuery]
