@@ -58,6 +58,7 @@ namespace WebUI.Controllers.API
             return entity;
         }
 
+        [EnableQuery]
         public virtual IQueryable<T> Get(int pageIndex, int pageSize)
         {
             pageIndex = pageIndex > 0 ? pageIndex - 1 : 0;
@@ -73,6 +74,7 @@ namespace WebUI.Controllers.API
             return entity;
         }
 
+        [EnableQuery]
         public virtual T GetById(int id)
         {
             var entity = repository.GetById(id);
