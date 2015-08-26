@@ -13,12 +13,6 @@ namespace WebUI.Controllers.API
     public class BaseApiController<T> : ApiController, IBaseApiInterface<T>  where T : BaseEntity
     {
         protected UnitOfWork unitOfWork = new UnitOfWork();
-
-        private string GenericTypeName
-        {
-            get { return typeof(T).Name; }
-        }
-
         protected IRepository<T> repository;
 
         public BaseApiController()
@@ -31,6 +25,25 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
+        #region Private
+        private string GenericTypeName
+        {
+            get { return typeof(T).Name; }
+        }
+
+        private HttpResponseMessage ErrorMsg(HttpStatusCode statusCode, string errorMsg)
+        {
+            HttpError error = new HttpError()
+            {
+                Message = string.Format("code: {0}", (int)statusCode),
+                MessageDetail = errorMsg
+            };            
+            return Request.CreateResponse(statusCode, error);
+        }
+        #endregion
+       
+        #region GET
+
         [EnableQuery]
         public virtual IQueryable<T> Get()
         {
@@ -38,7 +51,8 @@ namespace WebUI.Controllers.API
 
             if (entity.Count() == 0 || entity == null) 
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NoContent));
+                var message = string.Format("{0}: No content", GenericTypeName);
+                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
             }
             return entity;
         }
@@ -49,15 +63,14 @@ namespace WebUI.Controllers.API
 
             if (entity == null)
             {                
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("No {0} with ID = {1}", GenericTypeName, id)),
-                };
-                throw new HttpResponseException(resp);
+                var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
+                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
             }
             return entity;
         }
+        #endregion
 
+        #region POST
         public virtual HttpResponseMessage Post([FromBody]T entity)
         {           
             try
@@ -67,37 +80,44 @@ namespace WebUI.Controllers.API
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
+                return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
             }
 
         }
+        #endregion
 
+        #region DELETE
         public virtual HttpResponseMessage Delete(int id)
         {
+            string message;
             T toDelete = repository.GetById(id);
 
             if (toDelete == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, id));
+                message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
+                return ErrorMsg(HttpStatusCode.NotFound, message);
             }
             try
             {
                 repository.Delete(toDelete);
-                return Request.CreateResponse(HttpStatusCode.OK, toDelete.ID);
+                message = string.Format("{0} with ID = {1} was deleted", GenericTypeName, id);
+                return ErrorMsg(HttpStatusCode.OK, message);
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
+                return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        #endregion
 
+        #region PUT
         public virtual HttpResponseMessage Put([FromBody]T entity)
         {
             T oldEntity = repository.GetById(entity.ID);
 
             if (oldEntity == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, entity.ID));
+                return ErrorMsg(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, entity.ID));
             }
             try
             {
@@ -108,9 +128,10 @@ namespace WebUI.Controllers.API
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, string.Format("Code: 500, Message: {0}", ex.Message));
+                return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
