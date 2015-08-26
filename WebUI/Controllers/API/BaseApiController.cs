@@ -12,9 +12,6 @@ namespace WebUI.Controllers.API
 {
     public class BaseApiController<T> : ApiController, IBaseApiInterface<T>  where T : BaseEntity
     {
-        protected UnitOfWork unitOfWork = new UnitOfWork();
-        protected IRepository<T> repository;
-
         public BaseApiController()
         {
             repository = unitOfWork.EFRepository<T>();
@@ -25,13 +22,17 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        #region Private
-        private string GenericTypeName
+        #region Protected
+
+        protected UnitOfWork unitOfWork = new UnitOfWork();
+        protected IRepository<T> repository;
+
+        protected string GenericTypeName
         {
             get { return typeof(T).Name; }
         }
 
-        private HttpResponseMessage ErrorMsg(HttpStatusCode statusCode, string errorMsg)
+        protected HttpResponseMessage ErrorMsg(HttpStatusCode statusCode, string errorMsg)
         {
             HttpError error = new HttpError()
             {
@@ -50,6 +51,21 @@ namespace WebUI.Controllers.API
             var entity = repository.Table;
 
             if (entity.Count() == 0 || entity == null) 
+            {
+                var message = string.Format("{0}: No content", GenericTypeName);
+                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
+            }
+            return entity;
+        }
+
+        public virtual IQueryable<T> Get(int pageIndex, int pageSize)
+        {
+            pageIndex = pageIndex > 0 ? pageIndex - 1 : 0;
+            pageSize = pageSize > 0 ? pageSize : 0;
+
+            var entity = repository.Table.OrderBy(c => c.ID).Skip(pageIndex * pageSize).Take(pageSize);
+
+            if (entity.Count() == 0 || entity == null)
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
