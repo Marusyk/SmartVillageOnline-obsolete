@@ -7,10 +7,10 @@ namespace WebUI.Infrastructure
     public interface IBaseApiInterface<T>
     {
         // Get all entities
-        IQueryable<T> Get();
+        HttpResponseMessage Get();
 
         // Get entity by ID
-        T GetById(int id);
+        HttpResponseMessage GetById(int id);
 
         // Insert new entity
         HttpResponseMessage Post([FromBody]T entity);

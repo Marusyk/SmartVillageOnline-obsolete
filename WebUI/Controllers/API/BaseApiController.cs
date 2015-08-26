@@ -46,16 +46,16 @@ namespace WebUI.Controllers.API
         #region GET
 
         [EnableQuery]
-        public virtual IQueryable<T> Get()
+        public virtual HttpResponseMessage Get()
         {
             var entity = repository.Table;
 
-            if (entity.Count() == 0 || entity == null) 
+            if (entity.Count() == 0 || entity == null)
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
-                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
+                return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            return entity;
+            return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
 
         [EnableQuery]
@@ -85,16 +85,16 @@ namespace WebUI.Controllers.API
         }
 
         [EnableQuery]
-        public virtual T GetById(int id)
+        public virtual HttpResponseMessage GetById(int id)
         {
             var entity = repository.GetById(id);
 
             if (entity == null)
             {                
                 var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
-                throw new HttpResponseException(ErrorMsg(HttpStatusCode.NotFound, message));
+                return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            return entity;
+            return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
         #endregion
 

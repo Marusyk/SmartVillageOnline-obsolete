@@ -20,7 +20,7 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        public override SYS_Dictionary GetById(int id)
+        public override HttpResponseMessage GetById(int id)
         {
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
