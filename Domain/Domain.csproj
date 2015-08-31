@@ -58,6 +58,7 @@
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
     <Compile Include="Entities\Dictionaries\Person.cs" />
+    <Compile Include="Entities\People.cs" />
     <Compile Include="Mapping\CatalogMap.cs" />
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyRelationsMap.cs" />
