@@ -69,6 +69,7 @@
     <Compile Include="Mapping\Dictionaries\PensionTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\PersonMap.cs" />
     <Compile Include="Mapping\Dictionaries\PositionMap.cs" />
+    <Compile Include="Mapping\PeopleMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
     <Compile Include="Entities\Dictionaries\Animals.cs" />
