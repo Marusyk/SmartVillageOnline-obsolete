@@ -22,6 +22,12 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
+
+        /// <summary>
+        /// TEST
+        /// </summary>
+        /// <param name="year">ParamBy</param>
+        /// <returns></returns>
         [HttpGet]
         [EnableQuery]
         public IQueryable<House> GetByYear(int year)
