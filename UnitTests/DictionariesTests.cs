@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Moq;
 using WebUI.Controllers.API;
 using System.Web.Http;
+using System.Net.Http;
 
 namespace UnitTests
 {
@@ -47,11 +48,11 @@ namespace UnitTests
             DictionaryController target = new DictionaryController(moq);
 
             //Action
-            var result = target.Get().ToArray();
+            HttpResponseMessage response = target.Get();
+            var result = response.Content.ReadAsAsync<IQueryable<SYS_Dictionary>>().Result;
 
             //Assert
-            Assert.AreEqual(3, result.Length);
-            Assert.IsFalse(result[1].IsStatic);
+            Assert.AreEqual(3, result.Count());
         }
 
     }
