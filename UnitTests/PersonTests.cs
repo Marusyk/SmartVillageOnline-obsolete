@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using WebUI.Controllers.API;
 using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Hosting;
 using System.Web.Http;
 using System.Net;
 
@@ -145,6 +143,72 @@ namespace UnitTests
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
             Assert.AreEqual(4, resultSelect.Count());
+        }
+
+        [TestMethod]
+        public void Person_Get_Paging_1_2()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.Get(1, 2);
+            var result = response.Content.ReadAsAsync<IQueryable<Person>>().Result;
+
+            int pageNo = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageNo").First());
+            int pageSize = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageSize").First());
+            int pageCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageCount").First());
+            int totalRecordCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-TotalRecordCount").First());
+
+            //Assert
+            Assert.AreEqual(1, pageNo);
+            Assert.AreEqual(2, pageSize);
+            Assert.AreEqual(3, pageCount);
+            Assert.AreEqual(5, totalRecordCount);
+        }
+
+        [TestMethod]
+        public void Person_Get_Paging_5_1()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.Get(5, 1);
+            var result = response.Content.ReadAsAsync<IQueryable<Person>>().Result;
+
+            int pageNo = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageNo").First());
+            int pageSize = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageSize").First());
+            int pageCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageCount").First());
+            int totalRecordCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-TotalRecordCount").First());
+
+            //Assert
+            Assert.AreEqual(5, pageNo);
+            Assert.AreEqual(1, pageSize);
+            Assert.AreEqual(5, pageCount);
+            Assert.AreEqual(5, totalRecordCount);
+        }
+
+        [TestMethod]
+        public void Person_Get_Paging_3_2()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.Get(3, 2);
+            var result = response.Content.ReadAsAsync<IQueryable<Person>>().Result;
+
+            int pageNo = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageNo").First());
+            int pageSize = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageSize").First());
+            int pageCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageCount").First());
+            int totalRecordCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-TotalRecordCount").First());
+
+            //Assert
+            Assert.AreEqual(3, pageNo);
+            Assert.AreEqual(2, pageSize);
+            Assert.AreEqual(3, pageCount);
+            Assert.AreEqual(5, totalRecordCount);
         }
     }
 }
