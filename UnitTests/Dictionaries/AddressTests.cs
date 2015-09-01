@@ -68,10 +68,25 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var result = target.Get().ToArray();
+            HttpResponseMessage response = target.Get();
+            var result = response.Content.ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
-            Assert.AreEqual(5, result.Length);
+            Assert.AreEqual(5, result.Count());
+        }
+
+        [TestMethod]
+        public void Address_Get_By_Id()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.GetById(1);
+            var result = response.Content.ReadAsAsync<Address>().Result;
+
+            //Assert
+            Assert.AreEqual(1, result.ID);
         }
 
         [TestMethod]
@@ -85,11 +100,14 @@ namespace UnitTests
 
             //Action
             var resultInsert = target.Post(newAddress);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(10).Content.ReadAsAsync<Address>().Result;
+            var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
-            Assert.AreEqual(6, resultSelect.Length);
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            Assert.AreEqual(10, resultSelect.ID);
+            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual("010", resultSelect.BuildNr);
         }
 
         [TestMethod]
@@ -99,14 +117,15 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action                     
-            var address = target.GetById(1);
+            var address = target.GetById(1).Content.ReadAsAsync<Address>().Result;
             address.BuildNr = "007";
             var resultUpdate = target.Put(address);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(1).Content.ReadAsAsync<Address>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("007", resultSelect[0].BuildNr);
+            Assert.AreEqual(1, resultSelect.ID);
+            Assert.AreEqual("007", resultSelect.BuildNr);
         }
 
         [TestMethod]
@@ -116,13 +135,13 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var address = target.GetById(1);
+            var address = target.GetById(1).Content.ReadAsAsync<Address>().Result;
             var resultDelete = target.Delete(address.ID);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Length);
+            Assert.AreEqual(4, resultSelect.Count());
         }
     }
 }
