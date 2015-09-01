@@ -70,10 +70,25 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var result = target.Get().ToArray();
+            HttpResponseMessage response = target.Get();
+            var model = response.Content.ReadAsAsync<IQueryable<Person>>().Result;
 
             //Assert
-            Assert.AreEqual(5, result.Length);
+            Assert.AreEqual(5, model.Count());
+        }
+
+        [TestMethod]
+        public void Person_Get_By_Id()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.GetById(1);
+            var model = response.Content.ReadAsAsync<Person>().Result;
+
+            //Assert
+            Assert.AreEqual(1, model.ID);
         }
 
         [TestMethod]
@@ -83,15 +98,19 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Arrange - create a new country for insert
-            var newPerson = new Person() { ID = 10, FirstName = "Sergey", LastName = "Brin" };
+            var newPerson = new Person() { ID = 10, FirstName = "Larry", LastName = "Page" };
 
             //Action
             var resultInsert = target.Post(newPerson);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(10).Content.ReadAsAsync<Person>().Result;
+            var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<Person>>().Result;
 
             //Assert
-            Assert.AreEqual(6, resultSelect.Length);
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            Assert.AreEqual(10, resultSelect.ID);
+            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual("Larry", resultSelect.FirstName);
+            Assert.AreEqual("Page", resultSelect.LastName);                       
         }
 
         [TestMethod]
@@ -101,14 +120,15 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action                     
-            var person = target.GetById(1);
+            var person = target.GetById(1).Content.ReadAsAsync<Person>().Result;
             person.LastName = "McConnell";
             var resultUpdate = target.Put(person);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(1).Content.ReadAsAsync<Person>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("McConnell", resultSelect[0].LastName);
+            Assert.AreEqual(1, resultSelect.ID);
+            Assert.AreEqual("McConnell", resultSelect.LastName);
         }
 
         [TestMethod]
@@ -118,13 +138,13 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var person = target.GetById(1);
+            var person = target.GetById(1).Content.ReadAsAsync<Person>().Result;
             var resultDelete = target.Delete(person.ID);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<Person>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Length);
+            Assert.AreEqual(4, resultSelect.Count());
         }
     }
 }
