@@ -24,11 +24,10 @@ namespace WebUI.Controllers.API
 
 
         /// <summary>
-        /// TEST
+        /// Gets all houses by year.
         /// </summary>
-        /// <param name="year">ParamBy</param>
+        /// <param name="year">The Year of houses</param>
         /// <returns></returns>
-        [HttpGet]
         [EnableQuery]
         public IQueryable<House> GetByYear(int year)
         {                        
