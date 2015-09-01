@@ -132,7 +132,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void PErson_Can_Remove()
+        public void Person_Can_Remove()
         {
             //Arrange
             var target = ArrangeController();

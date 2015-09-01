@@ -46,6 +46,8 @@ namespace UnitTests
 
             //Arrange - create a controller
             DictionaryController target = new DictionaryController(moq);
+            target.Request = new HttpRequestMessage();
+            target.Request.SetConfiguration(new HttpConfiguration());
 
             //Action
             HttpResponseMessage response = target.Get();
