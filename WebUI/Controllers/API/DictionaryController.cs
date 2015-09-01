@@ -2,6 +2,7 @@
 using Domain.Entities.SystemTables;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace WebUI.Controllers.API
@@ -20,24 +21,24 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        public override HttpResponseMessage GetById(int id)
+        public override Task<HttpResponseMessage> GetById(int id)
         {
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
-        public override HttpResponseMessage Post([FromBody]SYS_Dictionary entity)
+        public override Task<HttpResponseMessage> Post([FromBody]SYS_Dictionary entity)
         {
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
-        public override HttpResponseMessage Put([FromBody]SYS_Dictionary entity)
+        public override Task<HttpResponseMessage> Put([FromBody]SYS_Dictionary entity)
         {
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
-        public override HttpResponseMessage Delete(int id)
+        public override Task<HttpResponseMessage> Delete(int id)
         {
-            return Request.CreateResponse(HttpStatusCode.BadRequest);
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
     }
 }

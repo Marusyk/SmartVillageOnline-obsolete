@@ -1,10 +1,9 @@
 ﻿using Domain.Abstract;
-using Domain.Entities;
 using System;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Domain.Concrete
 {
@@ -22,6 +21,11 @@ namespace Domain.Concrete
         public T GetById(object id)
         {
             return this.Entities.Find(id);
+        }
+
+        public Task<T> GetByIdAsync(object id)
+        {
+            return Task.Run(() => GetById(id));
         }
 
         public void Insert(T entity)
@@ -49,6 +53,11 @@ namespace Domain.Concrete
             }
         }
 
+        public Task InsertAsync(T entity)
+        {
+            return Task.Run(() => Insert(entity));
+        }
+
         public void Update(T entity)
         {
             try
@@ -71,6 +80,11 @@ namespace Domain.Concrete
                 }
                 throw new Exception(errorMessage, dbEx);
             }
+        }
+
+        public Task UpdateAsync(T entity)
+        {
+            return Task.Run(() => UpdateAsync(entity));
         }
 
         public void Delete(T entity)
@@ -98,11 +112,24 @@ namespace Domain.Concrete
             }
         }
 
+        public Task DeleteAsync(T entity)
+        {
+            return Task.Run(() => Delete(entity));
+        }              
+
         public IQueryable<T> Table
         {
             get
             {
                 return this.Entities;
+            }
+        }
+
+        public Task<IQueryable<T>> TableAsync
+        {
+            get
+            {
+                return Task.Run(() => Table);
             }
         }
 

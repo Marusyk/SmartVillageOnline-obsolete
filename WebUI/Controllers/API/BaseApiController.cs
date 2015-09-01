@@ -4,9 +4,13 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.OData;
 using WebUI.Infrastructure;
+using System.Data.Entity;
+using System.Diagnostics;
+using System.Threading;
 
 namespace WebUI.Controllers.API
 {
@@ -46,9 +50,9 @@ namespace WebUI.Controllers.API
         #region GET
 
         [EnableQuery]
-        public virtual HttpResponseMessage Get()
+        public async virtual Task<HttpResponseMessage> Get()
         {
-            var entity = repository.Table;
+            var entity = await repository.TableAsync;
 
             if (entity.Count() == 0 || entity == null)
             {
@@ -61,6 +65,7 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
+            //Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
             pageNo = pageNo > 0 ? pageNo - 1 : 0;
             pageSize = pageSize > 0 ? pageSize : 0;
 
@@ -80,14 +85,14 @@ namespace WebUI.Controllers.API
             response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
             response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
             response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
-
+            Debug.WriteLine(Thread.CurrentThread.ManagedThreadId);
             return response;
         }
 
         [EnableQuery]
-        public virtual HttpResponseMessage GetById(int id)
+        public async virtual Task<HttpResponseMessage> GetById(int id)
         {
-            var entity = repository.GetById(id);
+            var entity = await repository.GetByIdAsync(id);
 
             if (entity == null)
             {                
@@ -99,11 +104,11 @@ namespace WebUI.Controllers.API
         #endregion
 
         #region POST
-        public virtual HttpResponseMessage Post([FromBody]T entity)
-        {           
+        public async virtual Task<HttpResponseMessage> Post([FromBody]T entity)
+        {
             try
-            { 
-                repository.Insert(entity);
+            {
+                await repository.InsertAsync(entity);
                 return Request.CreateResponse(HttpStatusCode.Created, entity);             
             }
             catch (Exception ex)
@@ -115,7 +120,7 @@ namespace WebUI.Controllers.API
         #endregion
 
         #region DELETE
-        public virtual HttpResponseMessage Delete(int id)
+        public async virtual Task<HttpResponseMessage> Delete(int id)
         {
             string message;
             T toDelete = repository.GetById(id);
@@ -127,7 +132,7 @@ namespace WebUI.Controllers.API
             }
             try
             {
-                repository.Delete(toDelete);
+                await repository.DeleteAsync(toDelete);
                 message = string.Format("{0} with ID = {1} was deleted", GenericTypeName, id);
                 return ErrorMsg(HttpStatusCode.OK, message);
             }
@@ -139,7 +144,7 @@ namespace WebUI.Controllers.API
         #endregion
 
         #region PUT
-        public virtual HttpResponseMessage Put([FromBody]T entity)
+        public async virtual Task<HttpResponseMessage> Put([FromBody]T entity)
         {
             T oldEntity = repository.GetById(entity.ID);
 
@@ -151,7 +156,7 @@ namespace WebUI.Controllers.API
             {
                 oldEntity = entity;
                 oldEntity.LastUpdDT = DateTime.Now;
-                repository.Update(oldEntity);
+                await repository.UpdateAsync(oldEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
             }
             catch (Exception ex)
