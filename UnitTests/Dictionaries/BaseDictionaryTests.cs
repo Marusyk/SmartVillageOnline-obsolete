@@ -64,16 +64,18 @@ namespace UnitTests.Dictionaries
         protected virtual void GetAll()
         {
             //Action
-            var result = controller.Get().ToArray();
+            HttpResponseMessage response = controller.Get();
+            var result = response.Content.ReadAsAsync<IQueryable<T>>().Result;
 
             //Assert
-            Assert.AreEqual(5, result.Length);
+            Assert.AreEqual(5, result.Count());
         }
 
         protected virtual void GetById()
         {
             // Action
-            var result = controller.GetById(1);
+            HttpResponseMessage response = controller.GetById(1);
+            var result = response.Content.ReadAsAsync<T>().Result;
 
             // Accert
             Assert.IsNotNull(result);
@@ -86,40 +88,44 @@ namespace UnitTests.Dictionaries
 
             // Act
             var resultInsert = controller.Post(entity);
-            var resultSelect = controller.Get().ToArray();
+            var resultSelect = controller.GetById(10).Content.ReadAsAsync<T>().Result;
+            var resultTotalCount = controller.Get().Content.ReadAsAsync<IQueryable<T>>().Result;
 
             // Assert
-            Assert.AreEqual(6, resultSelect.Length);
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            Assert.AreEqual(10, resultSelect.ID);
+            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual("TEST", resultSelect.Name);
         }
 
         protected void Edit()
         {
             // Arrange
-            var entity = controller.GetById(1);
+            var entity = controller.GetById(1).Content.ReadAsAsync<T>().Result;
             entity.Name = "TEST";
 
             //Action                                 
             var resultUpdate = controller.Put(entity);
-            var resultSelect = controller.Get().ToArray();
+            var resultSelect = controller.GetById(1).Content.ReadAsAsync<T>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("TEST", (resultSelect[0] as BaseDictionary).Name);
+            Assert.AreEqual(1, resultSelect.ID);
+            Assert.AreEqual("TEST", resultSelect.Name);
         }
 
         protected void Remove()
         {
             // Arrange
-            var entity = controller.GetById(1);
+            var entity = controller.GetById(1).Content.ReadAsAsync<T>().Result;
 
             //Action
             var resultDelete = controller.Delete(entity.ID);
-            var resultSelect = controller.Get().ToArray();
+            var resultSelect = controller.Get().Content.ReadAsAsync<IQueryable<T>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Length);
+            Assert.AreEqual(4, resultSelect.Count());
         }
     }
 }
