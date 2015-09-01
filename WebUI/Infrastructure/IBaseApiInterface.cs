@@ -9,6 +9,9 @@ namespace WebUI.Infrastructure
         // Get all entities
         HttpResponseMessage Get();
 
+        // Get entity with paging
+        HttpResponseMessage Get(int pageNo, int pageSize);
+
         // Get entity by ID
         HttpResponseMessage GetById(int id);
 
