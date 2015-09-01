@@ -70,10 +70,25 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var result = target.Get().ToArray();
+            HttpResponseMessage response = target.Get();
+            var result = response.Content.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
-            Assert.AreEqual(5, result.Length);
+            Assert.AreEqual(5, result.Count());
+        }
+
+        [TestMethod]
+        public void House_Get_By_Id()
+        {
+            //Arrange
+            var target = ArrangeController();
+
+            //Action
+            HttpResponseMessage response = target.GetById(1);
+            var result = response.Content.ReadAsAsync<House>().Result;
+
+            //Assert
+            Assert.AreEqual(1, result.ID);
         }
 
         [TestMethod]
@@ -87,11 +102,15 @@ namespace UnitTests
 
             //Action
             var resultInsert = target.Post(newHouse);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(10).Content.ReadAsAsync<House>().Result;
+            var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
-            Assert.AreEqual(6, resultSelect.Length);
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            Assert.AreEqual(10, resultSelect.ID);
+            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual("010", resultSelect.BuildNr);
+            Assert.AreEqual("10", resultSelect.HouseNr);
         }
 
         [TestMethod]
@@ -101,14 +120,15 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action                     
-            var house = target.GetById(1);
+            var house = target.GetById(1).Content.ReadAsAsync<House>().Result;
             house.HouseNr = "007";
             var resultUpdate = target.Put(house);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.GetById(1).Content.ReadAsAsync<House>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual("007", resultSelect[0].HouseNr);
+            Assert.AreEqual(1, resultSelect.ID);
+            Assert.AreEqual("007", resultSelect.HouseNr);
         }
 
         [TestMethod]
@@ -118,13 +138,13 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var house = target.GetById(1);
+            var house = target.GetById(1).Content.ReadAsAsync<House>().Result;
             var resultDelete = target.Delete(house.ID);
-            var resultSelect = target.Get().ToArray();
+            var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Length);
+            Assert.AreEqual(4, resultSelect.Count());
         }
     }
 }
