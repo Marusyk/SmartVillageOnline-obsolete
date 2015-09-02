@@ -49,5 +49,11 @@ namespace UnitTests.Dictionaries
         {
             base.Remove();
         }
+
+        [TestMethod]
+        public void City_Get_All_Paging()
+        {
+            base.GetAll(/*pageNo, pageSize*/);
+        }
     }
 }

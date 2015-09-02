@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace UnitTests.Dictionaries
 {
@@ -69,6 +70,30 @@ namespace UnitTests.Dictionaries
 
             //Assert
             Assert.AreEqual(5, result.Count());
+        }
+
+        protected virtual void GetAll(int pageNo = 1, int pageSize = 2)
+        {
+            //Arrange
+            int pageCount = entitiesList.Count() > 0 ? (int)Math.Ceiling(entitiesList.Count() / (double)pageSize) : 0;
+
+            if (pageSize > 0 & pageSize > 0)
+            {
+                //Action
+                HttpResponseMessage response = controller.Get(pageNo, pageSize);
+                var result = response.Content.ReadAsAsync<IQueryable<T>>().Result;
+                
+                int _pageNo = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageNo").First());
+                int _pageSize = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageSize").First());
+                int _pageCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-PageCount").First());
+                int _totalRecordCount = Convert.ToInt32(response.Headers.GetValues("X-Paging-TotalRecordCount").First());
+
+                //Assert
+                Assert.AreEqual(pageNo, _pageNo);
+                Assert.AreEqual(pageSize, _pageSize);
+                Assert.AreEqual(pageCount, _pageCount);
+                Assert.AreEqual(entitiesList.Count(), _totalRecordCount);
+            }
         }
 
         protected virtual void GetById()
