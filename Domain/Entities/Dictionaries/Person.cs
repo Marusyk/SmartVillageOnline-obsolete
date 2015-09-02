@@ -1,6 +1,8 @@
 ﻿using Domain.Abstract;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -64,5 +66,8 @@ namespace Domain.Entities
         public virtual FamilyStatus FamilyStatus { get; set; }
         public virtual Country Citizenship { get; set; }
         public virtual Catalog Catalog { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<People> Peoples { get; set; }
     }
 }

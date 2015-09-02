@@ -11,7 +11,7 @@ namespace Domain.Mapping.Dictionaries
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
-            HasMany(a => a.Peoples).WithOptional(p => p.FamilyRelations).HasForeignKey(p => p.FamilyRelationsId);
+            HasMany(a => a.Peoples).WithOptional(p => p.FamilyRelations).HasForeignKey(p => p.FamilyRelationID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("FamilyRelations");
         }

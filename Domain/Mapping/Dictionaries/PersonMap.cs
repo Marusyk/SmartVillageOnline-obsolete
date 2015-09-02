@@ -24,6 +24,7 @@ namespace Domain.Mapping
             Property(t => t.DatFirstName).HasMaxLength(60);
             Property(t => t.DatName).HasMaxLength(60);
             Property(t => t.DatLastName).HasMaxLength(60);
+            HasMany(a => a.Peoples).WithRequired(p => p.Persons).HasForeignKey(p => p.PersonID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Person");
         }

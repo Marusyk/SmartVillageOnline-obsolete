@@ -11,7 +11,7 @@ namespace Domain.Entities
 
         public int PeopleNumber { get; set; }
 
-        public int? FamilyRelationsId { get; set; }
+        public int? FamilyRelationID { get; set; }
 
         public DateTime? DateRegistration { get; set; }
 
@@ -19,6 +19,9 @@ namespace Domain.Entities
 
         //FK to House
         public virtual House Houses { get; set; }
+
+        //FK to Person
+        public virtual Person Persons { get; set; }
 
         //FK to FamilyRelations
         public virtual FamilyRelations FamilyRelations { get; set; }
