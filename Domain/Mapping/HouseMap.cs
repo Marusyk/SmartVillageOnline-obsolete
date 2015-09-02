@@ -18,6 +18,7 @@ namespace Domain.Mapping
             Property(t => t.PhoneCode).HasMaxLength(5);
             Property(t => t.FaxNr).HasMaxLength(12);
             Property(t => t.Code).HasMaxLength(50);
+            HasMany(a => a.Peoples).WithRequired(p => p.Houses).HasForeignKey(p => p.HouseID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("House");
         }

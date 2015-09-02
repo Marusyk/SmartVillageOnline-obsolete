@@ -17,5 +17,10 @@ namespace Domain.Entities
 
         public bool IsMain { get; set; }
 
+        //FK to House
+        public virtual House Houses { get; set; }
+
+        //FK to FamilyRelations
+        public virtual FamilyRelations FamilyRelations { get; set; }
     }
 }

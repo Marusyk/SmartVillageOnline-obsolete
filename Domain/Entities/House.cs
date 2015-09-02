@@ -1,4 +1,6 @@
 ﻿using Domain.Abstract;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -24,5 +26,8 @@ namespace Domain.Entities
 
         //FK to Address
         public virtual Address Address { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<People> Peoples { get; set; }
     }
 }
