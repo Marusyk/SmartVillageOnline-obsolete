@@ -43,6 +43,23 @@ namespace WebUI.Controllers.API
         }
         #endregion
 
+        #region Private
+        private int NormalizePageNo(int pageNo)
+        {
+            return pageNo > 0 ? pageNo - 1 : 0;
+        }
+
+        private int NormalizePageSize(int pageSize)
+        {
+            return pageSize > 0 ? pageSize : 0;
+        }
+
+        private int CalculatePageCount(int total, int pageSize)
+        {
+            return total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
+        }
+        #endregion
+
         #region GET
 
         [EnableQuery]
@@ -50,7 +67,7 @@ namespace WebUI.Controllers.API
         {
             var entity = repository.Table;
 
-            if (entity.Count() == 0 || entity == null)
+            if (entity == null || !entity.Any())
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
@@ -61,15 +78,18 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
-            pageNo = pageNo > 0 ? pageNo - 1 : 0;
-            pageSize = pageSize > 0 ? pageSize : 0;
+            pageNo = NormalizePageNo(pageNo);
+            pageSize = NormalizePageSize(pageSize);
 
             int total = repository.Table.Count();
-            int pageCount = total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
+            int pageCount = CalculatePageCount(total, pageSize);
 
-            var entity = repository.Table.OrderBy(c => c.ID).Skip(pageNo * pageSize).Take(pageSize);
+            var entity = repository.Table
+                .OrderBy(c => c.ID)
+                .Skip(pageNo * pageSize)
+                .Take(pageSize);
 
-            if (entity.Count() == 0 || entity == null)
+            if (entity == null || !entity.Any())
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
