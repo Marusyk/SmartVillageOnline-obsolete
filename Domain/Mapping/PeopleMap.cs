@@ -15,6 +15,7 @@ namespace Domain.Mapping
             Property(t => t.PeopleNumber).IsRequired();
             Property(t => t.IsMain).IsRequired();            
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
+            Ignore(t => t.FullName);
             ToTable("People");
         }
     }

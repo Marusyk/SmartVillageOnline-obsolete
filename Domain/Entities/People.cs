@@ -17,6 +17,16 @@ namespace Domain.Entities
 
         public bool IsMain { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                if (Persons != null)
+                    return Persons.FirstName + " " + Persons.LastName;
+                return "NONE";
+            }
+        }
+
         //FK to House
         public virtual House Houses { get; set; }
 
