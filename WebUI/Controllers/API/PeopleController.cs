@@ -1,6 +1,7 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,18 +34,18 @@ namespace WebUI.Controllers.API
                 return ErrorMsg(HttpStatusCode.NotFound, string.Format("No people with ID = {1}", id));
             }
 
-            if(people.IsMain == true)
+            if (people.IsMain == true)
             {
-                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.FullName));
+                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.FullName)); // no name
             }
 
             try
             {
-                string[] s = new string[2];
-                s[0] = id.ToString();
-                s[1] = "Roma";
-                repository.ExecProcedure("usp_PeopleSetMain @PeopleID = 1, @LastUpdUs", s);
-                return Request.CreateResponse(HttpStatusCode.OK, people);
+                var parameters = new Dictionary<string, string>();
+                parameters.Add("PeopleID", id.ToString());
+
+                repository.ExecProcedure("usp_PeopleSetMain", parameters);
+                return Request.CreateResponse(HttpStatusCode.OK, repository.GetById(id)); // some problem here
             }
             catch (Exception ex)
             {
