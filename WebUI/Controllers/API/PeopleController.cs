@@ -40,9 +40,10 @@ namespace WebUI.Controllers.API
 
             try
             {
-                people.IsMain = true;
-                people.LastUpdDT = DateTime.Now;
-                repository.Update(people);
+                string[] s = new string[2];
+                s[0] = id.ToString();
+                s[1] = "Roma";
+                repository.ExecProcedure("usp_PeopleSetMain @PeopleID = 1, @LastUpdUs", s);
                 return Request.CreateResponse(HttpStatusCode.OK, people);
             }
             catch (Exception ex)

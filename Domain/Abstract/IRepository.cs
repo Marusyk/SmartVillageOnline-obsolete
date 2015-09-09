@@ -9,6 +9,7 @@ namespace Domain.Abstract
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void ExecProcedure(string name, string[] param);
         IQueryable<T> Table { get; }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace Domain.Concrete
@@ -118,5 +119,17 @@ namespace Domain.Concrete
             }
         }
 
+        public void ExecProcedure(string name, string[] param)
+        {
+            try
+            {
+                context.Database.SqlQuery<T>("exec " + name, new SqlParameter("PeopleID", param[0]), new SqlParameter("LastUpdUs", param[1]));
+            }
+            catch (Exception e)
+            {
+                string mess = e.Message;
+                throw new Exception(mess);
+            }
+        }
     }
 }
