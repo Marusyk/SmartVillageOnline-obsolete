@@ -1,11 +1,13 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 
 namespace Domain.Concrete
 {
@@ -119,17 +121,48 @@ namespace Domain.Concrete
             }
         }
 
-        public void ExecProcedure(string name, string[] param)
+        public void ExecProcedure(string name, Dictionary<string, string> param = null)
         {
+            List<object> sqlParametesList = new List<object>();
+            
             try
             {
-                context.Database.SqlQuery<T>("exec " + name, new SqlParameter("PeopleID", param[0]), new SqlParameter("LastUpdUs", param[1]));
+                if (param != null)
+                {
+                    name = NormalizeProcedureName(name, param);
+                    foreach (var item in param)
+                    {
+                        sqlParametesList.Add(new SqlParameter(item.Key, item.Value));
+                    }
+                }
+               
+                context.Database.ExecuteSqlCommand(name, sqlParametesList.ToArray());
             }
             catch (Exception e)
-            {
-                string mess = e.Message;
-                throw new Exception(mess);
+            {                
+                throw new Exception(string.Format("Error in ExecProcedure: {0}", e.Message));
             }
+        }
+
+        private string NormalizeProcedureName(string name, Dictionary<string, string> param)
+        {
+            if (!name.Contains("@"))
+            {
+                StringBuilder sb = new StringBuilder();
+                string delimiter = "";
+                sb.Append(name);
+
+                foreach (var item in param)
+                {                    
+                    sb.Append(delimiter);
+                    sb.Append(" @");
+                    sb.Append(item.Key);
+                    delimiter = ",";
+                }
+
+                name = sb.ToString();
+            }
+            return name;
         }
     }
 }

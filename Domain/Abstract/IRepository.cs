@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace Domain.Abstract
 {
@@ -9,7 +10,7 @@ namespace Domain.Abstract
         void Insert(T entity);
         void Update(T entity);
         void Delete(T entity);
-        void ExecProcedure(string name, string[] param);
+        void ExecProcedure(string name, Dictionary<string, string> param = null);
         IQueryable<T> Table { get; }
     }
 }
