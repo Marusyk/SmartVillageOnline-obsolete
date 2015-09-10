@@ -121,27 +121,20 @@ namespace Domain.Concrete
             }
         }
 
-        public void ExecProcedure(string name, Dictionary<string, string> param = null)
+        public void ExecProcedure(string name, Dictionary<string, string> parameters = null)
         {
-            List<object> sqlParametesList = new List<object>();
+            List<object> sqlParameters = new List<object>();
             
-            try
+            if (parameters != null)
             {
-                if (param != null)
+                name = NormalizeProcedureName(name, parameters);
+                foreach (var item in parameters)
                 {
-                    name = NormalizeProcedureName(name, param);
-                    foreach (var item in param)
-                    {
-                        sqlParametesList.Add(new SqlParameter(item.Key, item.Value));
-                    }
+                    sqlParameters.Add(new SqlParameter(item.Key, item.Value));
                 }
+             }
                
-                context.Database.ExecuteSqlCommand(name, sqlParametesList.ToArray());
-            }
-            catch (Exception e)
-            {                
-                throw new Exception(string.Format("Error in ExecProcedure: {0}", e.Message));
-            }
+             context.Database.ExecuteSqlCommand(name, sqlParameters.ToArray());
         }
 
         private string NormalizeProcedureName(string name, Dictionary<string, string> param)
