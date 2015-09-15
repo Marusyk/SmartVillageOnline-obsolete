@@ -27,6 +27,11 @@ namespace Domain.Concrete
             return this.Entities.Find(id);
         }
 
+        public T GetByIdNoTrack(object id)
+        {
+            return this.Entities.AsNoTracking().FirstOrDefault(p => p.ID == (int)id);
+        }
+
         public void Insert(T entity)
         {
             try

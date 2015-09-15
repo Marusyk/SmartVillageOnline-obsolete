@@ -34,7 +34,7 @@ namespace WebUI.Controllers.API
                 return ErrorMsg(HttpStatusCode.NotFound, string.Format("No people with ID = {1}", id));
             }
 
-            if (people.IsMain == true)
+            if (people.IsMain)
             {
                 return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.FullName)); // no name
             }
@@ -45,7 +45,7 @@ namespace WebUI.Controllers.API
                 parameters.Add("PeopleID", id.ToString());
 
                 repository.ExecProcedure("usp_PeopleSetMain", parameters);
-                return Request.CreateResponse(HttpStatusCode.OK, repository.GetById(id)); // some problem here
+                return Request.CreateResponse(HttpStatusCode.OK, repository.GetByIdNoTrack(id));
             }
             catch (Exception ex)
             {
