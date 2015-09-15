@@ -23,6 +23,11 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
+        /// <summary>
+        /// Set person as the head of the household
+        /// </summary>
+        /// <param name="id">The ID of the people</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/People/SetMain/{id}")]
         public HttpResponseMessage SetAsMain(int id)
