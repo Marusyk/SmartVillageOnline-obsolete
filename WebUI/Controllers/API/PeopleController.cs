@@ -41,10 +41,7 @@ namespace WebUI.Controllers.API
 
             if (people.IsMain)
             {
-                if (people.Persons == null)           
-                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} NULLn", people.PeopleNumber));
-                else
-                    return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.Persons.FirstName));
+                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.Persons.FullName));
             }
 
             try

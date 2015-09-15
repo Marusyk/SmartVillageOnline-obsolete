@@ -1,6 +1,7 @@
 ﻿using Domain.Abstract;
 using Newtonsoft.Json;
 using System;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -23,8 +24,7 @@ namespace Domain.Entities
         [JsonIgnore]
         //FK to Person
         public virtual Person Persons { get; set; }
-
-        [JsonIgnore]        
+        [JsonIgnore]
         //FK to FamilyRelations
         public virtual FamilyRelations FamilyRelations { get; set; }
     }

@@ -1,5 +1,5 @@
 ﻿using Domain.Abstract;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
@@ -69,5 +69,18 @@ namespace Domain.Entities
 
         [IgnoreDataMember]
         public virtual ICollection<People> Peoples { get; set; }
+
+        [IgnoreDataMember]
+        public string FullName
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(FirstName + " ");
+                sb.Append(Name + " ");
+                sb.Append(LastName);
+                return sb.ToString();
+            }
+        }
     }
 }
