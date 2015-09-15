@@ -32,7 +32,7 @@ namespace WebUI.Controllers.API
         [Route("api/People/SetMain/{id}")]
         public HttpResponseMessage SetAsMain(int id)
         {
-            People people = repository.GetById(id);            
+            People people = repository.GetById(id);
 
             if (people == null)
             {
@@ -41,7 +41,10 @@ namespace WebUI.Controllers.API
 
             if (people.IsMain)
             {
-                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.FullName)); // no name
+                if (people.Persons == null)           
+                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} NULLn", people.PeopleNumber));
+                else
+                    return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", people.Persons.FirstName));
             }
 
             try

@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Newtonsoft.Json;
 using System;
 
 namespace Domain.Entities
@@ -16,23 +17,14 @@ namespace Domain.Entities
         public DateTime? DateRegistration { get; set; }
 
         public bool IsMain { get; set; }
-
-        public string FullName
-        {
-            get
-            {
-                if (Persons != null)
-                    return Persons.FirstName + " " + Persons.LastName;
-                return "NONE";
-            }
-        }
-
+        [JsonIgnore]
         //FK to House
         public virtual House Houses { get; set; }
-
+        [JsonIgnore]
         //FK to Person
         public virtual Person Persons { get; set; }
 
+        [JsonIgnore]        
         //FK to FamilyRelations
         public virtual FamilyRelations FamilyRelations { get; set; }
     }

@@ -15,7 +15,7 @@ namespace Domain.Concrete
         public EFDbContext()
             :base("EFDbContext")
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.ProxyCreationEnabled = true;
         }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
