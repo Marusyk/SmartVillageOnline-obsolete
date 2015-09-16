@@ -116,6 +116,18 @@ namespace WebUI.Controllers.API
             }
             return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
+
+        public virtual HttpResponseMessage GetById(int id, string all)
+        {
+            if (all.Equals("all"))
+            {
+                repository.LazyLoadingManage = true;
+                return GetById(id);
+            }
+
+            return ErrorMsg(HttpStatusCode.BadRequest, "Error: BadRequest");
+
+        }
         #endregion
 
         #region POST
