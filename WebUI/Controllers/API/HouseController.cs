@@ -30,21 +30,17 @@ namespace WebUI.Controllers.API
         /// <param name="year">The Year of houses</param>
         /// <returns></returns>
         [EnableQuery]
-        public IQueryable<House> GetByYear(int year)
+        public HttpResponseMessage GetByYear(int year)
         {                        
             var houses = repository.Table.Where(f => f.Year == year);
 
-            if (houses.Count() == 0)
+            if (houses == null || !houses.Any())
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("No house where Year = {0}", year)),
-                    ReasonPhrase = "House Not Found"
-                };
-                throw new HttpResponseException(resp);
+                var message = string.Format("No house where Year = {0}", year);
+                return ErrorMsg(HttpStatusCode.NotFound, message);
             }
 
-            return houses;
+            return Request.CreateResponse(HttpStatusCode.OK, houses); ;
         }
 
         /// <summary>
@@ -54,14 +50,14 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public override HttpResponseMessage Get()
         {
-            var entity = repository.Table.Where(y => y.Year == DateTime.Now.Year);
+            var houses = repository.Table.Where(y => y.Year == DateTime.Now.Year);
 
-            if (entity == null || !entity.Any())
+            if (houses == null || !houses.Any())
             {
                 var message = "House: No content";
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, entity);
+            return Request.CreateResponse(HttpStatusCode.OK, houses);
         }
     }
 }
