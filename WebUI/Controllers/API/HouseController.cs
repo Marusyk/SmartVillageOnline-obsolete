@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -44,6 +45,23 @@ namespace WebUI.Controllers.API
             }
 
             return houses;
+        }
+
+        /// <summary>
+        /// Gets all houses by current year
+        /// </summary>
+        /// <returns></returns>
+        [EnableQuery]
+        public override HttpResponseMessage Get()
+        {
+            var entity = repository.Table.Where(y => y.Year == DateTime.Now.Year);
+
+            if (entity == null || !entity.Any())
+            {
+                var message = "House: No content";
+                return ErrorMsg(HttpStatusCode.NotFound, message);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
     }
 }

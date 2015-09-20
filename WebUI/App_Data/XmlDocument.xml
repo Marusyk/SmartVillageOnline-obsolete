@@ -488,6 +488,12 @@
             <param name="year">The Year of houses</param>
             <returns></returns>
         </member>
+        <member name="M:WebUI.Controllers.API.HouseController.Get">
+            <summary>
+            Gets all houses by current year
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:WebUI.Controllers.API.PeopleController.SetAsMain(System.Int32)">
             <summary>
             Set person as the head of the household
