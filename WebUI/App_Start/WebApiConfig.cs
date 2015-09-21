@@ -12,12 +12,18 @@ namespace WebUI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+           
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                         name: "DefaultApiwsss1",
+                         routeTemplate: "api/{controller}/{id}/GetFull/{entities}",
+                         defaults: new { action = "GetFull", entities = "0" }
+                     );
 
             config.Routes.MapHttpRoute(
                name: "FullEntity",

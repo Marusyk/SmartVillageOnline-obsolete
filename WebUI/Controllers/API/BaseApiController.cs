@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Domain.Abstract;
 using System;
+using System.Collections;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -75,6 +76,34 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
 
+        [HttpGet]
+        public virtual HttpResponseMessage GetFull(int id, string entities)
+        {
+            string[] a = entities.Split(new[] { "," }, StringSplitOptions.None);
+
+            string s1 = string.Empty;
+            
+            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+            {
+                Type s = prop.PropertyType;
+                if (s.IsClass && !s.FullName.StartsWith("System."))
+                {
+                    s1 += prop.Name + ",";
+                }
+                
+            }
+            s1 = s1.Remove(s1.Length - 1);
+            if (!entities.Equals("0"))
+                s1 = entities;
+            string entityName = typeof(T).Name;
+            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+            var response = Request.CreateResponse(HttpStatusCode.Found);
+
+            response.Headers.Location = new Uri(baseUrl + "/api/" + entityName + "/" + id.ToString() + "?$expand=" + s1);
+            return response;
+           // return Request.CreateResponse(HttpStatusCode.OK, s);
+        }
+
         [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
@@ -105,7 +134,7 @@ namespace WebUI.Controllers.API
         }
 
         [EnableQuery]
-        public virtual HttpResponseMessage GetById(int id)
+        public virtual HttpResponseMessage GetById([FromODataUri]int id)
         {
             var entity = repository.GetById(id);
 
