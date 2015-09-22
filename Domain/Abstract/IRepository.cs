@@ -13,6 +13,5 @@ namespace Domain.Abstract
         void ExecProcedure(string name, Dictionary<string, string> parameters = null);
         T GetByIdNoTrack(object id);
         IQueryable<T> Table { get; }
-        bool LazyLoadingManage { set; }
     }
 }

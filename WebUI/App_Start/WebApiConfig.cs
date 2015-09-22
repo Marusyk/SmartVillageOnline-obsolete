@@ -20,14 +20,9 @@ namespace WebUI
             );
 
             config.Routes.MapHttpRoute(
-                         name: "DefaultApiwsss1",
-                         routeTemplate: "api/{controller}/{id}/GetFull/{entities}",
-                         defaults: new { action = "GetFull", entities = "0" }
-                     );
-
-            config.Routes.MapHttpRoute(
-               name: "FullEntity",
-               routeTemplate: "api/{controller}/{id}/{all}"
+                name: "LinkedData",
+                routeTemplate: "api/{controller}/{id}/Full/{entities}",
+                defaults: new { action = "GetFull", entities = "0" }
             );
 
             config.Routes.MapHttpRoute(

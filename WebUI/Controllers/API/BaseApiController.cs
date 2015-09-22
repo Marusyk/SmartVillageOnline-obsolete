@@ -5,6 +5,7 @@ using System.Collections;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.OData;
 using WebUI.Infrastructure;
@@ -78,30 +79,41 @@ namespace WebUI.Controllers.API
 
         [HttpGet]
         public virtual HttpResponseMessage GetFull(int id, string entities)
-        {
-            string[] a = entities.Split(new[] { "," }, StringSplitOptions.None);
+        {            
+            string propertyList = string.Empty;
 
-            string s1 = string.Empty;
-            
-            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
-            {
-                Type s = prop.PropertyType;
-                if (s.IsClass && !s.FullName.StartsWith("System."))
-                {
-                    s1 += prop.Name + ",";
-                }
-                
-            }
-            s1 = s1.Remove(s1.Length - 1);
             if (!entities.Equals("0"))
-                s1 = entities;
+            {
+                propertyList = entities;
+            }
+            else
+            {
+                foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+                {
+                    if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
+                    {
+                        propertyList += prop.Name + ",";
+                    }
+                }
+
+                propertyList = propertyList.Remove(propertyList.Length - 1);
+            }
+                
             string entityName = typeof(T).Name;
             var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
             var response = Request.CreateResponse(HttpStatusCode.Found);
 
-            response.Headers.Location = new Uri(baseUrl + "/api/" + entityName + "/" + id.ToString() + "?$expand=" + s1);
+            StringBuilder sb = new StringBuilder();f
+            sb.Append(baseUrl);
+            sb.Append("/api/");
+            sb.Append(entityName);
+            sb.Append("/");
+            sb.Append(id);
+            sb.Append("?$expand=");
+            sb.Append(propertyList);
+
+            response.Headers.Location = new Uri(sb.ToString());
             return response;
-           // return Request.CreateResponse(HttpStatusCode.OK, s);
         }
 
         [EnableQuery]
@@ -143,20 +155,10 @@ namespace WebUI.Controllers.API
                 var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, entity);
+            
+            return Request.CreateResponse(HttpStatusCode.OK, SingleResult.Create(repository.Table.Where(t => t.ID == id)));
         }
 
-        public virtual HttpResponseMessage GetById(int id, string all)
-        {
-            if (all.Equals("all"))
-            {
-                repository.LazyLoadingManage = true;
-                return GetById(id);
-            }
-
-            return ErrorMsg(HttpStatusCode.BadRequest, "Error: BadRequest");
-
-        }
         #endregion
 
         #region POST
