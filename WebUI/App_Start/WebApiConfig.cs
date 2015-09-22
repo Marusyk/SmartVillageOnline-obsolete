@@ -12,7 +12,7 @@ namespace WebUI
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+           
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
@@ -20,8 +20,9 @@ namespace WebUI
             );
 
             config.Routes.MapHttpRoute(
-               name: "FullEntity",
-               routeTemplate: "api/{controller}/{id}/{all}"
+                name: "LinkedData",
+                routeTemplate: "api/{controller}/{id}/Full/{entities}",
+                defaults: new { action = "GetFull", entities = "0" }
             );
 
             config.Routes.MapHttpRoute(

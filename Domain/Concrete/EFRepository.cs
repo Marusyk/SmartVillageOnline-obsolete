@@ -22,14 +22,6 @@ namespace Domain.Concrete
             this.context = context;
         }
 
-        public bool LazyLoadingManage
-        {
-            set
-            {
-                this.context.Configuration.LazyLoadingEnabled = value;
-            } 
-        }
-
         public T GetById(object id)
         {
             return this.Entities.Find(id);
