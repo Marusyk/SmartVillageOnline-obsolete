@@ -103,7 +103,7 @@ namespace WebUI.Controllers.API
             var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
             var response = Request.CreateResponse(HttpStatusCode.Found);
 
-            StringBuilder sb = new StringBuilder();f
+            StringBuilder sb = new StringBuilder();
             sb.Append(baseUrl);
             sb.Append("/api/");
             sb.Append(entityName);
