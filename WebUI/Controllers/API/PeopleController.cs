@@ -41,7 +41,10 @@ namespace WebUI.Controllers.API
 
             if (people.IsMain)
             {
-                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", "" /*people.Persons.FullName*/));
+                repository.LazyLoadingSwitches = true;
+                string fullName = people.Persons.FullName;
+                repository.LazyLoadingSwitches = false;
+                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", fullName));
             }
 
             try

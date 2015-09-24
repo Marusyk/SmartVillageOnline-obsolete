@@ -162,5 +162,13 @@ namespace Domain.Concrete
             }
             return name;
         }
+
+        public bool LazyLoadingSwitches
+        {
+            set
+            {
+                this.context.Configuration.LazyLoadingEnabled = value;
+            }
+        }
     }
 }
