@@ -10,9 +10,9 @@ namespace Domain.Entities
     {
         public string FirstName { get; set; }
 
-        public string Name { get; set; }
-
         public string LastName { get; set; }
+
+        public string MiddleName { get; set; }
 
         public DateTime DateBirth { get; set; }
 
@@ -77,8 +77,8 @@ namespace Domain.Entities
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append(FirstName + " ");
-                sb.Append(Name + " ");
-                sb.Append(LastName);
+                sb.Append(LastName + " ");
+                sb.Append(MiddleName);
                 return sb.ToString();
             }
         }

@@ -11,8 +11,8 @@ namespace Domain.Mapping
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.FirstName).IsRequired().HasMaxLength(60);
-            Property(t => t.Name).IsRequired().HasMaxLength(60);
             Property(t => t.LastName).IsRequired().HasMaxLength(60);
+            Property(t => t.MiddleName).IsRequired().HasMaxLength(60);
             Property(t => t.DateBirth).IsRequired();
             Property(t => t.Sex).IsRequired();
             Property(t => t.IdentificationCode).HasMaxLength(10);
