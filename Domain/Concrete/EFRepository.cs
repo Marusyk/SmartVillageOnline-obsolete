@@ -163,12 +163,9 @@ namespace Domain.Concrete
             return name;
         }
 
-        public bool LazyLoadingSwitches
+        public void SwitchLazyLoading(bool value)
         {
-            set
-            {
-                this.context.Configuration.LazyLoadingEnabled = value;
-            }
+             this.context.Configuration.LazyLoadingEnabled = value;
         }
     }
 }

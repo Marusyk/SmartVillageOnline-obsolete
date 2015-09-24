@@ -41,9 +41,9 @@ namespace WebUI.Controllers.API
 
             if (people.IsMain)
             {
-                repository.LazyLoadingSwitches = true;
+                repository.SwitchLazyLoading(true);
                 string fullName = people.Persons.FullName;
-                repository.LazyLoadingSwitches = false;
+                repository.SwitchLazyLoading(false);
                 return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", fullName));
             }
 
