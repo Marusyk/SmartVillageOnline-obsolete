@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using Domain.Entities.Dictionaries;
+﻿using Domain.Entities.Dictionaries;
 using Domain.Abstract;
 
 namespace WebUI.Controllers.API

@@ -204,6 +204,7 @@
     <Compile Include="Controllers\API\FamilyRelationsController.cs" />
     <Compile Include="Controllers\API\FamilyStatusController.cs" />
     <Compile Include="Controllers\API\HouseController.cs" />
+    <Compile Include="Controllers\API\InstitutionController.cs" />
     <Compile Include="Controllers\API\MaterialsController.cs" />
     <Compile Include="Controllers\API\NationalityController.cs" />
     <Compile Include="Controllers\API\PassAuthorityController.cs" />

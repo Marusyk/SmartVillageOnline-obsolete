@@ -21,5 +21,8 @@ namespace Domain.Entities.Dictionaries
 
         [IgnoreDataMember]
         public virtual ICollection<Address> Addresses { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Institution> Institution { get; set; }
     }
 }
