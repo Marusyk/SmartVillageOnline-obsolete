@@ -75,6 +75,9 @@ namespace Domain.Entities
         public virtual ICollection<Education> Educations { get; set; }
 
         [IgnoreDataMember]
+        public virtual ICollection<PersonDocuments> PersonDocuments { get; set; }
+
+        [IgnoreDataMember]
         public string FullName
         {
             get

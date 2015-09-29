@@ -214,6 +214,7 @@
     <Compile Include="Controllers\API\PensionTypeController.cs" />
     <Compile Include="Controllers\API\PeopleController.cs" />
     <Compile Include="Controllers\API\PersonController.cs" />
+    <Compile Include="Controllers\API\PersonDocumentsController.cs" />
     <Compile Include="Controllers\API\PositionController.cs" />
     <Compile Include="Controllers\API\RegionController.cs" />
     <Compile Include="Controllers\API\SpecialitiesController.cs" />

@@ -68,6 +68,7 @@
     <Compile Include="Entities\Dictionaries\Specialities.cs" />
     <Compile Include="Entities\Document.cs" />
     <Compile Include="Entities\People.cs" />
+    <Compile Include="Entities\PersonDocuments.cs" />
     <Compile Include="Mapping\CatalogMap.cs" />
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\EducationDegreeMap.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Mapping\Dictionaries\SpecialitiesMap.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\PeopleMap.cs" />
+    <Compile Include="Mapping\PersonDocumentsMap.cs" />
     <Compile Include="Migrations\CustomDbConfiguration.cs" />
     <Compile Include="Migrations\CustomSqlGenerator.cs" />
     <Compile Include="Entities\Dictionaries\Animals.cs" />
