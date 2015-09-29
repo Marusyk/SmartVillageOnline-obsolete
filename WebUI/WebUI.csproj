@@ -200,6 +200,7 @@
     <Compile Include="Controllers\API\CountryController.cs" />
     <Compile Include="Controllers\API\DictionaryController.cs" />
     <Compile Include="Controllers\API\DistrictController.cs" />
+    <Compile Include="Controllers\API\DocumentController.cs" />
     <Compile Include="Controllers\API\DocumentTypeController.cs" />
     <Compile Include="Controllers\API\EducationController.cs" />
     <Compile Include="Controllers\API\EducationDegreeController.cs" />

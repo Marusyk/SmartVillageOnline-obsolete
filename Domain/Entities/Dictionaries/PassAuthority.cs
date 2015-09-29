@@ -8,5 +8,8 @@ namespace Domain.Entities
     {
         [IgnoreDataMember]
         public virtual ICollection<Person> Persons { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
