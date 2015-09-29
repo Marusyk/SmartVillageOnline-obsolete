@@ -1,4 +1,6 @@
 ﻿using Domain.Abstract;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities.Dictionaries
 {
@@ -8,5 +10,8 @@ namespace Domain.Entities.Dictionaries
 
         //FK
         public virtual City City { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Education> Educations { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Text;
 using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using Domain.Entities.Dictionaries;
 
 namespace Domain.Entities
 {
@@ -69,6 +70,9 @@ namespace Domain.Entities
 
         [IgnoreDataMember]
         public virtual ICollection<People> Peoples { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Education> Educations { get; set; }
 
         [IgnoreDataMember]
         public string FullName
