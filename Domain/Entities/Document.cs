@@ -1,9 +1,8 @@
 ﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -24,5 +23,8 @@ namespace Domain.Entities
         //FK
         public virtual DocumentType DocumentType { get; set; }
         public virtual PassAuthority PassAuthority { get; set; }
+
+        [IgnoreDataMember]
+        public virtual ICollection<Education> Educations { get; set; }
     }
 }

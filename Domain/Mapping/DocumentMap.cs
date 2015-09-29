@@ -14,6 +14,7 @@ namespace Domain.Mapping
             Property(t => t.Number).HasMaxLength(20);
             Property(t => t.Code).HasMaxLength(10);
             Property(t => t.DateReg).IsRequired();
+            HasMany(a => a.Educations).WithOptional(p => p.Document).HasForeignKey(p => p.DocumentID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Document");
         }

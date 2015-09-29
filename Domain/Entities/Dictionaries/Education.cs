@@ -30,5 +30,6 @@ namespace Domain.Entities.Dictionaries
         public virtual Institution Institution { get; set; }
         public virtual Specialities Specialities { get; set; }
         public virtual EducationDegree EducationDegree { get; set; }
+        public virtual Document Document { get; set; }
     }
 }
