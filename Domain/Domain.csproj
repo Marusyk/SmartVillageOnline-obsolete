@@ -62,6 +62,7 @@
     <Compile Include="Concrete\EFRepository.cs" />
     <Compile Include="Entities\Dictionaries\ActivityTypes.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
+    <Compile Include="Entities\Dictionaries\Companies.cs" />
     <Compile Include="Entities\Dictionaries\Education.cs" />
     <Compile Include="Entities\Dictionaries\EducationDegree.cs" />
     <Compile Include="Entities\Dictionaries\Institution.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Entities\PersonDocuments.cs" />
     <Compile Include="Mapping\CatalogMap.cs" />
     <Compile Include="Mapping\Dictionaries\ActivityTypesMap.cs" />
+    <Compile Include="Mapping\Dictionaries\CompaniesMap.cs" />
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\EducationDegreeMap.cs" />
     <Compile Include="Mapping\Dictionaries\EducationMap.cs" />

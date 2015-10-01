@@ -1,18 +1,18 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Entities.Dictionaries;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Domain.Mapping.Dictionaries
 {
-    public class ActivityTypesMap : EntityTypeConfiguration<ActivityTypes>
+    public class CompaniesMap : EntityTypeConfiguration<Companies>
     {
-        public ActivityTypesMap()
+        public CompaniesMap()
         {
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(t => t.Name).IsRequired().HasMaxLength(50);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
-            ToTable("ActivityTypes");
+            ToTable("Companies");
         }
     }
 }
