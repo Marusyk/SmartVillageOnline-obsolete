@@ -63,12 +63,12 @@
     <Compile Include="Entities\Dictionaries\ActivityTypes.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
     <Compile Include="Entities\Dictionaries\Companies.cs" />
-    <Compile Include="Entities\Dictionaries\Education.cs" />
     <Compile Include="Entities\Dictionaries\EducationDegree.cs" />
     <Compile Include="Entities\Dictionaries\Institution.cs" />
     <Compile Include="Entities\Dictionaries\Person.cs" />
     <Compile Include="Entities\Dictionaries\Specialities.cs" />
     <Compile Include="Entities\Document.cs" />
+    <Compile Include="Entities\Education.cs" />
     <Compile Include="Entities\Employment.cs" />
     <Compile Include="Entities\People.cs" />
     <Compile Include="Entities\PersonDocuments.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="Mapping\Dictionaries\CompaniesMap.cs" />
     <Compile Include="Mapping\Dictionaries\DocumentTypeMap.cs" />
     <Compile Include="Mapping\Dictionaries\EducationDegreeMap.cs" />
-    <Compile Include="Mapping\Dictionaries\EducationMap.cs" />
+    <Compile Include="Mapping\EducationMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyRelationsMap.cs" />
     <Compile Include="Mapping\Dictionaries\FamilyStatusMap.cs" />
     <Compile Include="Mapping\Dictionaries\InstitutionMap.cs" />
