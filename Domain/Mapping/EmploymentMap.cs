@@ -2,18 +2,18 @@
 using Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Mapping.Dictionaries
+namespace Domain.Mapping
 {
-    public class PositionMap : EntityTypeConfiguration<Position>
+    public class EmploymentMap : EntityTypeConfiguration<Employment>
     {
-        public PositionMap()
+        public EmploymentMap()
         {
             HasKey(t => t.ID);
             Property(t => t.ID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(t => t.Name).IsRequired().HasMaxLength(50);
-            HasMany(a => a.Employments).WithOptional(p => p.Position).HasForeignKey(p => p.PositionID);
+            Property(t => t.PersonID).IsRequired();
+            Property(t => t.Description).HasMaxLength(500);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
-            ToTable("Position");
+            ToTable("Employment");
         }
     }
 }

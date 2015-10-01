@@ -27,6 +27,7 @@ namespace Domain.Mapping
             HasMany(a => a.Peoples).WithRequired(p => p.Persons).HasForeignKey(p => p.PersonID);
             HasMany(a => a.Educations).WithRequired(p => p.Person).HasForeignKey(p => p.PersonID);
             HasMany(a => a.PersonDocuments).WithRequired(p => p.Person).HasForeignKey(p => p.PersonID);
+            HasMany(a => a.Employments).WithRequired(p => p.Person).HasForeignKey(p => p.PersonID);
             Property(t => t.LastUpdUS).IsRequired().HasMaxLength(50);
             ToTable("Person");
         }

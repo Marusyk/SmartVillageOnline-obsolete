@@ -206,6 +206,7 @@
     <Compile Include="Controllers\API\DocumentTypeController.cs" />
     <Compile Include="Controllers\API\EducationController.cs" />
     <Compile Include="Controllers\API\EducationDegreeController.cs" />
+    <Compile Include="Controllers\API\EmploymentController.cs" />
     <Compile Include="Controllers\API\FamilyRelationsController.cs" />
     <Compile Include="Controllers\API\FamilyStatusController.cs" />
     <Compile Include="Controllers\API\HouseController.cs" />
