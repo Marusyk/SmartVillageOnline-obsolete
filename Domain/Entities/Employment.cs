@@ -18,9 +18,9 @@ namespace Domain.Entities
 
         public int? PositionID { get; set; }
 
-        public DateTime DateStart { get; set; }
+        public DateTime? DateStart { get; set; }
 
-        public DateTime DateEnd { get; set; }
+        public DateTime? DateEnd { get; set; }
 
         public bool IsCurrent { get; set; }
 
