@@ -2,6 +2,7 @@
 using Domain.Abstract;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -43,6 +44,12 @@ namespace WebUI.Controllers.API
             };            
             return Request.CreateResponse(statusCode, error);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
+        }
         #endregion
 
         #region Private
@@ -59,6 +66,20 @@ namespace WebUI.Controllers.API
         private int CalculatePageCount(int total, int pageSize)
         {
             return total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
+        }
+
+        private string GetJoinedPropertyList()
+        {
+            IList<string> propertyNames = new List<string>();
+
+            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+            {
+                if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
+                {
+                    propertyNames.Add(prop.Name);
+                }
+            }
+            return string.Join(",", propertyNames);
         }
         #endregion
 
@@ -82,28 +103,20 @@ namespace WebUI.Controllers.API
         {            
             string propertyList = string.Empty;
 
-            if (!entities.Equals("0"))
+            if ("0".Equals(entities))
             {
-                propertyList = entities;
+                propertyList = GetJoinedPropertyList();
             }
             else
             {
-                foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
-                {
-                    if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
-                    {
-                        propertyList += prop.Name + ",";
-                    }
-                }
-
-                propertyList = propertyList.Remove(propertyList.Length - 1);
+                propertyList = entities;
             }
                 
             string entityName = typeof(T).Name;
             var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
             var response = Request.CreateResponse(HttpStatusCode.Found);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder(1024);
             sb.Append(baseUrl);
             sb.Append("/api/");
             sb.Append(entityName);
@@ -222,12 +235,6 @@ namespace WebUI.Controllers.API
                 return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        #endregion
-
-        protected override void Dispose(bool disposing)
-        {
-            unitOfWork.Dispose();
-            base.Dispose(disposing);
-        }
+        #endregion        
     }
 }
