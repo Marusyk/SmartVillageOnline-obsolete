@@ -84,8 +84,7 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            HttpResponseMessage response = target.GetById(1);
-            var result = response.Content.ReadAsAsync<House>().Result;
+            var result = GetByID(target, 1);
 
             //Assert
             Assert.AreEqual(1, result.ID);
@@ -102,7 +101,7 @@ namespace UnitTests
 
             //Action
             var resultInsert = target.Post(newHouse);
-            var resultSelect = target.GetById(10).Content.ReadAsAsync<House>().Result;
+            var resultSelect = GetByID(target, 10);
             var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
@@ -120,10 +119,10 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action                     
-            var house = target.GetById(1).Content.ReadAsAsync<House>().Result;
+            var house = GetByID(target, 1);
             house.HouseNr = "007";
             var resultUpdate = target.Put(house);
-            var resultSelect = target.GetById(1).Content.ReadAsAsync<House>().Result;
+            var resultSelect = GetByID(target, 1);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
@@ -138,13 +137,20 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var house = target.GetById(1).Content.ReadAsAsync<House>().Result;
+            var house = GetByID(target, 1);
             var resultDelete = target.Delete(house.ID);
             var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
             Assert.AreEqual(4, resultSelect.Count());
+        }
+
+        private House GetByID(HouseController controller, int id)
+        {
+            HttpResponseMessage response = controller.GetById(id);
+            var entity = response.Content.ReadAsAsync<SingleResult>().Result;
+            return entity.Queryable.Cast<House>().First();
         }
     }
 }

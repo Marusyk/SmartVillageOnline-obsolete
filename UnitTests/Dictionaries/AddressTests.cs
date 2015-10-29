@@ -82,8 +82,7 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            HttpResponseMessage response = target.GetById(1);
-            var result = response.Content.ReadAsAsync<Address>().Result;
+            var result = GetByID(target, 1);
 
             //Assert
             Assert.AreEqual(1, result.ID);
@@ -100,7 +99,7 @@ namespace UnitTests
 
             //Action
             var resultInsert = target.Post(newAddress);
-            var resultSelect = target.GetById(10).Content.ReadAsAsync<Address>().Result;
+            var resultSelect = GetByID(target, 10);
             var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
@@ -117,10 +116,10 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action                     
-            var address = target.GetById(1).Content.ReadAsAsync<Address>().Result;
+            var address = GetByID(target, 1);
             address.BuildNr = "007";
             var resultUpdate = target.Put(address);
-            var resultSelect = target.GetById(1).Content.ReadAsAsync<Address>().Result;
+            var resultSelect = GetByID(target, 1);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
@@ -135,13 +134,20 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            var address = target.GetById(1).Content.ReadAsAsync<Address>().Result;
+            var address = GetByID(target, 1);
             var resultDelete = target.Delete(address.ID);
             var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
             Assert.AreEqual(4, resultSelect.Count());
+        }
+
+        private Address GetByID(AddressController controller, int id)
+        {
+            HttpResponseMessage response = controller.GetById(id);
+            var entity = response.Content.ReadAsAsync<SingleResult>().Result;
+            return entity.Queryable.Cast<Address>().First();
         }
     }
 }

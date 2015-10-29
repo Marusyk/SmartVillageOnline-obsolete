@@ -99,8 +99,7 @@ namespace UnitTests.Dictionaries
         protected virtual void GetById()
         {
             // Action
-            HttpResponseMessage response = controller.GetById(1);
-            var result = response.Content.ReadAsAsync<T>().Result;
+            var result = GetByID(1); 
 
             // Accert
             Assert.IsNotNull(result);
@@ -113,7 +112,7 @@ namespace UnitTests.Dictionaries
 
             // Act
             var resultInsert = controller.Post(entity);
-            var resultSelect = controller.GetById(10).Content.ReadAsAsync<T>().Result;
+            var resultSelect = GetByID(10);
             var resultTotalCount = controller.Get().Content.ReadAsAsync<IQueryable<T>>().Result;
 
             // Assert
@@ -126,12 +125,12 @@ namespace UnitTests.Dictionaries
         protected void Edit()
         {
             // Arrange
-            var entity = controller.GetById(1).Content.ReadAsAsync<T>().Result;
+            var entity = GetByID(1);
             entity.Name = "TEST";
 
             //Action                                 
             var resultUpdate = controller.Put(entity);
-            var resultSelect = controller.GetById(1).Content.ReadAsAsync<T>().Result;
+            var resultSelect = GetByID(1);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
@@ -142,7 +141,7 @@ namespace UnitTests.Dictionaries
         protected void Remove()
         {
             // Arrange
-            var entity = controller.GetById(1).Content.ReadAsAsync<T>().Result;
+            var entity = GetByID(1);
 
             //Action
             var resultDelete = controller.Delete(entity.ID);
@@ -151,6 +150,13 @@ namespace UnitTests.Dictionaries
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
             Assert.AreEqual(4, resultSelect.Count());
+        }
+
+        private T GetByID(int id)
+        {
+            HttpResponseMessage response = controller.GetById(id);
+            var entity = response.Content.ReadAsAsync<SingleResult>().Result;
+            return entity.Queryable.Cast<T>().First();
         }
     }
 }
