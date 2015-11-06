@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System;
+using Domain.Concrete;
 
 namespace Domain.Abstract
 {

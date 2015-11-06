@@ -61,6 +61,7 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Concrete\IQueryableExtensions.cs" />
     <Compile Include="Concrete\PaginatedList.cs" />
     <Compile Include="Entities\Dictionaries\ActivityTypes.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
