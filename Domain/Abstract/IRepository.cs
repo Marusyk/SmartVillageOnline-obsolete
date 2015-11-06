@@ -11,7 +11,7 @@ namespace Domain.Abstract
     {
         IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> All { get; }
-        IQueryable GetAll();
+        IQueryable<T> GetAll();
         T GetById(int id);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
 
