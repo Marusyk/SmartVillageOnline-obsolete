@@ -24,14 +24,14 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public IQueryable<Person> GetByFirstName(string firstName)
         {
-            var persons = repository.Table.Where(f => f.FirstName == firstName);
+            /*var persons = repository.Table.Where(f => f.FirstName == firstName);
 
             if (persons.Count() == 0)
             {
                 throw new HttpResponseException(HttpStatusCode.NoContent);
-            }
+            }*/
 
-            return persons;
+            return null;// persons;
         }
     }
 }

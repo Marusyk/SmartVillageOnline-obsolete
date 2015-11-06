@@ -9,6 +9,14 @@ namespace Domain.Entities
 {
     public class Person : BaseEntity
     {
+        public Person()
+        {
+            Peoples = new HashSet<People>();
+            Educations = new HashSet<Education>();
+            Employments = new HashSet<Employment>();
+            PersonDocuments = new HashSet<PersonDocuments>();
+        }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -68,34 +76,22 @@ namespace Domain.Entities
         public virtual Country Citizenship { get; set; }
         public virtual Catalog Catalog { get; set; }
 
-        [IgnoreDataMember]
         public virtual ICollection<People> Peoples { get; set; }
-
-        public Person()
-        {
-            Peoples = new HashSet<People>();
-        }
-
-        [IgnoreDataMember]
         public virtual ICollection<Education> Educations { get; set; }
-
-        [IgnoreDataMember]
         public virtual ICollection<PersonDocuments> PersonDocuments { get; set; }
-
-        [IgnoreDataMember]
         public virtual ICollection<Employment> Employments { get; set; }
 
-        [IgnoreDataMember]
-        public string FullName
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append(FirstName + " ");
-                sb.Append(LastName + " ");
-                sb.Append(MiddleName);
-                return sb.ToString();
-            }
-        }
+        //[IgnoreDataMember]
+        //public string FullName
+        //{
+        //    get
+        //    {
+        //        StringBuilder sb = new StringBuilder();
+        //        sb.Append(FirstName + " ");
+        //        sb.Append(LastName + " ");
+        //        sb.Append(MiddleName);
+        //        return sb.ToString();
+        //    }
+        //}
     }
 }

@@ -6,6 +6,11 @@ namespace Domain.Entities
 {
     public class House : BaseEntity
     {
+        public House()
+        {
+            Peoples = new HashSet<People>();
+        }
+
         public string HouseNr { get; set; }
 
         public string KadastrNr { get; set; }
@@ -27,7 +32,6 @@ namespace Domain.Entities
         //FK to Address
         public virtual Address Address { get; set; }
 
-        [IgnoreDataMember]
         public virtual ICollection<People> Peoples { get; set; }
     }
 }

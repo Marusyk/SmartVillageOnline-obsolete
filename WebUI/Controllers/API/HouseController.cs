@@ -31,33 +31,33 @@ namespace WebUI.Controllers.API
         /// <returns></returns>
         [EnableQuery]
         public HttpResponseMessage GetByYear(int year)
-        {                        
-            var houses = repository.Table.Where(f => f.Year == year);
+        {
+            /*var houses = repository.Table.Where(f => f.Year == year);
 
             if (houses == null || !houses.Any())
             {
                 var message = string.Format("No house where Year = {0}", year);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
-            }
+            }*/
 
-            return Request.CreateResponse(HttpStatusCode.OK, houses); ;
+            return null;// Request.CreateResponse(HttpStatusCode.OK, houses); ;
         }
 
         /// <summary>
         /// Gets all houses by current year
         /// </summary>
         /// <returns></returns>
-        [EnableQuery]
-        public override HttpResponseMessage Get()
-        {
-            var houses = repository.Table.Where(y => y.Year == DateTime.Now.Year);
+        //[EnableQuery]
+        //public override HttpResponseMessage Get()
+        //{
+            /*var houses = repository.Table.Where(y => y.Year == DateTime.Now.Year);
 
             if (houses == null || !houses.Any())
             {
                 var message = "House: No content";
                 return ErrorMsg(HttpStatusCode.NotFound, message);
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, houses);
-        }
+            }*/
+          //  return null;// Request.CreateResponse(HttpStatusCode.OK, houses);
+        //}
     }
 }

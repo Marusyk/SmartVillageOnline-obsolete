@@ -13,7 +13,7 @@ using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {
-    public class BaseApiController<T> : ApiController, IBaseApiInterface<T>  where T : BaseEntity
+    public class BaseApiController<T> : ApiController/*, IBaseApiInterface<T>*/  where T : BaseEntity
     {
         public BaseApiController()
         {
@@ -88,7 +88,7 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public virtual HttpResponseMessage Get()
         {
-            var entity = repository.Table;
+            var entity = repository.GetAll();
 
             if (entity == null || !entity.Any())
             {
@@ -132,7 +132,7 @@ namespace WebUI.Controllers.API
         [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
-            pageNo = NormalizePageNo(pageNo);
+            /*pageNo = NormalizePageNo(pageNo);
             pageSize = NormalizePageSize(pageSize);
 
             int total = repository.Table.Count();
@@ -154,12 +154,12 @@ namespace WebUI.Controllers.API
             response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
             response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
             response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
-
-            return response;
+            */
+            return null;// response;
         }
 
         [EnableQuery]
-        public virtual HttpResponseMessage GetById([FromODataUri]int id)
+        public virtual HttpResponseMessage GetById(int id)
         {
             var entity = repository.GetById(id);
 
@@ -168,8 +168,8 @@ namespace WebUI.Controllers.API
                 var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            
-            return Request.CreateResponse(HttpStatusCode.OK, SingleResult.Create(repository.Table.Where(t => t.ID == id)));
+
+            return Request.CreateResponse(HttpStatusCode.OK, entity);// SingleResult.Create(repository.Table.Where(t => t.ID == id)));
         }
 
         #endregion
@@ -179,7 +179,7 @@ namespace WebUI.Controllers.API
         {           
             try
             { 
-                repository.Insert(entity);
+                repository.Add(entity);
                 return Request.CreateResponse(HttpStatusCode.Created, entity);             
             }
             catch (Exception ex)
@@ -227,7 +227,7 @@ namespace WebUI.Controllers.API
             {
                 oldEntity = entity;
                 oldEntity.LastUpdDT = DateTime.Now;
-                repository.Update(oldEntity);
+                repository.Edit(oldEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
             }
             catch (Exception ex)
