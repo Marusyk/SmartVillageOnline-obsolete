@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace Domain.Abstract
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IEntity
     {
 
         public BaseEntity()

@@ -57,9 +57,11 @@
   <ItemGroup>
     <Compile Include="Abstract\BaseDictionary.cs" />
     <Compile Include="Abstract\BaseEntity.cs" />
+    <Compile Include="Abstract\IEntity.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Concrete\PaginatedList.cs" />
     <Compile Include="Entities\Dictionaries\ActivityTypes.cs" />
     <Compile Include="Entities\Dictionaries\Address.cs" />
     <Compile Include="Entities\Dictionaries\Companies.cs" />

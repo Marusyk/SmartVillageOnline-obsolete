@@ -71,6 +71,11 @@ namespace Domain.Entities
         [IgnoreDataMember]
         public virtual ICollection<People> Peoples { get; set; }
 
+        public Person()
+        {
+            Peoples = new HashSet<People>();
+        }
+
         [IgnoreDataMember]
         public virtual ICollection<Education> Educations { get; set; }
 
