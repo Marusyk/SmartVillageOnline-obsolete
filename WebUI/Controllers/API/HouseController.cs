@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.OData;
 
 namespace WebUI.Controllers.API
 {
@@ -29,34 +28,32 @@ namespace WebUI.Controllers.API
         /// </summary>
         /// <param name="year">The Year of houses</param>
         /// <returns></returns>
-        [EnableQuery]
         public HttpResponseMessage GetByYear(int year)
-        {                        
-            var houses = repository.Table.Where(f => f.Year == year);
+        {
+            /*var houses = repository.Table.Where(f => f.Year == year);
 
             if (houses == null || !houses.Any())
             {
                 var message = string.Format("No house where Year = {0}", year);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
-            }
+            }*/
 
-            return Request.CreateResponse(HttpStatusCode.OK, houses); ;
+            return null;// Request.CreateResponse(HttpStatusCode.OK, houses); ;
         }
 
         /// <summary>
         /// Gets all houses by current year
         /// </summary>
         /// <returns></returns>
-        [EnableQuery]
         public override HttpResponseMessage Get()
         {
-            var houses = repository.Table.Where(y => y.Year == DateTime.Now.Year);
+            var houses = repository.AllIncluding(x => x.Peoples);
 
-            if (houses == null || !houses.Any())
-            {
-                var message = "House: No content";
-                return ErrorMsg(HttpStatusCode.NotFound, message);
-            }
+            //if (houses == null || !houses.Any())
+            //{
+            //    var message = "House: No content";
+            //    return ErrorMsg(HttpStatusCode.NotFound, message);
+            //}
             return Request.CreateResponse(HttpStatusCode.OK, houses);
         }
     }
