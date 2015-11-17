@@ -32,12 +32,12 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<Address>> mock = new Mock<IRepository<Address>>();
 
-            mock.Setup(m => m.Table).Returns(addresses.AsQueryable());
+            mock.Setup(m => m.All).Returns(addresses.AsQueryable());
 
-            mock.Setup(m => m.Insert(It.IsAny<Address>()))
+            mock.Setup(m => m.Add(It.IsAny<Address>()))
                 .Callback<Address>(c => addresses.Add(c));
 
-            mock.Setup(m => m.Update(It.IsAny<Address>()))
+            mock.Setup(m => m.Edit(It.IsAny<Address>()))
                 .Callback<Address>(c => addresses[addresses.IndexOf(c)] = c);
 
             mock.Setup(m => m.GetById(It.IsAny<int>()))
@@ -69,7 +69,7 @@ namespace UnitTests
 
             //Action
             HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsAsync<IQueryable<Address>>().Result;
+            var result = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
             Assert.AreEqual(5, result.Count());
@@ -100,7 +100,7 @@ namespace UnitTests
             //Action
             var resultInsert = target.Post(newAddress);
             var resultSelect = GetByID(target, 10);
-            var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
+            var resultTotalCount = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
@@ -136,7 +136,7 @@ namespace UnitTests
             //Action
             var address = GetByID(target, 1);
             var resultDelete = target.Delete(address.ID);
-            var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<Address>>().Result;
+            var resultSelect = target.Get().Content.ReadAsStringAsync().Result; // ReadAsAsync<IQueryable<Address>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
@@ -146,8 +146,8 @@ namespace UnitTests
         private Address GetByID(AddressController controller, int id)
         {
             HttpResponseMessage response = controller.GetById(id);
-            var entity = response.Content.ReadAsAsync<SingleResult>().Result;
-            return entity.Queryable.Cast<Address>().First();
+            var entity = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<SingleResult>().Result;
+            return null;// entity.Queryable.Cast<Address>().First();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<SYS_Dictionary>> mock = new Mock<IRepository<SYS_Dictionary>>();
 
-            mock.Setup(m => m.Table).Returns(dictionaries.AsQueryable());           
+            mock.Setup(m => m.All).Returns(dictionaries.AsQueryable());           
 
             return mock.Object;
         }
@@ -48,7 +48,7 @@ namespace UnitTests
 
             //Action
             HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsAsync<IQueryable<SYS_Dictionary>>().Result;
+            var result = response.Content.ReadAsStringAsync().Result;//.ReadAsAsync<IQueryable<SYS_Dictionary>>().Result;
 
             //Assert
             Assert.AreEqual(3, result.Count());
