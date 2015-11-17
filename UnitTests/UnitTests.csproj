@@ -85,7 +85,6 @@
     <Compile Include="HouseTests.cs" />
     <Compile Include="PeopleTests.cs" />
     <Compile Include="PersonTests.cs" />
-    <Compile Include="RouteApiTests.cs" />
     <Compile Include="RouteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
