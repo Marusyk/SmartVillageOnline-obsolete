@@ -6,7 +6,11 @@ namespace Domain.Entities
 {
     public class Nationality : BaseDictionary
     {
-        [IgnoreDataMember]
+        public Nationality()
+        {
+            Persons = new HashSet<Person>();
+        }
+
         public virtual ICollection<Person> Persons { get; set; }
     }
 }
