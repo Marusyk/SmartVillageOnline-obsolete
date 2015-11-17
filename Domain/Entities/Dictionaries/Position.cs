@@ -6,7 +6,11 @@ namespace Domain.Entities
 {
     public class Position : BaseDictionary
     {
-        [IgnoreDataMember]
+        public Position()
+        {
+            Employments = new HashSet<Employment>();
+        }
+
         public virtual ICollection<Employment> Employments { get; set; }
     }
 }

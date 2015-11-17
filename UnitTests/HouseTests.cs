@@ -34,12 +34,12 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<House>> mock = new Mock<IRepository<House>>();
 
-            mock.Setup(m => m.Table).Returns(houses.AsQueryable());
+            mock.Setup(m => m.All).Returns(houses.AsQueryable());
 
-            mock.Setup(m => m.Insert(It.IsAny<House>()))
+            mock.Setup(m => m.Add(It.IsAny<House>()))
                 .Callback<House>(c => houses.Add(c));
 
-            mock.Setup(m => m.Update(It.IsAny<House>()))
+            mock.Setup(m => m.Edit(It.IsAny<House>()))
                 .Callback<House>(c => houses[houses.IndexOf(c)] = c);
 
             mock.Setup(m => m.GetById(It.IsAny<int>()))
@@ -71,7 +71,7 @@ namespace UnitTests
 
             //Action
             HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsAsync<IQueryable<House>>().Result;
+            var result = response.Content.ReadAsStringAsync().Result;//.ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
             Assert.AreEqual(5, result.Count());
@@ -102,7 +102,7 @@ namespace UnitTests
             //Action
             var resultInsert = target.Post(newHouse);
             var resultSelect = GetByID(target, 10);
-            var resultTotalCount = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
+            var resultTotalCount = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
@@ -139,7 +139,7 @@ namespace UnitTests
             //Action
             var house = GetByID(target, 1);
             var resultDelete = target.Delete(house.ID);
-            var resultSelect = target.Get().Content.ReadAsAsync<IQueryable<House>>().Result;
+            var resultSelect = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<House>>().Result;
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
@@ -149,8 +149,8 @@ namespace UnitTests
         private House GetByID(HouseController controller, int id)
         {
             HttpResponseMessage response = controller.GetById(id);
-            var entity = response.Content.ReadAsAsync<SingleResult>().Result;
-            return entity.Queryable.Cast<House>().First();
+            var entity = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<SingleResult>().Result;
+            return null;// entity.Queryable.Cast<House>().First();
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.OData;
 
 namespace WebUI.Controllers.API
 {
@@ -32,7 +31,7 @@ namespace WebUI.Controllers.API
         [Route("api/People/SetMain/{id}")]
         public HttpResponseMessage SetAsMain(int id)
         {
-            People people = repository.GetById(id);
+            /*People people = repository.GetById(id);
 
             if (people == null)
             {
@@ -58,7 +57,8 @@ namespace WebUI.Controllers.API
             catch (Exception ex)
             {
                 return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
-            }
+            }*/
+            return null;
         }
     }
 }

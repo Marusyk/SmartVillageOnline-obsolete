@@ -6,9 +6,12 @@ namespace Domain.Entities
 {
     public class DocumentType : BaseDictionary
     {        
+        public DocumentType()
+        {
+            Documents = new HashSet<Document>();
+        }
         public string Code { get; set; }
 
-        [IgnoreDataMember]
         public virtual ICollection<Document> Documents { get; set; }
     }
 }

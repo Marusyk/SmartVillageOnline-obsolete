@@ -1,7 +1,5 @@
 ﻿using Domain.Abstract;
-using Newtonsoft.Json;
 using System;
-using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
@@ -20,10 +18,11 @@ namespace Domain.Entities
         public bool IsMain { get; set; }
 
         //FK to House
+
         public virtual House Houses { get; set; }
         //FK to Person
         public virtual Person Persons { get; set; }
         //FK to FamilyRelations
-        public virtual FamilyRelations FamilyRelations { get; set; }
+        public  virtual FamilyRelations FamilyRelations { get; set; }
     }
 }

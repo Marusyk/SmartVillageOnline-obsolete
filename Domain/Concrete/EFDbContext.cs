@@ -5,7 +5,6 @@ using System.Linq;
 using System;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Data.Entity.Infrastructure;
 
 namespace Domain.Concrete
 {
@@ -15,7 +14,7 @@ namespace Domain.Concrete
         public EFDbContext()
             :base("EFDbContext")
         {
-            this.Configuration.ProxyCreationEnabled = true;
+            this.Configuration.ProxyCreationEnabled = false;
             this.Configuration.LazyLoadingEnabled = false;
         }
 

@@ -7,6 +7,13 @@ namespace Domain.Entities
 {
     public class Address : BaseEntity
     {
+        public Address()
+        {
+            Houses = new HashSet<House>();
+            PersonBirthAddress = new HashSet<Person>();
+            PersonLiveAddress = new HashSet<Person>();
+        }
+
         public int CityID { get; set; }
 
         public int? StreetID { get; set; }
@@ -23,13 +30,8 @@ namespace Domain.Entities
         //FK to Street
         public virtual Street Street { get; set; }
 
-        [IgnoreDataMember]
         public virtual ICollection<House> Houses { get; set; }
-
-        [IgnoreDataMember]
         public virtual ICollection<Person> PersonBirthAddress { get; set; }
-
-        [IgnoreDataMember]
         public virtual ICollection<Person> PersonLiveAddress { get; set; }
     }
 }

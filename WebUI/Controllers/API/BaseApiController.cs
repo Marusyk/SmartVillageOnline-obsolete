@@ -8,7 +8,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
-using System.Web.Http.OData;
 using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
@@ -68,29 +67,28 @@ namespace WebUI.Controllers.API
             return total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
         }
 
-        private string GetJoinedPropertyList()
-        {
-            IList<string> propertyNames = new List<string>();
+        //private string GetJoinedPropertyList()
+        //{
+        //    IList<string> propertyNames = new List<string>();
 
-            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
-            {
-                if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
-                {
-                    propertyNames.Add(prop.Name);
-                }
-            }
-            return string.Join(",", propertyNames);
-        }
+        //    foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+        //    {
+        //        if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
+        //        {
+        //            propertyNames.Add(prop.Name);
+        //        }
+        //    }
+        //    return string.Join(",", propertyNames);
+        //}
         #endregion
 
         #region GET
 
-        [EnableQuery]
         public virtual HttpResponseMessage Get()
         {
-            var entity = repository.Table;
+            var entity = repository.GetAll();
 
-            if (entity == null || !entity.Any())
+            if (!entity.Any() || entity == null)
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
@@ -98,47 +96,46 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
 
-        [HttpGet]
-        public virtual HttpResponseMessage GetFull(int id, string entities)
-        {            
-            string propertyList = string.Empty;
+        //[HttpGet]
+        //public virtual HttpResponseMessage GetFull(int id, string entities)
+        //{            
+        //    string propertyList = string.Empty;
 
-            if ("0".Equals(entities))
-            {
-                propertyList = GetJoinedPropertyList();
-            }
-            else
-            {
-                propertyList = entities;
-            }
+        //    if ("0".Equals(entities))
+        //    {
+        //        propertyList = GetJoinedPropertyList();
+        //    }
+        //    else
+        //    {
+        //        propertyList = entities;
+        //    }
                 
-            string entityName = typeof(T).Name;
-            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-            var response = Request.CreateResponse(HttpStatusCode.Found);
+        //    string entityName = typeof(T).Name;
+        //    var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+        //    var response = Request.CreateResponse(HttpStatusCode.Found);
 
-            StringBuilder sb = new StringBuilder(1024);
-            sb.Append(baseUrl);
-            sb.Append("/api/");
-            sb.Append(entityName);
-            sb.Append("/");
-            sb.Append(id);
-            sb.Append("?$expand=");
-            sb.Append(propertyList);
+        //    StringBuilder sb = new StringBuilder(1024);
+        //    sb.Append(baseUrl);
+        //    sb.Append("/api/");
+        //    sb.Append(entityName);
+        //    sb.Append("/");
+        //    sb.Append(id);
+        //    sb.Append("?$expand=");
+        //    sb.Append(propertyList);
 
-            response.Headers.Location = new Uri(sb.ToString());
-            return response;
-        }
+        //    response.Headers.Location = new Uri(sb.ToString());
+        //    return response;
+        //}
 
-        [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
             pageNo = NormalizePageNo(pageNo);
             pageSize = NormalizePageSize(pageSize);
 
-            int total = repository.Table.Count();
+            int total = repository.All.Count();
             int pageCount = CalculatePageCount(total, pageSize);
 
-            var entity = repository.Table
+            var entity = repository.All
                 .OrderBy(c => c.ID)
                 .Skip(pageNo * pageSize)
                 .Take(pageSize);
@@ -154,12 +151,11 @@ namespace WebUI.Controllers.API
             response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
             response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
             response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
-
+            
             return response;
         }
 
-        [EnableQuery]
-        public virtual HttpResponseMessage GetById([FromODataUri]int id)
+        public virtual HttpResponseMessage GetById(int id)
         {
             var entity = repository.GetById(id);
 
@@ -168,8 +164,8 @@ namespace WebUI.Controllers.API
                 var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
-            
-            return Request.CreateResponse(HttpStatusCode.OK, SingleResult.Create(repository.Table.Where(t => t.ID == id)));
+
+            return Request.CreateResponse(HttpStatusCode.OK, entity);// SingleResult.Create(repository.Table.Where(t => t.ID == id)));
         }
 
         #endregion
@@ -179,7 +175,7 @@ namespace WebUI.Controllers.API
         {           
             try
             { 
-                repository.Insert(entity);
+                repository.Add(entity);
                 return Request.CreateResponse(HttpStatusCode.Created, entity);             
             }
             catch (Exception ex)
@@ -227,7 +223,7 @@ namespace WebUI.Controllers.API
             {
                 oldEntity = entity;
                 oldEntity.LastUpdDT = DateTime.Now;
-                repository.Update(oldEntity);
+                repository.Edit(oldEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
             }
             catch (Exception ex)

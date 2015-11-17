@@ -3,7 +3,6 @@ using Domain.Entities;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.OData;
 
 namespace WebUI.Controllers.API
 {
@@ -21,17 +20,16 @@ namespace WebUI.Controllers.API
         }
 
         [HttpGet]
-        [EnableQuery]
         public IQueryable<Person> GetByFirstName(string firstName)
         {
-            var persons = repository.Table.Where(f => f.FirstName == firstName);
+            /*var persons = repository.Table.Where(f => f.FirstName == firstName);
 
             if (persons.Count() == 0)
             {
                 throw new HttpResponseException(HttpStatusCode.NoContent);
-            }
+            }*/
 
-            return persons;
+            return null;// persons;
         }
     }
 }

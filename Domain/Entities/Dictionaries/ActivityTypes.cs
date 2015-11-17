@@ -6,7 +6,11 @@ namespace Domain.Entities.Dictionaries
 {
     public class ActivityTypes : BaseDictionary
     {
-        [IgnoreDataMember]
+        public ActivityTypes()
+        {
+            Employments = new HashSet<Employment>();
+        }
+
         public virtual ICollection<Employment> Employments { get; set; }
     }
 }
