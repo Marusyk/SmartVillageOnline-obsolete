@@ -12,6 +12,7 @@ namespace Domain.Abstract
         IQueryable<T> All { get; }
         IQueryable<T> GetAll();
         T GetById(int id);
+        T GetByIdIncluedig(int id, params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
 
         PaginatedList<T> Paginate<TKey>(int pageIndex, int pageSize, Expression<Func<T, TKey>> keySelector);
@@ -27,6 +28,5 @@ namespace Domain.Abstract
 
         void ExecProcedure(string name, Dictionary<string, string> parameters = null);
         /* T GetByIdNoTrack(object id);
-        void SwitchLazyLoading(bool value);*/
     }
 }

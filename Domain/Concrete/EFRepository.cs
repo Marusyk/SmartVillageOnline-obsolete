@@ -218,9 +218,17 @@ namespace Domain.Concrete
             return name;
         }
 
-        //public void SwitchLazyLoading(bool value)
-        //{
-        //     this._context.Configuration.LazyLoadingEnabled = value;
-        //}
+        public T GetByIdIncluedig(int id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            var query = Entities.Where(x => x.ID == id);
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.First();
+        }
+
     }
 }

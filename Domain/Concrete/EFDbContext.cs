@@ -14,7 +14,7 @@ namespace Domain.Concrete
         public EFDbContext()
             :base("EFDbContext")
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.ProxyCreationEnabled = true;
             this.Configuration.LazyLoadingEnabled = false;
         }
 
