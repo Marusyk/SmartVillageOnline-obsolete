@@ -21,39 +21,29 @@ namespace WebUI.Controllers.API
         {
             this.repository = repository;
         }
-
-
-        /// <summary>
-        /// Gets all houses by year.
-        /// </summary>
-        /// <param name="year">The Year of houses</param>
-        /// <returns></returns>
+        
         public HttpResponseMessage GetByYear(int year)
         {
-            /*var houses = repository.Table.Where(f => f.Year == year);
+            var houses = repository.FindBy(x => x.Year == year);
 
             if (houses == null || !houses.Any())
             {
                 var message = string.Format("No house where Year = {0}", year);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
-            }*/
+            }
 
-            return null;// Request.CreateResponse(HttpStatusCode.OK, houses); ;
+            return Request.CreateResponse(HttpStatusCode.OK, houses);
         }
 
-        /// <summary>
-        /// Gets all houses by current year
-        /// </summary>
-        /// <returns></returns>
         public override HttpResponseMessage Get()
         {
-            var houses = repository.AllIncluding(x => x.Peoples);
+            var houses = repository.FindBy(y => y.Year == DateTime.Now.Year);
 
-            //if (houses == null || !houses.Any())
-            //{
-            //    var message = "House: No content";
-            //    return ErrorMsg(HttpStatusCode.NotFound, message);
-            //}
+            if (houses == null || !houses.Any())
+            {
+                var message = "House: No content";
+                return ErrorMsg(HttpStatusCode.NotFound, message);
+            }
             return Request.CreateResponse(HttpStatusCode.OK, houses);
         }
     }
