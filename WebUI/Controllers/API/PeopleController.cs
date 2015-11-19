@@ -22,16 +22,11 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        /// <summary>
-        /// Set person as the head of the household
-        /// </summary>
-        /// <param name="id">The ID of the people</param>
-        /// <returns></returns>
         [HttpGet]
         [Route("api/People/SetMain/{id}")]
         public HttpResponseMessage SetAsMain(int id)
         {
-            /*People people = repository.GetById(id);
+            People people = repository.GetByIdIncluedig(id, x => x.Persons);
 
             if (people == null)
             {
@@ -40,9 +35,7 @@ namespace WebUI.Controllers.API
 
             if (people.IsMain)
             {
-                repository.SwitchLazyLoading(true);
                 string fullName = people.Persons.FullName;
-                repository.SwitchLazyLoading(false);
                 return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", fullName));
             }
 
@@ -52,13 +45,13 @@ namespace WebUI.Controllers.API
                 parameters.Add("PeopleID", id.ToString());
 
                 repository.ExecProcedure("usp_PeopleSetMain", parameters);
-                return Request.CreateResponse(HttpStatusCode.OK, repository.GetByIdNoTrack(id));
+                people.IsMain = true;
+                return Request.CreateResponse(HttpStatusCode.OK, people);
             }
             catch (Exception ex)
             {
                 return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
-            }*/
-            return null;
+            }
         }
     }
 }
