@@ -6,11 +6,7 @@ namespace Domain.Entities.Dictionaries
 {
     public class Specialities : BaseDictionary
     {
-        public Specialities()
-        {
-            Educations = new HashSet<Education>();
-        }
-
+        [IgnoreDataMember]
         public virtual ICollection<Education> Educations { get; set; }
     }
 }

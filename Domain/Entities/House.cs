@@ -4,14 +4,8 @@ using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
-
     public class House : BaseEntity
     {
-        public House()
-        {
-            Peoples = new HashSet<People>();
-        }
-
         public string HouseNr { get; set; }
 
         public string KadastrNr { get; set; }
@@ -27,12 +21,13 @@ namespace Domain.Entities
         public string FaxNr { get; set; }
 
         public int? Year { get; set; }
-        
+
         public string Code { get; set; }
 
         //FK to Address
         public virtual Address Address { get; set; }
 
-        public virtual ICollection<People> Peoples { get; private set; }
+        [IgnoreDataMember]
+        public virtual ICollection<People> Peoples { get; set; }
     }
 }

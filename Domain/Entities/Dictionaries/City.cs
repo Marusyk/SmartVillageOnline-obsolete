@@ -6,11 +6,6 @@ namespace Domain.Entities.Dictionaries
 {
     public class City : BaseDictionary
     {
-        public City()
-        {
-            Addresses = new HashSet<Address>();
-            Institution = new HashSet<Institution>();
-        }
         public int CityTypeID { get; set; }
 
         public int? DistrictID { get; set; }
@@ -24,7 +19,10 @@ namespace Domain.Entities.Dictionaries
         // FK to Region
         public virtual Region Region { get; set; }
 
+        [IgnoreDataMember]
         public virtual ICollection<Address> Addresses { get; set; }
+
+        [IgnoreDataMember]
         public virtual ICollection<Institution> Institution { get; set; }
     }
 }

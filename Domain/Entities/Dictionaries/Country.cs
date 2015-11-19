@@ -7,13 +7,10 @@ namespace Domain.Entities
 {
     public class Country : BaseDictionary
     {
-        public Country()
-        {
-            Regions = new HashSet<Region>();
-            Persons = new HashSet<Person>();
-        }
-
+        [IgnoreDataMember]
         public virtual ICollection<Region> Regions { get; set; }
+
+        [IgnoreDataMember]
         public virtual ICollection<Person> Persons { get; set; }
     }
 }

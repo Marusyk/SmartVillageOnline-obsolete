@@ -6,13 +6,10 @@ namespace Domain.Entities
 {
     public class PassAuthority : BaseDictionary
     {
-        public PassAuthority()
-        {
-            Persons = new HashSet<Person>();
-            Documents = new HashSet<Document>();
-        }
-
+        [IgnoreDataMember]
         public virtual ICollection<Person> Persons { get; set; }
+
+        [IgnoreDataMember]
         public virtual ICollection<Document> Documents { get; set; }
     }
 }

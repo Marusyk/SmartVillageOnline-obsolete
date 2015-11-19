@@ -7,11 +7,7 @@ namespace Domain.Entities
 {
     public class CityType : BaseDictionary
     {
-        public CityType()
-        {
-            Cities = new HashSet<City>();
-        }
-
+        [IgnoreDataMember]
         public virtual ICollection<City> Cities { get; set; }
     }
 }
