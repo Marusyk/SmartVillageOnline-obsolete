@@ -1,20 +1,17 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 
 namespace WebUI.Controllers.API
 {
     public class StreetTypeController : BaseApiController<StreetType>
     {
-        public StreetTypeController()
-            : base()
-        {
-        }
+        public StreetTypeController() { }
 
         public StreetTypeController(IRepository<StreetType> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

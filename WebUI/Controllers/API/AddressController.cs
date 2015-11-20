@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class AddressController : BaseApiController<Address>
     {
-        public AddressController()
-            : base()
-        {
-        }
+        public AddressController() { }
 
         public AddressController(IRepository<Address> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

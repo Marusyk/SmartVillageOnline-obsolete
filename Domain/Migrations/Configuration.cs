@@ -1,18 +1,15 @@
+using System.Data.Entity.Migrations;
+
 namespace Domain.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    public sealed class Configuration : DbMigrationsConfiguration<Domain.Concrete.EFDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Concrete.EFDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Domain.Concrete.EFDbContext context)
+        protected override void Seed(Concrete.EFDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

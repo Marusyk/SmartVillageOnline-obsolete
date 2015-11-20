@@ -2,7 +2,7 @@
 
 namespace Domain.Concrete
 {
-    public static class IQueryableExtensions
+    public static class QueryableExtensions
     {
         public static PaginatedList<T> ToPaginatedList<T>(this IQueryable<T> query, int pageIndex, int pageSize)
         {

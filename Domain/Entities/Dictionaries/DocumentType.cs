@@ -1,8 +1,8 @@
-﻿using Domain.Abstract;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Domain.Abstract;
 
-namespace Domain.Entities
+namespace Domain.Entities.Dictionaries
 {
     public class DocumentType : BaseDictionary
     {        

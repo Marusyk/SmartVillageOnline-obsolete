@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Dictionaries;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
+using Domain.Entities;
 
-namespace Domain.Mapping.Dictionaries
+namespace Domain.Mapping
 {
     public class EducationMap : EntityTypeConfiguration<Education>
     {

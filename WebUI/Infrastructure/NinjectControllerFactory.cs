@@ -11,11 +11,11 @@ namespace WebUI.Infrastructure
     // успадковуючись від фабрики яка використовується по замовчуванню
     public class NinjectControlFactory : DefaultControllerFactory
     {
-        private IKernel ninjectKernel;
+        private readonly IKernel _ninjectKernel;
         public NinjectControlFactory()
         {
             //створення контейнера
-            ninjectKernel = new StandardKernel();
+            _ninjectKernel = new StandardKernel();
             AddBindings();
         }
 
@@ -24,14 +24,14 @@ namespace WebUI.Infrastructure
             //отримання об'єкту контролера з контейнеру використовуючи його тип
             return controllerType == null
                 ? null
-                : (IController)ninjectKernel.Get(controllerType);
+                : (IController)_ninjectKernel.Get(controllerType);
         }
 
         private void AddBindings()
         {
             //конфігурування контейнеру
-            //ninjectKernel.Bind<IHouseRepository>().To<EFHouseRepository>();
-            ninjectKernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
+            //_ninjectKernel.Bind<IHouseRepository>().To<EFHouseRepository>();
+            _ninjectKernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
         }
     }
 }

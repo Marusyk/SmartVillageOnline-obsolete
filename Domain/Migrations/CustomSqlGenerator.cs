@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity.Migrations.Model;
 using System.Data.Entity.SqlServer;
-using System.Linq;
 
-namespace Domain
+namespace Domain.Migrations
 {
     public class CustomSqlGenerator : SqlServerMigrationSqlGenerator
     {

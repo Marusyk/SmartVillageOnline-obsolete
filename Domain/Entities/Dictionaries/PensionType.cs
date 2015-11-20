@@ -1,6 +1,6 @@
 ﻿using Domain.Abstract;
 
-namespace Domain.Entities
+namespace Domain.Entities.Dictionaries
 {
     public class PensionType : BaseDictionary
     {       

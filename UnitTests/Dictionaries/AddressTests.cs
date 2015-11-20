@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Moq;
 using System.Linq;
 using System.Net;
+using Domain.Entities.Dictionaries;
 
 namespace UnitTests
 {
@@ -19,7 +20,7 @@ namespace UnitTests
 
         private IRepository<Address> CreateMockRepository()
         {
-            // creating  fake repository
+            // creating  fake Repository
             var addresses = new List<Address>
             {
                 new Address {ID = 1, BuildNr = "1" },
@@ -51,7 +52,7 @@ namespace UnitTests
 
         private AddressController ArrangeController()
         {
-            // Get the mock repository
+            // Get the mock Repository
             var moq = CreateMockRepository();
             var controller = new AddressController(moq);
             controller.Request = new HttpRequestMessage();

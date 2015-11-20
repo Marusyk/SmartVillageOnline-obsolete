@@ -1,19 +1,16 @@
 ﻿using Domain.Abstract;
-using Domain.Entities.Dictionaries;
+using Domain.Entities;
 
 namespace WebUI.Controllers.API
 {
     public class EducationController : BaseApiController<Education>
     {
-        public EducationController()
-            : base()
-        {
-        }
+        public EducationController() { }
 
         public EducationController(IRepository<Education> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

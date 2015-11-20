@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity.ModelConfiguration;
-using Domain.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Dictionaries;
 
 namespace Domain.Mapping.Dictionaries
 {

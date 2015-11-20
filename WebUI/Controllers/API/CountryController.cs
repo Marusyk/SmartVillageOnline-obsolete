@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class CountryController : BaseApiController<Country>
     {
-        public CountryController()
-            : base()
-        {           
-        }
+        public CountryController() { }
 
         public CountryController(IRepository<Country> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

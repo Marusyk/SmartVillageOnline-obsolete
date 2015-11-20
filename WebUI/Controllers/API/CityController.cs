@@ -5,15 +5,12 @@ namespace WebUI.Controllers.API
 {
     public class CityController : BaseApiController<City>
     {
-        public CityController()
-            : base()
-        {
-        }
+        public CityController() { }
 
         public CityController(IRepository<City> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

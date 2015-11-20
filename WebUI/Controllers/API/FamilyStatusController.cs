@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class FamilyStatusController : BaseApiController<FamilyStatus>
     {
-        public FamilyStatusController()
-            : base()
-        {
-        }
+        public FamilyStatusController() { }
 
         public FamilyStatusController(IRepository<FamilyStatus> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

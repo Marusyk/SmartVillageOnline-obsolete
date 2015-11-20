@@ -1,8 +1,8 @@
-﻿using System.Data.Entity.ModelConfiguration;
-using Domain.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.ModelConfiguration;
+using Domain.Entities.Dictionaries;
 
-namespace Domain.Mapping
+namespace Domain.Mapping.Dictionaries
 {
     public class CountryMap : EntityTypeConfiguration<Country>
     {

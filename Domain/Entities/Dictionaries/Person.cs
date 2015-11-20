@@ -1,11 +1,10 @@
-﻿using Domain.Abstract;
-using System.Text;
-using System;
-using System.Runtime.Serialization;
+﻿using System;
 using System.Collections.Generic;
-using Domain.Entities.Dictionaries;
+using System.Runtime.Serialization;
+using System.Text;
+using Domain.Abstract;
 
-namespace Domain.Entities
+namespace Domain.Entities.Dictionaries
 {
     public class Person : BaseEntity
     {
@@ -85,7 +84,7 @@ namespace Domain.Entities
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 sb.Append(FirstName + " ");
                 sb.Append(LastName + " ");
                 sb.Append(MiddleName);

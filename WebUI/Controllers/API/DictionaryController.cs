@@ -9,15 +9,12 @@ namespace WebUI.Controllers.API
     public class DictionaryController : BaseApiController<SYS_Dictionary>
     {
 
-        public DictionaryController()
-            : base()
-        {            
-        }
+        public DictionaryController() { }
 
         public DictionaryController(IRepository<SYS_Dictionary> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
 
         public override HttpResponseMessage GetById(int id)

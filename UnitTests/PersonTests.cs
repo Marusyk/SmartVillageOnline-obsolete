@@ -9,6 +9,7 @@ using WebUI.Controllers.API;
 using System.Net.Http;
 using System.Web.Http;
 using System.Net;
+using Domain.Entities.Dictionaries;
 
 namespace UnitTests
 {
@@ -19,7 +20,7 @@ namespace UnitTests
 
         private IRepository<Person> CreateMockRepository()
         {
-            // creating  fake repository
+            // creating  fake Repository
             var persons = new List<Person>
             {
                 new Person {ID =1, FirstName = "Steven", LastName = "McConnell" },
@@ -51,7 +52,7 @@ namespace UnitTests
 
         private PersonController ArrangeController()
         {
-            // Get the mock repository
+            // Get the mock Repository
             var moq = CreateMockRepository();
             var controller = new PersonController(moq);
             controller.Request = new HttpRequestMessage();

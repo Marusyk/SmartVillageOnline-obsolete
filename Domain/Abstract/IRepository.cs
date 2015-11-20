@@ -27,6 +27,5 @@ namespace Domain.Abstract
         void Save();
 
         void ExecProcedure(string name, Dictionary<string, string> parameters = null);
-        /* T GetByIdNoTrack(object id); */
     }
 }

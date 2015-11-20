@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Domain.Migrations;
 
 namespace Domain.Concrete
 {

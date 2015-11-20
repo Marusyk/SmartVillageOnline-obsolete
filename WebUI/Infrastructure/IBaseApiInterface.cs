@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace WebUI.Infrastructure
 {
-    public interface IBaseApiInterface<T>
+    public interface IBaseApiInterface<in T>
     {
         // Get all entities
         HttpResponseMessage Get();

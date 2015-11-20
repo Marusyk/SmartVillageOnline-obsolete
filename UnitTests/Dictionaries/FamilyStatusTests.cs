@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
+using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
 
 namespace UnitTests.Dictionaries

@@ -5,15 +5,12 @@ namespace WebUI.Controllers.API
 {
     public class ActivityTypesController : BaseApiController<ActivityTypes>
     {
-        public ActivityTypesController()
-            : base()
-        {
-        }
+        public ActivityTypesController() { }
 
         public ActivityTypesController(IRepository<ActivityTypes> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class DocumentTypeController : BaseApiController<DocumentType>
     {
-        public DocumentTypeController()
-            : base()
-        {
-        }
+        public DocumentTypeController() { }
 
         public DocumentTypeController(IRepository<DocumentType> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

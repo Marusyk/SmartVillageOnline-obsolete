@@ -1,20 +1,17 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 
 namespace WebUI.Controllers.API
 {
     public class AnimalsController : BaseApiController<Animals>
     {
-        public AnimalsController()
-            : base()
-        {
-        }
+        public AnimalsController() { }
 
         public AnimalsController(IRepository<Animals> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

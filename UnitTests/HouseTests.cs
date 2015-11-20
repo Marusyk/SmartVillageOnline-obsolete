@@ -21,7 +21,7 @@ namespace UnitTests
 
         private IRepository<House> CreateMockRepository()
         {
-            // creating  fake repository
+            // creating  fake Repository
             var houses = new List<House>
             {
                 new House {ID =1, HouseNr ="001", BuildNr ="1"},
@@ -53,7 +53,7 @@ namespace UnitTests
 
         private HouseController ArrangeController()
         {
-            // Get the mock repository
+            // Get the mock Repository
             var moq = CreateMockRepository();
             var controller = new HouseController(moq);
             controller.Request = new HttpRequestMessage();

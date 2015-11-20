@@ -5,15 +5,12 @@ namespace WebUI.Controllers.API
 {
     public class DocumentController : BaseApiController<Document>
     {
-        public DocumentController()
-            : base()
-        {
-        }
+        public DocumentController() { }
 
         public DocumentController(IRepository<Document> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

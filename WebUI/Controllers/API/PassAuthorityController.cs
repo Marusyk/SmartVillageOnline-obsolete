@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class PassAuthorityController : BaseApiController<PassAuthority>
     {
-        public PassAuthorityController()
-            : base()
-        {
-        }
+        public PassAuthorityController() { }
 
         public PassAuthorityController(IRepository<PassAuthority> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

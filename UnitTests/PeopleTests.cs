@@ -20,7 +20,7 @@ namespace UnitTests
 
         private IRepository<People> CreateMockRepository()
         {
-            // creating  fake repository
+            // creating  fake Repository
             var persons = new List<People>
             {
                 new People {ID =1, HouseID = 1, PersonID = 1, PeopleNumber = 1 },
@@ -52,7 +52,7 @@ namespace UnitTests
 
         private PeopleController ArrangeController()
         {
-            // Get the mock repository
+            // Get the mock Repository
             var moq = CreateMockRepository();
             var controller = new PeopleController(moq);
             controller.Request = new HttpRequestMessage();

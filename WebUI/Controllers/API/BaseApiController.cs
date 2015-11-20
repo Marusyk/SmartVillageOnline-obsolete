@@ -1,12 +1,9 @@
 ﻿using Domain;
 using Domain.Abstract;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Web.Http;
 using WebUI.Infrastructure;
 
@@ -16,18 +13,18 @@ namespace WebUI.Controllers.API
     {
         public BaseApiController()
         {
-            repository = unitOfWork.EFRepository<T>();
+            Repository = UnitOfWork.EFRepository<T>();
         }
 
         public BaseApiController(IRepository<T> repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
 
         #region Protected
 
-        protected UnitOfWork unitOfWork = new UnitOfWork();
-        protected IRepository<T> repository;
+        protected UnitOfWork UnitOfWork = new UnitOfWork();
+        protected IRepository<T> Repository;
 
         protected string GenericTypeName
         {
@@ -36,7 +33,7 @@ namespace WebUI.Controllers.API
 
         protected HttpResponseMessage ErrorMsg(HttpStatusCode statusCode, string errorMsg)
         {
-            HttpError error = new HttpError()
+            var error = new HttpError()
             {
                 Message = string.Format("code: {0}", (int)statusCode),
                 MessageDetail = errorMsg
@@ -46,23 +43,23 @@ namespace WebUI.Controllers.API
 
         protected override void Dispose(bool disposing)
         {
-            unitOfWork.Dispose();
+            UnitOfWork.Dispose();
             base.Dispose(disposing);
         }
         #endregion
 
         #region Private
-        private int NormalizePageNo(int pageNo)
+        private static int NormalizePageNo(int pageNo)
         {
             return pageNo > 0 ? pageNo - 1 : 0;
         }
 
-        private int NormalizePageSize(int pageSize)
+        private static int NormalizePageSize(int pageSize)
         {
             return pageSize > 0 ? pageSize : 0;
         }
 
-        private int CalculatePageCount(int total, int pageSize)
+        private static int CalculatePageCount(int total, int pageSize)
         {
             return total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
         }
@@ -86,7 +83,7 @@ namespace WebUI.Controllers.API
 
         public virtual HttpResponseMessage Get()
         {
-            var entity = repository.GetAll();
+            var entity = Repository.GetAll();
 
             if (!entity.Any() || entity == null)
             {
@@ -132,15 +129,15 @@ namespace WebUI.Controllers.API
             pageNo = NormalizePageNo(pageNo);
             pageSize = NormalizePageSize(pageSize);
 
-            int total = repository.All.Count();
-            int pageCount = CalculatePageCount(total, pageSize);
+            var total = Repository.All.Count();
+            var pageCount = CalculatePageCount(total, pageSize);
 
-            var entity = repository.All
+            var entity = Repository.All
                 .OrderBy(c => c.ID)
                 .Skip(pageNo * pageSize)
                 .Take(pageSize);
 
-            if (entity == null || !entity.Any())
+            if (!entity.Any())
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
@@ -157,7 +154,7 @@ namespace WebUI.Controllers.API
 
         public virtual HttpResponseMessage GetById(int id)
         {
-            var entity = repository.GetById(id);
+            var entity = Repository.GetById(id);
 
             if (entity == null)
             {                
@@ -165,7 +162,7 @@ namespace WebUI.Controllers.API
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, entity);// SingleResult.Create(repository.Table.Where(t => t.ID == id)));
+            return Request.CreateResponse(HttpStatusCode.OK, entity);// SingleResult.Create(Repository.Table.Where(t => t.ID == id)));
         }
 
         #endregion
@@ -175,7 +172,7 @@ namespace WebUI.Controllers.API
         {           
             try
             { 
-                repository.Add(entity);
+                Repository.Add(entity);
                 return Request.CreateResponse(HttpStatusCode.Created, entity);             
             }
             catch (Exception ex)
@@ -190,7 +187,7 @@ namespace WebUI.Controllers.API
         public virtual HttpResponseMessage Delete(int id)
         {
             string message;
-            T toDelete = repository.GetById(id);
+            var toDelete = Repository.GetById(id);
 
             if (toDelete == null)
             {
@@ -199,7 +196,7 @@ namespace WebUI.Controllers.API
             }
             try
             {
-                repository.Delete(toDelete);
+                Repository.Delete(toDelete);
                 message = string.Format("{0} with ID = {1} was deleted", GenericTypeName, id);
                 return ErrorMsg(HttpStatusCode.OK, message);
             }
@@ -213,7 +210,7 @@ namespace WebUI.Controllers.API
         #region PUT
         public virtual HttpResponseMessage Put([FromBody]T entity)
         {
-            T oldEntity = repository.GetById(entity.ID);
+            var oldEntity = Repository.GetById(entity.ID);
 
             if (oldEntity == null)
             {
@@ -223,7 +220,7 @@ namespace WebUI.Controllers.API
             {
                 oldEntity = entity;
                 oldEntity.LastUpdDT = DateTime.Now;
-                repository.Edit(oldEntity);
+                Repository.Edit(oldEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
             }
             catch (Exception ex)

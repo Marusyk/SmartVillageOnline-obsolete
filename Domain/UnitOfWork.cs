@@ -7,18 +7,18 @@ namespace Domain
 {
     public class UnitOfWork : IDisposable
     {
-        private readonly EFDbContext context;
-        private bool disposed;
-        private Dictionary<string, object> repositories;
+        private readonly EFDbContext _context;
+        private bool _disposed;
+        private Dictionary<string, object> _repositories;
 
         public UnitOfWork(EFDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
         public UnitOfWork()
         {
-            context = new EFDbContext();
+            _context = new EFDbContext();
         }
 
         public void Dispose()
@@ -29,37 +29,37 @@ namespace Domain
 
         public void Save()
         {
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    _context.Dispose();
                 }
             }
-            disposed = true;
+            _disposed = true;
         }
 
         public EFRepository<T> EFRepository<T>() where T : BaseEntity
         {
-            if (repositories == null)
+            if (_repositories == null)
             {
-                repositories = new Dictionary<string, object>();
+                _repositories = new Dictionary<string, object>();
             }
 
             var type = typeof(T).Name;
 
-            if (!repositories.ContainsKey(type))
+            if (!_repositories.ContainsKey(type))
             {
                 var repositoryType = typeof(EFRepository<>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), context);
-                repositories.Add(type, repositoryInstance);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
+                _repositories.Add(type, repositoryInstance);
             }
-            return (EFRepository<T>)repositories[type];
+            return (EFRepository<T>)_repositories[type];
         }
     }
 }

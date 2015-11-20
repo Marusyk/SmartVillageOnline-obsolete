@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebUI.Controllers.API;
 using Domain.Entities;
+using Domain.Entities.Dictionaries;
 
 namespace UnitTests.Dictionaries
 {
@@ -10,7 +11,7 @@ namespace UnitTests.Dictionaries
         public StreetTests()
             : base()
         {
-            // get Mock repository from base class
+            // get Mock Repository from base class
             var moq = base.CreateMockRepository();
 
             // create controller with Mock

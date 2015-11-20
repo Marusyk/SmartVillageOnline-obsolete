@@ -5,15 +5,12 @@ namespace WebUI.Controllers.API
 {
     public class SpecialitiesController : BaseApiController<Specialities>
     {
-        public SpecialitiesController()
-            : base()
-        {
-        }
+        public SpecialitiesController() { }
 
         public SpecialitiesController(IRepository<Specialities> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

@@ -1,35 +1,32 @@
 ﻿using Domain.Abstract;
-using Domain.Entities;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class PersonController : BaseApiController<Person>
     {
-        public PersonController()
-            : base()
-        {
-        }
+        public PersonController() { }
 
         public PersonController(IRepository<Person> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
 
         [HttpGet]
         public IQueryable<Person> GetByFirstName(string firstName)
         {
-            /*var persons = repository.Table.Where(f => f.FirstName == firstName);
+            var persons = Repository.FindBy(x => x.FirstName == firstName);
 
-            if (persons.Count() == 0)
+            if (!persons.Any())
             {
                 throw new HttpResponseException(HttpStatusCode.NoContent);
-            }*/
+            }
 
-            return null;// persons;
+            return persons;
         }
     }
 }

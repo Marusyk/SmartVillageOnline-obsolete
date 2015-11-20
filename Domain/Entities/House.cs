@@ -1,6 +1,7 @@
 ﻿using Domain.Abstract;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Domain.Entities.Dictionaries;
 
 namespace Domain.Entities
 {

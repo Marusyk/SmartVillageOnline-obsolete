@@ -17,7 +17,7 @@ namespace UnitTests
 
         private IRepository<SYS_Dictionary> CreateMockRepository()
         {
-            // creating  fake repository
+            // creating  fake Repository
             var dictionaries = new List<SYS_Dictionary>
             {
                 new SYS_Dictionary {ID =1, Name ="Dictionary1", IsStatic = true },
@@ -38,7 +38,7 @@ namespace UnitTests
         [TestMethod]
         public void Get_All_Dictionary()
         {
-            //Arrange - create mock repository               
+            //Arrange - create mock Repository               
             var moq = CreateMockRepository();
 
             //Arrange - create a controller

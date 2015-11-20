@@ -5,15 +5,12 @@ namespace WebUI.Controllers.API
 {
     public class EducationDegreeController : BaseApiController<EducationDegree>
     {
-        public EducationDegreeController()
-            : base()
-        {
-        }
+        public EducationDegreeController() { }
 
         public EducationDegreeController(IRepository<EducationDegree> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
+using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
 using UnitTests.Dictionaries;
 
@@ -11,7 +12,7 @@ namespace UnitTests
         public CountryTests()
             : base()
         {
-            // get Mock repository from base class
+            // get Mock Repository from base class
             var moq = base.CreateMockRepository();
 
             // create controller with Mock

@@ -11,7 +11,7 @@ namespace UnitTests
         public CatalogTests()
             : base()
         {
-            // get Mock repository from base class
+            // get Mock Repository from base class
             var moq = base.CreateMockRepository();
 
             // create controller with Mock

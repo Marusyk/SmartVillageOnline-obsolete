@@ -1,19 +1,16 @@
-﻿using Domain.Entities;
-using Domain.Abstract;
+﻿using Domain.Abstract;
+using Domain.Entities.Dictionaries;
 
 namespace WebUI.Controllers.API
 {
     public class PositionController : BaseApiController<Position>
     {
-        public PositionController()
-            : base()
-        {
-        }
+        public PositionController() { }
 
         public PositionController(IRepository<Position> repository)
             : base(repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
     }
 }
