@@ -18,11 +18,11 @@ namespace WebUI
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Routes.MapHttpRoute(
-                name: "LinkedData",
-                routeTemplate: "api/{controller}/{id}/Full/{entities}",
-                defaults: new { action = "GetFull", entities = "0" }
-            );
+            //config.Routes.MapHttpRoute(
+            //    name: "LinkedData",
+            //    routeTemplate: "api/{controller}/{id}/Full/{entities}",
+            //    defaults: new { action = "GetFull", entities = "0" }
+            //);
 
             config.Routes.MapHttpRoute(
                name: "ActionApi",

@@ -26,7 +26,7 @@ namespace WebUI.Controllers.API
         [Route("api/People/SetMain/{id}")]
         public HttpResponseMessage SetAsMain(int id)
         {
-            People people = repository.GetByIdIncluedig(id, x => x.Persons);
+            People people = repository.GetSingleIncluding(id, x => x.Persons);
 
             if (people == null)
             {

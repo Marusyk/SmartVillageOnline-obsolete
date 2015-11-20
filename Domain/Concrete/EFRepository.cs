@@ -218,7 +218,7 @@ namespace Domain.Concrete
             return name;
         }
 
-        public T GetByIdIncluedig(int id, params Expression<Func<T, object>>[] includeProperties)
+        public T GetSingleIncluding(int id, params Expression<Func<T, object>>[] includeProperties)
         {
             var query = Entities.Where(x => x.ID == id);
 
