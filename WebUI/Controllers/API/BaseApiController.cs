@@ -1,5 +1,7 @@
 ﻿using Domain;
 using Domain.Abstract;
+using Domain.Concrete;
+using Domain.Entities.Dictionaries;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -155,7 +157,7 @@ namespace WebUI.Controllers.API
             return response;
         }
 
-        public virtual HttpResponseMessage GetById(int id)
+        public virtual HttpResponseMessage GetById(IdType id)
         {
             var entity = repository.GetById(id);
 
@@ -187,7 +189,7 @@ namespace WebUI.Controllers.API
         #endregion
 
         #region DELETE
-        public virtual HttpResponseMessage Delete(int id)
+        public virtual HttpResponseMessage Delete(IdType id)
         {
             string message;
             T toDelete = repository.GetById(id);

@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using Domain.Concrete;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace WebUI.Infrastructure
@@ -12,13 +13,13 @@ namespace WebUI.Infrastructure
         HttpResponseMessage Get(int pageNo, int pageSize);
 
         // Get entity by ID
-        HttpResponseMessage GetById(int id);
+        HttpResponseMessage GetById(IdType id);
 
         // Insert new entity
         HttpResponseMessage Post([FromBody]T entity);
 
         // Remove the entity by ID
-        HttpResponseMessage Delete(int id);
+        HttpResponseMessage Delete(IdType id);
 
         // Update the entity
         HttpResponseMessage Put([FromBody]T entity);

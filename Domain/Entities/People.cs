@@ -1,18 +1,18 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using System;
-using System.Runtime.Serialization;
 
 namespace Domain.Entities
 {
     public class People : BaseEntity
     {
-        public int PersonID { get; set; }
+        public IdType PersonID { get; set; }
 
-        public int HouseID { get; set; }
+        public IdType HouseID { get; set; }
 
         public int PeopleNumber { get; set; }
 
-        public int? FamilyRelationID { get; set; }
+        public IdType? FamilyRelationID { get; set; }
 
         public DateTime? DateRegistration { get; set; }
 

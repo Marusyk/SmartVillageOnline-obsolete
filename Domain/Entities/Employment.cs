@@ -1,22 +1,19 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using Domain.Entities.Dictionaries;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
     public class Employment : BaseEntity
     {
-        public int PersonID { get; set; }
+        public IdType PersonID { get; set; }
 
-        public int? ActivityTypesID { get; set; }
+        public IdType? ActivityTypesID { get; set; }
 
-        public int? CompanyID { get; set; }
+        public IdType? CompanyID { get; set; }
 
-        public int? PositionID { get; set; }
+        public IdType? PositionID { get; set; }
 
         public DateTime? DateStart { get; set; }
 

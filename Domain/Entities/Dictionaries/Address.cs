@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using Domain.Entities.Dictionaries;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -7,9 +8,9 @@ namespace Domain.Entities
 {
     public class Address : BaseEntity
     {
-        public int CityID { get; set; }
+        public IdType CityID { get; set; }
 
-        public int? StreetID { get; set; }
+        public IdType? StreetID { get; set; }
 
         public int? PostCode { get; set; }
 

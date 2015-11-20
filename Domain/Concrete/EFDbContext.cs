@@ -26,7 +26,8 @@ namespace Domain.Concrete
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // remove a convention to enable cascade delete for any required relationships
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();            
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Properties<IdType>().Configure(c => c.HasColumnType("int"));          
 
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
                 .Where(type => !string.IsNullOrEmpty(type.Namespace))

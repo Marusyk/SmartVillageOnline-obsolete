@@ -1,17 +1,13 @@
 ﻿using Domain.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Concrete;
 
 namespace Domain.Entities
 {
     public class PersonDocuments : BaseEntity
     {
-        public int PersonID { get; set; }
+        public IdType PersonID { get; set; }
 
-        public int DocumentID { get; set; }
+        public IdType DocumentID { get; set; }
 
         //FK
         public virtual Person Person { get; set; }

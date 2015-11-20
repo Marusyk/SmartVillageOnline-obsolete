@@ -4,6 +4,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Domain.Entities.Dictionaries;
+using Domain.Concrete;
 
 namespace Domain.Entities
 {
@@ -21,11 +22,11 @@ namespace Domain.Entities
 
         public bool IsResident { get; set; }
 
-        public int? AddressBirthId { get; set; }
+        public IdType? AddressBirthId { get; set; }
 
-        public int? AddressLiveId { get; set; }
+        public IdType? AddressLiveId { get; set; }
 
-        public int? NationalityId { get; set; }
+        public IdType? NationalityId { get; set; }
 
         public string IdentificationCode { get; set; }
 
@@ -35,13 +36,13 @@ namespace Domain.Entities
 
         public DateTime? PassDate { get; set; }
 
-        public int? PassAuthorityId { get; set; }
+        public IdType? PassAuthorityId { get; set; }
 
-        public int? FamilyStatusId { get; set; }
+        public IdType? FamilyStatusId { get; set; }
 
-        public int? CitizenshipId { get; set; }
+        public IdType? CitizenshipId { get; set; }
         
-        public int CatalogId { get; set; }
+        public IdType CatalogId { get; set; }
 
         public bool IsSojourn { get; set; }
 

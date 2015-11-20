@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,7 +7,7 @@ namespace Domain.Entities.Dictionaries
 {
     public class Region : BaseDictionary
     {
-        public int CountryID { get; set; }
+        public IdType CountryID { get; set; }
 
         // FK to Country
         public virtual Country Country { get; set; }

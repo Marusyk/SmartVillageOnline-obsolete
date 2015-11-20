@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using Domain.Entities.Dictionaries;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ namespace Domain.Entities
 {
     public class Document : BaseDictionary
     {
-        public int? DocumentTypeID { get; set; }
+        public IdType? DocumentTypeID { get; set; }
 
-        public int? PassAuthorityID { get; set; }
+        public IdType? PassAuthorityID { get; set; }
 
         public string Number { get; set; }
 

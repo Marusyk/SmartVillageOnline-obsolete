@@ -55,6 +55,7 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Concrete\IdType.cs" />
     <Compile Include="Concrete\IQueryableExtensions.cs" />
     <Compile Include="Concrete\PaginatedList.cs" />
     <Compile Include="Entities\Catalog.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Mapping\EducationMap.cs" />
     <Compile Include="Mapping\EmploymentMap.cs" />
     <Compile Include="Mapping\HouseMap.cs" />
+    <Compile Include="Mapping\IdTypeMap.cs" />
     <Compile Include="Mapping\PeopleMap.cs" />
     <Compile Include="Mapping\PersonDocumentsMap.cs" />
     <Compile Include="Mapping\SystemTables\DictionaryMap.cs" />

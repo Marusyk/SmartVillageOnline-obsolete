@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using Domain.Entities.SystemTables;
 using System.Net;
 using System.Net.Http;
@@ -20,7 +21,7 @@ namespace WebUI.Controllers.API
             this.repository = repository;
         }
 
-        public override HttpResponseMessage GetById(int id)
+        public override HttpResponseMessage GetById(IdType id)
         {
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
@@ -35,7 +36,7 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        public override HttpResponseMessage Delete(int id)
+        public override HttpResponseMessage Delete(IdType id)
         {
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }

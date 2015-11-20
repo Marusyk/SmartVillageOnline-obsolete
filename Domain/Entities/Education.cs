@@ -1,27 +1,23 @@
 ﻿using Domain.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.Concrete;
 
 namespace Domain.Entities.Dictionaries
 {
     public class Education : BaseEntity
     {
-        public int PersonID { get; set; }
+        public IdType PersonID { get; set; }
 
-        public int InstitutionID { get; set; }
+        public IdType InstitutionID { get; set; }
 
-        public int? SpecialitiesID { get; set; }
+        public IdType? SpecialitiesID { get; set; }
 
-        public int? EducationDegreeID { get; set; }
+        public IdType? EducationDegreeID { get; set; }
 
         public int? StartYear { get; set; }
 
         public int? EndYear { get; set; }
 
-        public int? DocumentID { get; set; }
+        public IdType? DocumentID { get; set; }
 
         public string Description { get; set; }
 

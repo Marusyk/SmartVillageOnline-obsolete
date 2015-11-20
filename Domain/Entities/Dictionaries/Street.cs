@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,7 +7,7 @@ namespace Domain.Entities
 {
     public class Street : BaseDictionary
     {       
-        public int StreetTypeID { get; set; }
+        public IdType StreetTypeID { get; set; }
 
         // create foreign key using Lazy Load (virtual)    
         public virtual StreetType StreetType { get; set; }

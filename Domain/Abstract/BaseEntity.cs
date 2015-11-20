@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Concrete;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Abstract
@@ -12,7 +13,7 @@ namespace Domain.Abstract
             LastUpdDT = DateTime.Now;
         }
 
-        public int ID { get; set; }
+        public IdType ID { get; set; }
 
         [Required(ErrorMessage = "Please specify a date of the last update")]
         public DateTime LastUpdDT { get; set; }

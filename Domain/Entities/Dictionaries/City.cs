@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,11 +7,11 @@ namespace Domain.Entities.Dictionaries
 {
     public class City : BaseDictionary
     {
-        public int CityTypeID { get; set; }
+        public IdType CityTypeID { get; set; }
 
-        public int? DistrictID { get; set; }
+        public IdType? DistrictID { get; set; }
 
-        public int RegionID { get; set; }
+        public IdType RegionID { get; set; }
 
         // FK to CityType
         public virtual CityType CityType { get; set; }

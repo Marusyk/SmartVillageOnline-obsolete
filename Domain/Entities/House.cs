@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Concrete;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -12,7 +13,7 @@ namespace Domain.Entities
 
         public string BuildNr { get; set; }
 
-        public int AddressID { get; set; }
+        public IdType AddressID { get; set; }
 
         public string PhoneNr { get; set; }
 

@@ -64,7 +64,7 @@ namespace Domain.Concrete
             return query;
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetById(IdType id)
         {
             return GetAll().FirstOrDefault(x => x.ID == id);
         }
@@ -218,7 +218,7 @@ namespace Domain.Concrete
             return name;
         }
 
-        public T GetByIdIncluedig(int id, params Expression<Func<T, object>>[] includeProperties)
+        public T GetByIdIncluedig(IdType id, params Expression<Func<T, object>>[] includeProperties)
         {
             var query = Entities.Where(x => x.ID == id);
 
