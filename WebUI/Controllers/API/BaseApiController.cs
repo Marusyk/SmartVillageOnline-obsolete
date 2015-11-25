@@ -51,17 +51,12 @@ namespace WebUI.Controllers.API
         #region Private
         private static int NormalizePageNo(int pageNo)
         {
-            return pageNo > 0 ? pageNo - 1 : 0;
+            return pageNo > 0 ? pageNo : 1;
         }
 
         private static int NormalizePageSize(int pageSize)
         {
             return pageSize > 0 ? pageSize : 0;
-        }
-
-        private static int CalculatePageCount(int total, int pageSize)
-        {
-            return total > 0 ? (int)Math.Ceiling(total / (double)pageSize) : 0;
         }
 
         //private string GetJoinedPropertyList()
@@ -126,29 +121,25 @@ namespace WebUI.Controllers.API
 
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
-            pageNo = NormalizePageNo(pageNo);
-            pageSize = NormalizePageSize(pageSize);
+            int localPageNo = NormalizePageNo(pageNo);
+            int localPageSize = NormalizePageSize(pageSize);
 
-            var total = Repository.All.Count();
-            var pageCount = CalculatePageCount(total, pageSize);
+            var paginatedEntities = Repository.Paginate(localPageNo, localPageSize, x => x.ID);
 
-            var entity = Repository.All
-                .OrderBy(c => c.ID)
-                .Skip(pageNo * pageSize)
-                .Take(pageSize);
+            int total = paginatedEntities.TotalCount;
+            int pageCount = paginatedEntities.TotalPageCount;
 
-            if (!entity.Any())
+            if (paginatedEntities == null || !paginatedEntities.Any())
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
 
-            var response = Request.CreateResponse(HttpStatusCode.OK, entity);
-            response.Headers.Add("X-Paging-PageNo", (pageNo + 1).ToString());
-            response.Headers.Add("X-Paging-PageSize", pageSize.ToString());
+            var response = Request.CreateResponse(HttpStatusCode.OK, paginatedEntities);
+            response.Headers.Add("X-Paging-PageNo", localPageNo.ToString());
+            response.Headers.Add("X-Paging-PageSize", localPageSize.ToString());
             response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
             response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
-            
             return response;
         }
 
