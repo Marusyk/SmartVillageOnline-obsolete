@@ -13,6 +13,7 @@ test deploy on http://deploy-test.apphb.com/ <br>
 ![Image of Yaktocat](https://lh6.googleusercontent.com/--VOYXxebqBo/VZIypud6VzI/AAAAAAAAIxk/6fVmc3awbYA/w800-h600-no/Smart%2BVillage%2B-%2BOnline%2B%2BGetting%2BStart.jpg)
 
 Більш детальна схема архітектури
+
 ![Image of Yaktocat](https://lh3.googleusercontent.com/-cdJauQt-5z8/Vli6oN7yksI/AAAAAAAAJfg/0mGkJ7evY8M/w530-d-h308-p-rw/WebApi%2Barchitecture.PNG)
 
 **IV. Instruments** <br>
