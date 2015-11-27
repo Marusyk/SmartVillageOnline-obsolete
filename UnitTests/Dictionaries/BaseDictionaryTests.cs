@@ -156,7 +156,7 @@ namespace UnitTests.Dictionaries
 
             //Action
             var resultDelete = controller.Delete(entity.ID);
-            var resultSelect = resultDelete.ContentToQueryable<T>();
+            var resultSelect = controller.Get().ContentToQueryable<T>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
