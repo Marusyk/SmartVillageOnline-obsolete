@@ -104,13 +104,10 @@ namespace Domain.Concrete
             }
             catch (DbEntityValidationException dbEx)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        _errorMessage += string.Format("Property: {0} Error: {1}",
+                    _errorMessage += string.Format("Property: {0} Error: {1}",
                         validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-                    }
                 }
                 throw new Exception(_errorMessage, dbEx);
             }
@@ -130,13 +127,10 @@ namespace Domain.Concrete
             }
             catch (DbEntityValidationException dbEx)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        _errorMessage += string.Format("Property: {0} Error: {1}",
+                    _errorMessage += string.Format("Property: {0} Error: {1}",
                         validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-                    }
                 }
                 throw new Exception(_errorMessage, dbEx);
             }
@@ -156,13 +150,10 @@ namespace Domain.Concrete
             }
             catch (DbEntityValidationException dbEx)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        _errorMessage += string.Format("Property: {0} Error: {1}",
+                    _errorMessage += string.Format("Property: {0} Error: {1}",
                         validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
-                    }
                 }
                 throw new Exception(_errorMessage, dbEx);
             }
@@ -180,10 +171,7 @@ namespace Domain.Concrete
             if (parameters != null)
             {
                 name = NormalizeProcedureName(name, parameters);
-                foreach (var item in parameters)
-                {
-                    sqlParameters.Add(new SqlParameter(item.Key, item.Value));
-                }
+                sqlParameters.AddRange(parameters.Select(item => new SqlParameter(item.Key, item.Value)));
             }
 
             _context.Database.ExecuteSqlCommand(name, sqlParameters.ToArray());

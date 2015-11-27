@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Web.Http;
 using WebUI.Infrastructure;
 
@@ -117,15 +116,15 @@ namespace WebUI.Controllers.API
 
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
-            int localPageNo = NormalizePageNo(pageNo);
-            int localPageSize = NormalizePageSize(pageSize);
+            var localPageNo = NormalizePageNo(pageNo);
+            var localPageSize = NormalizePageSize(pageSize);
 
             var paginatedEntities = Repository.Paginate(localPageNo, localPageSize, x => x.ID);
 
-            int total = paginatedEntities.TotalCount;
-            int pageCount = paginatedEntities.TotalPageCount;
+            var total = paginatedEntities.TotalCount;
+            var pageCount = paginatedEntities.TotalPageCount;
 
-            if (paginatedEntities == null || !paginatedEntities.Any())
+            if (!paginatedEntities.Any())
             {
                 var message = string.Format("{0}: No content", GenericTypeName);
                 return ErrorMsg(HttpStatusCode.NotFound, message);
@@ -149,7 +148,7 @@ namespace WebUI.Controllers.API
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, entity);// SingleResult.Create(Repository.Table.Where(t => t.ID == id)));
+            return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
 
         #endregion

@@ -15,8 +15,8 @@ namespace Domain.Concrete
         public EFDbContext()
             :base("EFDbContext")
         {
-            this.Configuration.ProxyCreationEnabled = true;
-            this.Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : BaseEntity
@@ -33,10 +33,9 @@ namespace Domain.Concrete
                 .Where(type => !string.IsNullOrEmpty(type.Namespace))
                 .Where(type => type.BaseType != null && type.BaseType.IsGenericType
                     && type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
-            foreach (var type in typesToRegister)
+            foreach (var configurationInstance in typesToRegister.Select(Activator.CreateInstance))
             {
-                dynamic configurationInstance = Activator.CreateInstance(type);
-                modelBuilder.Configurations.Add(configurationInstance);
+                modelBuilder.Configurations.Add((dynamic) configurationInstance);
             }
         }
 

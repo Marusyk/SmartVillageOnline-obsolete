@@ -5,7 +5,7 @@ namespace Domain.Abstract
 {
     public abstract class BaseEntity
     {
-        public BaseEntity()
+        protected BaseEntity()
         {
             LastUpdUS = "SV";
             LastUpdDT = DateTime.Now;
