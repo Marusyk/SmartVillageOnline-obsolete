@@ -7,6 +7,7 @@ using Moq;
 using WebUI.Controllers.API;
 using System.Web.Http;
 using System.Net.Http;
+using UnitTests.Infrastructure;
 
 namespace UnitTests
 {

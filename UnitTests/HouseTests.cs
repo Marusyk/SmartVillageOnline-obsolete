@@ -7,10 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using WebUI.Controllers.API;
 using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Hosting;
 using System.Web.Http;
 using System.Net;
+using UnitTests.Infrastructure;
 
 namespace UnitTests
 {

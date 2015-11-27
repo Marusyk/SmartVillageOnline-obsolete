@@ -10,6 +10,7 @@ using Moq;
 using System.Linq;
 using System.Net;
 using Domain.Entities.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests
 {

@@ -100,7 +100,7 @@
     <Compile Include="Dictionaries\StreetTests.cs" />
     <Compile Include="Dictionaries\StreetTypeTests.cs" />
     <Compile Include="HouseTests.cs" />
-    <Compile Include="HttpResponseMessageExtensions.cs" />
+    <Compile Include="Infrastructure\HttpResponseMessageExtensions.cs" />
     <Compile Include="PeopleTests.cs" />
     <Compile Include="PersonTests.cs" />
     <Compile Include="RouteTests.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Abstract;
 using Domain.Entities;
 using Moq;
@@ -7,10 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using WebUI.Controllers.API;
 using System.Net.Http;
-using System.Web.Http.Controllers;
-using System.Web.Http.Hosting;
 using System.Web.Http;
-using System.Net;
+using UnitTests.Infrastructure;
+
 namespace UnitTests
 {
     [TestClass]

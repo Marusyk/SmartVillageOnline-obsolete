@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
