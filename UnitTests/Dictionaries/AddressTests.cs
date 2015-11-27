@@ -33,7 +33,7 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<Address>> mock = new Mock<IRepository<Address>>();
 
-            mock.Setup(m => m.All).Returns(addresses.AsQueryable());
+            mock.Setup(m => m.GetAll()).Returns(addresses.AsQueryable());
 
             mock.Setup(m => m.Add(It.IsAny<Address>()))
                 .Callback<Address>(c => addresses.Add(c));
@@ -68,9 +68,9 @@ namespace UnitTests
             //Arrange
             var target = ArrangeController();
 
-            //Action
-            HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<Address>>().Result;
+            //Action            
+            var response = target.Get();
+            var result = response.ContentToQueryable<Address>();
 
             //Assert
             Assert.AreEqual(5, result.Count());
@@ -101,7 +101,7 @@ namespace UnitTests
             //Action
             var resultInsert = target.Post(newAddress);
             var resultSelect = GetByID(target, 10);
-            var resultTotalCount = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<Address>>().Result;
+            var resultTotalCount = target.Get().ContentToQueryable<Address>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
@@ -137,7 +137,7 @@ namespace UnitTests
             //Action
             var address = GetByID(target, 1);
             var resultDelete = target.Delete(address.ID);
-            var resultSelect = target.Get().Content.ReadAsStringAsync().Result; // ReadAsAsync<IQueryable<Address>>().Result;
+            var resultSelect = target.Get().ContentToQueryable<Address>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
@@ -146,9 +146,7 @@ namespace UnitTests
 
         private Address GetByID(AddressController controller, int id)
         {
-            HttpResponseMessage response = controller.GetById(id);
-            var entity = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<SingleResult>().Result;
-            return null;// entity.Queryable.Cast<Address>().First();
+            return controller.GetById(id).ContentToEntity<Address>();
         }
     }
 }

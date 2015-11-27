@@ -28,7 +28,7 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<SYS_Dictionary>> mock = new Mock<IRepository<SYS_Dictionary>>();
 
-            mock.Setup(m => m.All).Returns(dictionaries.AsQueryable());           
+            mock.Setup(m => m.GetAll()).Returns(dictionaries.AsQueryable());           
 
             return mock.Object;
         }
@@ -42,13 +42,13 @@ namespace UnitTests
             var moq = CreateMockRepository();
 
             //Arrange - create a controller
-            DictionaryController target = new DictionaryController(moq);
+            var target = new DictionaryController(moq);
             target.Request = new HttpRequestMessage();
             target.Request.SetConfiguration(new HttpConfiguration());
 
             //Action
             HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsStringAsync().Result;//.ReadAsAsync<IQueryable<SYS_Dictionary>>().Result;
+            var result = response.ContentToQueryable<SYS_Dictionary>();
 
             //Assert
             Assert.AreEqual(3, result.Count());

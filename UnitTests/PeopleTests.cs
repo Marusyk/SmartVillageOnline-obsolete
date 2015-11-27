@@ -33,7 +33,7 @@ namespace UnitTests
             // configure the Mock Object
             Mock<IRepository<People>> mock = new Mock<IRepository<People>>();
 
-            mock.Setup(m => m.All).Returns(persons.AsQueryable());
+            mock.Setup(m => m.GetAll()).Returns(persons.AsQueryable());
 
             mock.Setup(m => m.Add(It.IsAny<People>()))
                 .Callback<People>(c => persons.Add(c));
@@ -70,7 +70,7 @@ namespace UnitTests
 
             //Action
             HttpResponseMessage response = target.Get();
-            var model = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<People>>().Result;
+            var model = response.ContentToQueryable<People>();
 
             //Assert
             Assert.AreEqual(5, model.Count());

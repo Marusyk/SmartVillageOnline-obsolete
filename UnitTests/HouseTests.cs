@@ -24,11 +24,11 @@ namespace UnitTests
             // creating  fake Repository
             var houses = new List<House>
             {
-                new House {ID =1, HouseNr ="001", BuildNr ="1"},
-                new House {ID =2, HouseNr ="002", BuildNr= "2" },
-                new House {ID =3, HouseNr ="003", BuildNr ="3" },
-                new House {ID =4, HouseNr ="004", BuildNr ="4"},
-                new House {ID =5, HouseNr ="005", BuildNr ="5" }
+                new House {ID =1, HouseNr ="001", BuildNr ="1", Year = DateTime.Now.Year },
+                new House {ID =2, HouseNr ="002", BuildNr= "2", Year = DateTime.Now.Year },
+                new House {ID =3, HouseNr ="003", BuildNr ="3", Year = DateTime.Now.Year },
+                new House {ID =4, HouseNr ="004", BuildNr ="4", Year = DateTime.Now.Year },
+                new House {ID =5, HouseNr ="005", BuildNr ="5", Year = DateTime.Now.Year }
             };
 
             // configure the Mock Object
@@ -70,8 +70,8 @@ namespace UnitTests
             var target = ArrangeController();
 
             //Action
-            HttpResponseMessage response = target.Get();
-            var result = response.Content.ReadAsStringAsync().Result;//.ReadAsAsync<IQueryable<House>>().Result;
+            var response = target.Get();
+            var result = response.ContentToQueryable<House>();
 
             //Assert
             Assert.AreEqual(5, result.Count());
@@ -102,7 +102,7 @@ namespace UnitTests
             //Action
             var resultInsert = target.Post(newHouse);
             var resultSelect = GetByID(target, 10);
-            var resultTotalCount = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<House>>().Result;
+            var resultTotalCount = target.Get().ContentToQueryable<House>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
@@ -139,7 +139,7 @@ namespace UnitTests
             //Action
             var house = GetByID(target, 1);
             var resultDelete = target.Delete(house.ID);
-            var resultSelect = target.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<House>>().Result;
+            var resultSelect = target.Get().ContentToQueryable<House>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
@@ -148,9 +148,7 @@ namespace UnitTests
 
         private House GetByID(HouseController controller, int id)
         {
-            HttpResponseMessage response = controller.GetById(id);
-            var entity = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<SingleResult>().Result;
-            return null;// entity.Queryable.Cast<House>().First();
+            return controller.GetById(id).ContentToEntity<House>();
         }
     }
 }
