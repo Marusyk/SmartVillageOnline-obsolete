@@ -38,19 +38,31 @@ namespace UnitTests.Dictionaries
             // configure the standart Mock Object for CRUD operations
             Mock<IRepository<T>> mock = new Mock<IRepository<T>>();
 
-            mock.Setup(m => m.All).Returns(entitiesList.AsQueryable());
+            // GetAll()
+            mock.Setup(m => m.GetAll()).Returns(entitiesList.AsQueryable());
 
+            //GetById(int id)
+            mock.Setup(m => m.GetById(It.IsAny<int>()))
+               .Returns<int>(c => entitiesList.Find(f => f.ID == c));
+
+            // FindBy()
+            mock.Setup(m => m.FindBy(f => f.Name == It.IsAny<string>()))
+                .Returns(entitiesList.AsQueryable());
+
+            // Add()
             mock.Setup(m => m.Add(It.IsAny<T>()))
                 .Callback<T>(c => entitiesList.Add(c));
 
+            // Edit
             mock.Setup(m => m.Edit(It.IsAny<T>()))
                 .Callback<T>(c => entitiesList[entitiesList.IndexOf(c)] = c);
 
-            mock.Setup(m => m.GetById(It.IsAny<int>()))
-                .Returns<int>(c => entitiesList.Find(f => f.ID == c));
-
+           // Delete
             mock.Setup(m => m.Delete(It.IsAny<T>()))
                 .Callback<T>(c => entitiesList.Remove(c));            
+
+            // Paginate
+            // TODO: 
 
             return mock.Object;
         }
@@ -65,9 +77,8 @@ namespace UnitTests.Dictionaries
         protected virtual void GetAll()
         {
             //Action
-            HttpResponseMessage response = controller.Get();
-            var result = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<T>>().Result;
-
+            var response = controller.Get();
+            var result = response.ContentToQueryable<T>();
             //Assert
             Assert.AreEqual(5, result.Count());
         }
@@ -113,7 +124,7 @@ namespace UnitTests.Dictionaries
             // Act
             var resultInsert = controller.Post(entity);
             var resultSelect = GetByID(10);
-            var resultTotalCount = controller.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<T>>().Result;
+            var resultTotalCount = controller.Get().ContentToQueryable<T>();
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
@@ -145,7 +156,7 @@ namespace UnitTests.Dictionaries
 
             //Action
             var resultDelete = controller.Delete(entity.ID);
-            var resultSelect = controller.Get().Content.ReadAsStringAsync().Result;// ReadAsAsync<IQueryable<T>>().Result;
+            var resultSelect = resultDelete.ContentToQueryable<T>();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
@@ -154,9 +165,7 @@ namespace UnitTests.Dictionaries
 
         private T GetByID(int id)
         {
-            HttpResponseMessage response = controller.GetById(id);
-            var entity = response.Content.ReadAsStringAsync().Result;// ReadAsAsync<SingleResult>().Result;
-            return null;// entity.Queryable.Cast<T>().First();
+            return controller.GetById(id).ContentToEntity<T>();
         }
     }
 }
