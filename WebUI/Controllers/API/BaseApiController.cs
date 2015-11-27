@@ -1,9 +1,11 @@
 ﻿using Domain;
 using Domain.Abstract;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using WebUI.Infrastructure;
 
@@ -59,19 +61,19 @@ namespace WebUI.Controllers.API
             return pageSize > 0 ? pageSize : 0;
         }
 
-        //private string GetJoinedPropertyList()
-        //{
-        //    IList<string> propertyNames = new List<string>();
+        private static string GetJoinedPropertyList()
+        {
+            IList<string> propertyNames = new List<string>();
 
-        //    foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
-        //    {
-        //        if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
-        //        {
-        //            propertyNames.Add(prop.Name);
-        //        }
-        //    }
-        //    return string.Join(",", propertyNames);
-        //}
+            foreach (var prop in typeof(T).GetProperties().Where(p => p.GetGetMethod().IsVirtual))
+            {
+                if (prop.PropertyType.IsClass && !prop.PropertyType.FullName.StartsWith("System."))
+                {
+                    propertyNames.Add(prop.Name);
+                }
+            }
+            return string.Join(",", propertyNames);
+        }
         #endregion
 
         #region GET
@@ -88,36 +90,30 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(HttpStatusCode.OK, entity);
         }
 
-        //[HttpGet]
-        //public virtual HttpResponseMessage GetFull(int id, string entities)
-        //{            
-        //    string propertyList = string.Empty;
+        [HttpGet]
+        public virtual HttpResponseMessage GetFull(int id, string entities)
+        {            
+            var propertyList = "0".Equals(entities) ? GetJoinedPropertyList() : entities;
+            var includeProperties = propertyList.Split(',');
+            T entity;
 
-        //    if ("0".Equals(entities))
-        //    {
-        //        propertyList = GetJoinedPropertyList();
-        //    }
-        //    else
-        //    {
-        //        propertyList = entities;
-        //    }
+            try
+            {
+                entity = Repository.GetSingleIncluding(id, includeProperties);
                 
-        //    string entityName = typeof(T).Name;
-        //    var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
-        //    var response = Request.CreateResponse(HttpStatusCode.Found);
+                if (entity == null)
+                {
+                    var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
+                    return ErrorMsg(HttpStatusCode.NotFound, message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
+            }            
 
-        //    StringBuilder sb = new StringBuilder(1024);
-        //    sb.Append(baseUrl);
-        //    sb.Append("/api/");
-        //    sb.Append(entityName);
-        //    sb.Append("/");
-        //    sb.Append(id);
-        //    sb.Append("?$expand=");
-        //    sb.Append(propertyList);
-
-        //    response.Headers.Location = new Uri(sb.ToString());
-        //    return response;
-        //}
+            return Request.CreateResponse(HttpStatusCode.OK, entity);                
+        }
 
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {

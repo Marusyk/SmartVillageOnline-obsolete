@@ -13,6 +13,7 @@ namespace Domain.Abstract
         IQueryable<T> GetAll();
         T GetById(int id);
         T GetSingleIncluding(int id, params Expression<Func<T, object>>[] includeProperties);
+        T GetSingleIncluding(int id, string[] includeProperties);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
 
         PaginatedList<T> Paginate<TKey>(int pageIndex, int pageSize, Expression<Func<T, TKey>> keySelector);
@@ -25,7 +26,7 @@ namespace Domain.Abstract
         void Edit(T entity);
         void Delete(T entity);
         void Save();
-
+        
         void ExecProcedure(string name, Dictionary<string, string> parameters = null);
     }
 }

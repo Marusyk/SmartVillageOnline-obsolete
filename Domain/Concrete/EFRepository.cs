@@ -225,5 +225,18 @@ namespace Domain.Concrete
             return query.First();
         }
 
+        public T GetSingleIncluding(int id, string[] includeProperties)
+        {
+            var query = Entities.Where(x => x.ID == id);
+
+            if (includeProperties == null || !includeProperties.Any()) return query.First();
+            query = query.Include(includeProperties.First());
+            query = includeProperties
+                .Skip(1)
+                .Aggregate(query, (current, include) => current.Include(include));
+
+            return query.First();
+        }
+
     }
 }
