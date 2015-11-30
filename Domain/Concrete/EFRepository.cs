@@ -99,7 +99,7 @@ namespace Domain.Concrete
                     throw new ArgumentNullException("entity");
                 }
 
-                DbEntityEntry dbEntityEntry = _context.Entry<T>(entity);
+                _context.Entry(entity);
                 Entities.Add(entity);
             }
             catch (DbEntityValidationException dbEx)
@@ -122,7 +122,7 @@ namespace Domain.Concrete
                     throw new ArgumentNullException("entity");
                 }
 
-                DbEntityEntry dbEntityEntry = _context.Entry<T>(entity);
+                DbEntityEntry dbEntityEntry = _context.Entry(entity);
                 dbEntityEntry.State = EntityState.Modified;
             }
             catch (DbEntityValidationException dbEx)
@@ -145,7 +145,7 @@ namespace Domain.Concrete
                     throw new ArgumentNullException("entity");
                 }
 
-                DbEntityEntry dbEntityEntry = _context.Entry<T>(entity);
+                DbEntityEntry dbEntityEntry = _context.Entry(entity);
                 dbEntityEntry.State = EntityState.Deleted;
             }
             catch (DbEntityValidationException dbEx)
