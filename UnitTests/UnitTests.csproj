@@ -100,7 +100,12 @@
     <Compile Include="Dictionaries\StreetTests.cs" />
     <Compile Include="Dictionaries\StreetTypeTests.cs" />
     <Compile Include="HouseTests.cs" />
+    <Compile Include="Infrastructure\BaseEntityUnitTest.cs" />
     <Compile Include="Infrastructure\HttpResponseMessageExtensions.cs" />
+    <Compile Include="Infrastructure\IBaseEntityUnitTest.cs" />
+    <Compile Include="Infrastructure\IMockBuilder.cs" />
+    <Compile Include="Infrastructure\MockBuilder.cs" />
+    <Compile Include="Infrastructure\MockDirector.cs" />
     <Compile Include="PeopleTests.cs" />
     <Compile Include="PersonTests.cs" />
     <Compile Include="RouteTests.cs" />
