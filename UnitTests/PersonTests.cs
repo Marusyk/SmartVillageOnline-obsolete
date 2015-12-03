@@ -1,12 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Abstract;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
 using WebUI.Controllers.API;
-using System.Net.Http;
-using System.Web.Http;
 using Domain.Entities.Dictionaries;
 using UnitTests.Infrastructure;
 
@@ -27,10 +21,11 @@ namespace UnitTests
                  new Person {ID =5, FirstName = "Jeffrey", LastName = "Richter" }
              };
 
-            base.EntitiesList = persons;
+            // create a mock storage and pass list of persons
+            var mockStorage = new MockStorage<Person>(persons);
 
-            // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create Controller with Mock
             var controller = new PersonController(moq);

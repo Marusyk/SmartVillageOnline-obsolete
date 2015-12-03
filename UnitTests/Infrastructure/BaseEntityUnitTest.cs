@@ -17,59 +17,6 @@ namespace UnitTests.Infrastructure
     public class BaseEntityUnitTest<T> : IBaseEntityUnitTest<T> where T : BaseEntity, new()
     {
         protected IBaseApiInterface<T> Controller;
-        protected List<T> EntitiesList;
-
-
-        private static List<T> CreateDefaultList()
-        {
-            return new List<T>
-            {
-                new T {ID = 1, LastUpdUS = "Entity1" },
-                new T {ID = 2, LastUpdUS = "Entity2" },
-                new T {ID = 3, LastUpdUS = "Entity3" },
-                new T {ID = 4, LastUpdUS = "Entity4" },
-                new T {ID = 5, LastUpdUS = "Entity5" }
-            };
-        }
-
-        private List<T> GetEntitiesList()
-        {
-            return EntitiesList != null ? EntitiesList : CreateDefaultList();
-        }
-
-        public virtual IRepository<T> CreateMockRepository()
-        {
-            // configure the standart Mock Object for CRUD operations
-            Mock<IRepository<T>> mock = new Mock<IRepository<T>>();
-
-            // GetAll()
-            mock.Setup(m => m.GetAll()).Returns(EntitiesList.AsQueryable());
-
-            //GetById(int id)
-            mock.Setup(m => m.GetById(It.IsAny<int>()))
-               .Returns<int>(c => EntitiesList.Find(f => f.ID == c));
-
-            // FindBy()
-            //mock.Setup(m => m.FindBy(f => f.LastUpdUS == It.IsAny<string>()))
-            //    .Returns(EntitiesList.AsQueryable());
-
-            // Add()
-            mock.Setup(m => m.Add(It.IsAny<T>()))
-                .Callback<T>(c => EntitiesList.Add(c));
-
-            // Edit
-            mock.Setup(m => m.Edit(It.IsAny<T>()))
-                .Callback<T>(c => EntitiesList[EntitiesList.IndexOf(c)] = c);
-
-            // Delete
-            mock.Setup(m => m.Delete(It.IsAny<T>()))
-                .Callback<T>(c => EntitiesList.Remove(c));
-
-            // Paginate
-            // TODO: 
-
-            return mock.Object;
-        }
 
         public virtual void ArrangeController(IBaseApiInterface<T> controller)
         {

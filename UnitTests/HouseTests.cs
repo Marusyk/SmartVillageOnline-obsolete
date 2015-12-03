@@ -1,14 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Abstract;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
-using Moq;
 using System.Collections.Generic;
-using System.Linq;
 using WebUI.Controllers.API;
-using System.Net.Http;
-using System.Web.Http;
-using System.Net;
 using UnitTests.Infrastructure;
 
 namespace UnitTests
@@ -19,7 +12,7 @@ namespace UnitTests
         public HouseTests()
         {
             // creating  fake Repository
-            var persons = new List<House>
+            var houses = new List<House>
              {
                  new House {ID = 1, BuildNr = "01", HouseNr = "001" },
                  new House {ID = 2, BuildNr = "02", HouseNr = "002" },
@@ -28,10 +21,11 @@ namespace UnitTests
                  new House {ID = 5, BuildNr = "05", HouseNr = "005" }
              };
 
-            base.EntitiesList = persons;
+            // create a mock storage and pass list of houses
+            var mockStorage = new MockStorage<House>(houses);
 
-            // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create Controller with Mock
             var controller = new HouseController(moq);
