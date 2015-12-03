@@ -1,25 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using WebUI.Controllers.API;
-using UnitTests.Dictionaries;
-using Domain.Abstract;
-using System.Net.Http;
-using System.Web.Http;
 using System.Collections.Generic;
-using Moq;
-using System.Linq;
-using System.Net;
 using Domain.Entities.Dictionaries;
 using UnitTests.Infrastructure;
 
 namespace UnitTests
 {
     [TestClass]
-    public class AddressTests
+    public class AddressTests : BaseEntityUnitTest<Address>
     {
-        #region private
-
-        private IRepository<Address> CreateMockRepository()
+        public AddressTests()
         {
             // creating  fake Repository
             var addresses = new List<Address>
@@ -31,123 +21,47 @@ namespace UnitTests
                 new Address {ID = 5, BuildNr = "5" }
             };
 
-            // configure the Mock Object
-            Mock<IRepository<Address>> mock = new Mock<IRepository<Address>>();
+            // get Mock Repository from base class
+            var mockStorage = new MockStorage<Address>(addresses);
 
-            mock.Setup(m => m.GetAll()).Returns(addresses.AsQueryable());
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
-            mock.Setup(m => m.Add(It.IsAny<Address>()))
-                .Callback<Address>(c => addresses.Add(c));
-
-            mock.Setup(m => m.Edit(It.IsAny<Address>()))
-                .Callback<Address>(c => addresses[addresses.IndexOf(c)] = c);
-
-            mock.Setup(m => m.GetById(It.IsAny<int>()))
-                .Returns<int>(c => addresses.Find(f => f.ID == c));
-
-            mock.Setup(m => m.Delete(It.IsAny<Address>()))
-                .Callback<Address>(c => addresses.Remove(c));
-
-            return mock.Object;
-        }
-
-        private AddressController ArrangeController()
-        {
-            // Get the mock Repository
-            var moq = CreateMockRepository();
+            // create controller with Mock
             var controller = new AddressController(moq);
-            controller.Request = new HttpRequestMessage();
-            controller.Request.SetConfiguration(new HttpConfiguration());
-            return controller;
-        }
 
-        #endregion
+            // Init params of controller
+            base.ArrangeController(controller);
+        }        
 
         [TestMethod]
         public void Address_Get_All()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action            
-            var response = target.Get();
-            var result = response.ContentToQueryable<Address>();
-
-            //Assert
-            Assert.AreEqual(5, result.Count());
+            base.GetAll();
         }
 
         [TestMethod]
         public void Address_Get_By_Id()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action
-            var result = GetByID(target, 1);
-
-            //Assert
-            Assert.AreEqual(1, result.ID);
+            base.GetById();
         }
 
         [TestMethod]
         public void Address_Can_Insert()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Arrange - create a new country for insert
-            Address newAddress = new Address() { ID = 10, BuildNr = "010" };
-
-            //Action
-            var resultInsert = target.Post(newAddress);
-            var resultSelect = GetByID(target, 10);
-            var resultTotalCount = target.Get().ContentToQueryable<Address>();
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
-            Assert.AreEqual(10, resultSelect.ID);
-            Assert.AreEqual(6, resultTotalCount.Count());
-            Assert.AreEqual("010", resultSelect.BuildNr);
+            base.Insert();
         }
 
         [TestMethod]
         public void Address_Can_Edit()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action                     
-            var address = GetByID(target, 1);
-            address.BuildNr = "007";
-            var resultUpdate = target.Put(address);
-            var resultSelect = GetByID(target, 1);
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual(1, resultSelect.ID);
-            Assert.AreEqual("007", resultSelect.BuildNr);
+            base.Edit();
         }
 
         [TestMethod]
         public void Address_Can_Remove()
         {
-            //Arrange
-            var target = ArrangeController();
-
-            //Action
-            var address = GetByID(target, 1);
-            var resultDelete = target.Delete(address.ID);
-            var resultSelect = target.Get().ContentToQueryable<Address>();
-
-            //Assert
-            Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Count());
-        }
-
-        private Address GetByID(AddressController controller, int id)
-        {
-            return controller.GetById(id).ContentToEntity<Address>();
+            base.Remove();
         }
     }
 }

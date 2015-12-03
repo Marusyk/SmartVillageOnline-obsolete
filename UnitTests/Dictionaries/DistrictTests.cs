@@ -1,17 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebUI.Controllers.API;
 using Domain.Entities.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class DistrictTests : BaseDictionaryTests<District>
+    public class DistrictTests : BaseEntityUnitTest<District>
     {
         public DistrictTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<District>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new DistrictController(moq);

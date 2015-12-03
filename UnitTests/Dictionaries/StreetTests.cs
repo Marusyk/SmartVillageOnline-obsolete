@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebUI.Controllers.API;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class StreetTests : BaseDictionaryTests<Street>
+    public class StreetTests : BaseEntityUnitTest<Street>
     {
         public StreetTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<Street>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new StreetController(moq);
