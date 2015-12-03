@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class PassAuthorityTests : BaseDictionaryTests<PassAuthority>
+    public class PassAuthorityTests : BaseEntityUnitTest<PassAuthority>
     {
         public PassAuthorityTests()
-            : base()
         {
             // get Mock repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<PassAuthority>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new PassAuthorityController(moq);

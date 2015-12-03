@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class AnimalsTests : BaseDictionaryTests<Animals>
+    public class AnimalsTests : BaseEntityUnitTest<Animals>
     {
         public AnimalsTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<Animals>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new AnimalsController(moq);

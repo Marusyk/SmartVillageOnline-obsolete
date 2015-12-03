@@ -1,18 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
 using WebUI.Controllers.API;
-using UnitTests.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests
 {
     [TestClass]
-    public class CatalogTests : BaseDictionaryTests<Catalog>
+    public class CatalogTests : BaseEntityUnitTest<Catalog>
     {
         public CatalogTests()
             : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<Catalog>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new CatalogController(moq);

@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class PensionTypeTests : BaseDictionaryTests<PensionType>
+    public class PensionTypeTests : BaseEntityUnitTest<PensionType>
     {
         public PensionTypeTests()
-            : base()
         {
             // get Mock repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<PensionType>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new PensionTypeController(moq);

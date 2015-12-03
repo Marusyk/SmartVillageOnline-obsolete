@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class FamilyRelationsTests : BaseDictionaryTests<FamilyRelations>
+    public class FamilyRelationsTests : BaseEntityUnitTest<FamilyRelations>
     {
         public FamilyRelationsTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<FamilyRelations>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new FamilyRelationsController(moq);

@@ -1,18 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using WebUI.Controllers.API;
 using Domain.Entities.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class ActivityTypesTests : BaseDictionaryTests<ActivityTypes>
+    public class ActivityTypesTests : BaseEntityUnitTest<ActivityTypes>
     {
         public ActivityTypesTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<ActivityTypes>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new ActivityTypesController(moq);

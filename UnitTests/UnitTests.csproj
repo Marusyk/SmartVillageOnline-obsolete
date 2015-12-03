@@ -83,7 +83,6 @@
     <Compile Include="Dictionaries\ActivityTypesTests.cs" />
     <Compile Include="Dictionaries\AddressTests.cs" />
     <Compile Include="Dictionaries\AnimalsTests.cs" />
-    <Compile Include="Dictionaries\BaseDictionaryTests.cs" />
     <Compile Include="Dictionaries\CityTests.cs" />
     <Compile Include="Dictionaries\CityTypeTests.cs" />
     <Compile Include="Dictionaries\CountryTests.cs" />

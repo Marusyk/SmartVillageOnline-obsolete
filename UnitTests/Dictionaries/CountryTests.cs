@@ -1,19 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
-using UnitTests.Dictionaries;
+using UnitTests.Infrastructure;
 
 namespace UnitTests
 {
     [TestClass]
-    public class CountryTests : BaseDictionaryTests<Country>
+    public class CountryTests : BaseEntityUnitTest<Country>
     {
         public CountryTests()
-            : base()
         {
             // get Mock Repository from base class
-            var moq = base.CreateMockRepository();
+            var mockStorage = new MockStorage<Country>();
+
+            // get Mock Repository
+            var moq = mockStorage.SetupAndReturnMock();
 
             // create controller with Mock
             var controller = new CountryController(moq);
