@@ -3,7 +3,7 @@ using System.Data.Entity.SqlServer;
 
 namespace Domain.Migrations
 {
-    class CustomDbConfiguration : DbConfiguration
+    internal class CustomDbConfiguration : DbConfiguration
     {
         public CustomDbConfiguration()
         {

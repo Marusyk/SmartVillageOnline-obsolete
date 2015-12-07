@@ -21,7 +21,7 @@ namespace Domain.Concrete
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             _context = context;
@@ -41,13 +41,7 @@ namespace Domain.Concrete
             return Entities;
         }
 
-        public virtual IQueryable<T> All
-        {
-            get
-            {
-                return GetAll();
-            }
-        }
+        public virtual IQueryable<T> All => GetAll();
 
         public virtual IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
@@ -96,7 +90,7 @@ namespace Domain.Concrete
             {
                 if (entity == null)
                 {
-                    throw new ArgumentNullException("entity");
+                    throw new ArgumentNullException(nameof(entity));
                 }
 
                 _context.Entry(entity);
@@ -106,8 +100,7 @@ namespace Domain.Concrete
             {
                 foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    _errorMessage += string.Format("Property: {0} Error: {1}",
-                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    _errorMessage += $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine;
                 }
                 throw new Exception(_errorMessage, dbEx);
             }
@@ -119,7 +112,7 @@ namespace Domain.Concrete
             {
                 if (entity == null)
                 {
-                    throw new ArgumentNullException("entity");
+                    throw new ArgumentNullException(nameof(entity));
                 }
 
                 DbEntityEntry dbEntityEntry = _context.Entry(entity);
@@ -129,8 +122,7 @@ namespace Domain.Concrete
             {
                 foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    _errorMessage += string.Format("Property: {0} Error: {1}",
-                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    _errorMessage += $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine;
                 }
                 throw new Exception(_errorMessage, dbEx);
             }
@@ -142,7 +134,7 @@ namespace Domain.Concrete
             {
                 if (entity == null)
                 {
-                    throw new ArgumentNullException("entity");
+                    throw new ArgumentNullException(nameof(entity));
                 }
 
                 DbEntityEntry dbEntityEntry = _context.Entry(entity);
@@ -152,8 +144,7 @@ namespace Domain.Concrete
             {
                 foreach (var validationError in dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors))
                 {
-                    _errorMessage += string.Format("Property: {0} Error: {1}",
-                        validationError.PropertyName, validationError.ErrorMessage) + Environment.NewLine;
+                    _errorMessage += $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine;
                 }
                 throw new Exception(_errorMessage, dbEx);
             }

@@ -53,12 +53,14 @@ namespace Domain
 
             var type = typeof(T).Name;
 
-            if (!_repositories.ContainsKey(type))
+            if (_repositories.ContainsKey(type))
             {
-                var repositoryType = typeof(EFRepository<>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
-                _repositories.Add(type, repositoryInstance);
+                return (EFRepository<T>) _repositories[type];
             }
+
+            var repositoryType = typeof(EFRepository<>);
+            var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
+            _repositories.Add(type, repositoryInstance);
             return (EFRepository<T>)_repositories[type];
         }
     }
