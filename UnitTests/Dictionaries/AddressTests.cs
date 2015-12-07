@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WebUI.Controllers.API;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Domain.Entities.Dictionaries;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTests.Infrastructure;
+using WebUI.Controllers.API;
 
-namespace UnitTests
+namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class AddressTests : BaseEntityUnitTest<Address>
+    public sealed class AddressTests : BaseEntityUnitTest<Address>
     {
         public AddressTests()
         {
@@ -31,37 +31,37 @@ namespace UnitTests
             var controller = new AddressController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }        
 
         [TestMethod]
         public void Address_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void Address_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void Address_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void Address_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void Address_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

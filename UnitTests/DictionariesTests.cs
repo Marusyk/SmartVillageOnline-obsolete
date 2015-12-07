@@ -16,7 +16,7 @@ namespace UnitTests
     {
         #region private
 
-        private IRepository<SYS_Dictionary> CreateMockRepository()
+        private static IRepository<SYS_Dictionary> CreateMockRepository()
         {
             // creating  fake Repository
             var dictionaries = new List<SYS_Dictionary>
@@ -43,12 +43,11 @@ namespace UnitTests
             var moq = CreateMockRepository();
 
             //Arrange - create a controller
-            var target = new DictionaryController(moq);
-            target.Request = new HttpRequestMessage();
+            var target = new DictionaryController(moq) {Request = new HttpRequestMessage()};
             target.Request.SetConfiguration(new HttpConfiguration());
 
             //Action
-            HttpResponseMessage response = target.Get();
+            var response = target.Get();
             var result = response.ContentToQueryable<SYS_Dictionary>();
 
             //Assert

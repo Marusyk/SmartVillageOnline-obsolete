@@ -6,10 +6,9 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class PositionTests : BaseEntityUnitTest<Position>
+    public sealed class PositionTests : BaseEntityUnitTest<Position>
     {
         public PositionTests()
-            : base()
         {
             // get Mock Repository from base class
             var mockStorage = new MockStorage<Position>();
@@ -21,38 +20,38 @@ namespace UnitTests.Dictionaries
             var controller = new PositionController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
 
         [TestMethod]
         public void Position_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void Position_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void Position_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void Position_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void Position_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

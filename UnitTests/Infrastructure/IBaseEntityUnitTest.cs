@@ -4,7 +4,7 @@ using WebUI.Infrastructure;
 
 namespace UnitTests.Infrastructure
 {
-    interface IBaseEntityUnitTest<T> where T : BaseEntity
+    internal interface IBaseEntityUnitTest<out T> where T : BaseEntity
     {
         void ArrangeController(IBaseApiInterface<T> controller);
 

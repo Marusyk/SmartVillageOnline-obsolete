@@ -7,7 +7,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests
 {
     [TestClass]
-    public class PersonTests : BaseEntityUnitTest<Person>
+    public sealed class PersonTests : BaseEntityUnitTest<Person>
     {
         public PersonTests()
         {
@@ -31,55 +31,55 @@ namespace UnitTests
             var controller = new PersonController(moq);
 
             // Init params of Controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
         [TestMethod]
          public void Person_Get_All()
          {
-            base.GetAll();
+            GetAll();
          }
 
          [TestMethod]
          public void Person_Get_By_Id()
          {
-            base.GetById();
+            GetById();
          }
 
          [TestMethod]
          public void Person_Can_Insert()
          {
-            base.Insert();                   
+            Insert();                   
          }
 
          [TestMethod]
          public void Person_Can_Edit()
          {
-            base.Edit();
+            Edit();
          }
 
          [TestMethod]
          public void Person_Can_Remove()
          {
-            base.Remove();
+            Remove();
          }
 
          [TestMethod]
          public void Person_Get_Paging_1_2()
          {
-            base.GetAll(1, 2);
+            GetAll(1, 2);
          }
 
          [TestMethod]
          public void Person_Get_Paging_5_1()
          {
-            base.GetAll(5, 1);
+            GetAll(5, 1);
         }
 
          [TestMethod]
          public void Person_Get_Paging_3_2()
          {
-            base.GetAll(3, 2);
+            GetAll(3, 2);
         }
     }
 }

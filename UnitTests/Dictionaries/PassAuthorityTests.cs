@@ -6,7 +6,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class PassAuthorityTests : BaseEntityUnitTest<PassAuthority>
+    public sealed class PassAuthorityTests : BaseEntityUnitTest<PassAuthority>
     {
         public PassAuthorityTests()
         {
@@ -20,38 +20,38 @@ namespace UnitTests.Dictionaries
             var controller = new PassAuthorityController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
 
         [TestMethod]
         public void PassAuthority_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void PassAuthority_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void PassAuthority_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void PassAuthority_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void PassAuthority_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities;
 using Domain.Entities.Dictionaries;
 using WebUI.Controllers.API;
 using UnitTests.Infrastructure;
@@ -7,7 +6,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class CityTypeTests : BaseEntityUnitTest<CityType>
+    public sealed class CityTypeTests : BaseEntityUnitTest<CityType>
     {
         public CityTypeTests()
         {
@@ -21,37 +20,37 @@ namespace UnitTests.Dictionaries
             var controller = new CityTypeController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
         [TestMethod]
         public void CityType_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void CityType_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void CityType_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void CityType_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void CityType_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

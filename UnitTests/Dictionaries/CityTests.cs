@@ -6,7 +6,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class CityTests : BaseEntityUnitTest<City>
+    public sealed class CityTests : BaseEntityUnitTest<City>
     {
         public CityTests()
         {
@@ -20,43 +20,43 @@ namespace UnitTests.Dictionaries
             var controller = new CityController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
         [TestMethod]
         public void City_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void City_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void City_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void City_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void City_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
 
         [TestMethod]
         public void City_Get_All_Paging()
         {
-            base.GetAll(/*pageNo, pageSize*/);
+            GetAll(/*pageNo, pageSize*/);
         }
     }
 }

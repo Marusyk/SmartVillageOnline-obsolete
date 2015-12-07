@@ -9,21 +9,13 @@ namespace UnitTests.Infrastructure
         public static IQueryable<T> ContentToQueryable<T>(this HttpResponseMessage response) where T : BaseEntity
         {
             var objContent = response.Content as ObjectContent;
-            if (objContent != null)
-            {
-                return objContent.Value as IQueryable<T>;
-            }                
-            return null;
+            return objContent?.Value as IQueryable<T>;
         }
 
         public static T ContentToEntity<T>(this HttpResponseMessage response) where T : BaseEntity
         {
             var objContent = response.Content as ObjectContent;
-            if (objContent != null)
-            {
-                return objContent.Value as T;
-            }                
-            return null;
+            return objContent?.Value as T;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class DistrictTests : BaseEntityUnitTest<District>
+    public sealed class DistrictTests : BaseEntityUnitTest<District>
     {
         public DistrictTests()
         {
@@ -20,37 +20,37 @@ namespace UnitTests.Dictionaries
             var controller = new DistrictController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
         [TestMethod]
         public void District_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void District_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void District_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void District_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void District_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

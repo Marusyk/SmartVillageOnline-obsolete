@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Domain.Entities.Dictionaries;
-using WebUI.Controllers.API;
+﻿using Domain.Entities.Dictionaries;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UnitTests.Infrastructure;
+using WebUI.Controllers.API;
 
-namespace UnitTests
+namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class CountryTests : BaseEntityUnitTest<Country>
+    public sealed class CountryTests : BaseEntityUnitTest<Country>
     {
         public CountryTests()
         {
@@ -20,37 +20,37 @@ namespace UnitTests
             var controller = new CountryController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
         [TestMethod]
         public void Country_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void Country_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void Country_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void Country_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void Country_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

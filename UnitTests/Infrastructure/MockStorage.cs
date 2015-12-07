@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace UnitTests.Infrastructure
 {
-    class MockStorage<T> where T : BaseEntity, new()
+    internal class MockStorage<T> where T : BaseEntity, new()
     {
-        private Mock<IRepository<T>> _mock = new Mock<IRepository<T>>();
-        private List<T> _entitiesList;
+        private readonly Mock<IRepository<T>> _mock = new Mock<IRepository<T>>();
+        private readonly List<T> _entitiesList;
 
         public MockStorage(List<T> entitiesList)
         {

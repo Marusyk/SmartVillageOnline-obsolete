@@ -6,10 +6,9 @@ using UnitTests.Infrastructure;
 namespace UnitTests
 {
     [TestClass]
-    public class CatalogTests : BaseEntityUnitTest<Catalog>
+    public sealed class CatalogTests : BaseEntityUnitTest<Catalog>
     {
         public CatalogTests()
-            : base()
         {
             // get Mock Repository from base class
             var mockStorage = new MockStorage<Catalog>();
@@ -21,38 +20,38 @@ namespace UnitTests
             var controller = new CatalogController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
 
         [TestMethod]
         public void Catalog_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void Catalog_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void Catalog_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void Catalog_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void Catalog_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }

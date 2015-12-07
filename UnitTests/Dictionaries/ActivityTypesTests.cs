@@ -6,7 +6,7 @@ using UnitTests.Infrastructure;
 namespace UnitTests.Dictionaries
 {
     [TestClass]
-    public class ActivityTypesTests : BaseEntityUnitTest<ActivityTypes>
+    public sealed class ActivityTypesTests : BaseEntityUnitTest<ActivityTypes>
     {
         public ActivityTypesTests()
         {
@@ -20,38 +20,38 @@ namespace UnitTests.Dictionaries
             var controller = new ActivityTypesController(moq);
 
             // Init params of controller
-            base.ArrangeController(controller);
+            ArrangeController(controller);
         }
 
 
         [TestMethod]
         public void ActivityTypes_Get_All()
         {
-            base.GetAll();
+            GetAll();
         }
 
         [TestMethod]
         public void ActivityTypes_Get_By_Id()
         {
-            base.GetById();
+            GetById();
         }
 
         [TestMethod]
         public void ActivityTypes_Can_Insert()
         {
-            base.Insert();
+            Insert();
         }
 
         [TestMethod]
         public void ActivityTypes_Can_Edit()
         {
-            base.Edit();
+            Edit();
         }
 
         [TestMethod]
         public void ActivityTypes_Can_Remove()
         {
-            base.Remove();
+            Remove();
         }
     }
 }
