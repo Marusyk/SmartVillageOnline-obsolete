@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {
@@ -22,25 +23,26 @@ namespace WebUI.Controllers.API
         {
             var houses = Repository.FindBy(x => x.Year == year);
 
-            if (houses == null || !houses.Any())
+            if (houses != null && houses.Any())
             {
-                var message = string.Format("No house where Year = {0}", year);
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+                return Request.CreateResponse(HttpStatusCode.OK, houses);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, houses);
+            var message = $"No house where Year = {year}";
+            return ErrorMsg(HttpStatusCode.NotFound, message);
         }
 
         public override HttpResponseMessage Get()
         {
             var houses = Repository.FindBy(y => y.Year == DateTime.Now.Year);
 
-            if (houses == null || !houses.Any())
+            if (houses != null && houses.Any())
             {
-                const string message = "House: No content";
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+                return Request.CreateResponse(HttpStatusCode.OK, houses);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, houses);
+
+            const string message = "House: No content";
+            return ErrorMsg(HttpStatusCode.NotFound, message);
         }
     }
 }

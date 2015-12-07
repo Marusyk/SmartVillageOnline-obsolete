@@ -3,6 +3,7 @@ using Domain.Entities.SystemTables;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using Domain.Entities.Dictionaries;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {
@@ -26,13 +27,13 @@ namespace WebUI.Controllers.API
 
             if (people == null)
             {
-                return ErrorMsg(HttpStatusCode.NotFound, string.Format("No people with ID = {0}", id));
+                return ErrorMsg(HttpStatusCode.NotFound, $"No people with ID = {id}");
             }
 
             if (people.IsMain)
             {
                 var fullName = people.Persons.FullName;
-                return ErrorMsg(HttpStatusCode.OK, string.Format("{0} is already set as main", fullName));
+                return ErrorMsg(HttpStatusCode.OK, $"{fullName} is already set as main");
             }
 
             try

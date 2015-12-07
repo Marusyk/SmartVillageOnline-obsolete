@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Abstract;
+using WebUI.Infrastructure;
 
 namespace WebUI.Controllers.API
 {

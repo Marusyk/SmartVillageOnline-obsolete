@@ -213,7 +213,6 @@
     <Compile Include="Controllers\API\ActivityTypesController.cs" />
     <Compile Include="Controllers\API\AddressController.cs" />
     <Compile Include="Controllers\API\AnimalsController.cs" />
-    <Compile Include="Controllers\API\BaseApiController.cs" />
     <Compile Include="Controllers\API\CatalogController.cs" />
     <Compile Include="Controllers\API\CityController.cs" />
     <Compile Include="Controllers\API\CityTypeController.cs" />
@@ -249,6 +248,7 @@
     </Compile>
     <Compile Include="Infrastructure\IBaseApiInterface.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
+	<Compile Include="Infrastructure\BaseApiController.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />

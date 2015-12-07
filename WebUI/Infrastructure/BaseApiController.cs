@@ -1,14 +1,13 @@
-﻿using Domain;
-using Domain.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using WebUI.Infrastructure;
+using Domain;
+using Domain.Abstract;
 
-namespace WebUI.Controllers.API
+namespace WebUI.Infrastructure
 {
     public class BaseApiController<T> : ApiController, IBaseApiInterface<T>  where T : BaseEntity
     {
@@ -27,16 +26,13 @@ namespace WebUI.Controllers.API
         protected UnitOfWork UnitOfWork = new UnitOfWork();
         protected IRepository<T> Repository;
 
-        protected string GenericTypeName
-        {
-            get { return typeof(T).Name; }
-        }
+        protected string GenericTypeName => typeof(T).Name;
 
         protected HttpResponseMessage ErrorMsg(HttpStatusCode statusCode, string errorMsg)
         {
             var error = new HttpError()
             {
-                Message = string.Format("code: {0}", (int)statusCode),
+                Message = $"code: { statusCode}",
                 MessageDetail = errorMsg
             };            
             return Request.CreateResponse(statusCode, error);
@@ -83,7 +79,7 @@ namespace WebUI.Controllers.API
 
             if (!entity.Any() || entity == null)
             {
-                var message = string.Format("{0}: No content", GenericTypeName);
+                var message = $"{GenericTypeName}: No content";
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
             return Request.CreateResponse(HttpStatusCode.OK, entity);
@@ -102,7 +98,7 @@ namespace WebUI.Controllers.API
                 
                 if (entity == null)
                 {
-                    var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
+                    var message = $"No {GenericTypeName} with ID = {id}";
                     return ErrorMsg(HttpStatusCode.NotFound, message);
                 }
             }
@@ -126,7 +122,7 @@ namespace WebUI.Controllers.API
 
             if (!paginatedEntities.Any())
             {
-                var message = string.Format("{0}: No content", GenericTypeName);
+                var message = $"{GenericTypeName}: No content";
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
 
@@ -142,13 +138,13 @@ namespace WebUI.Controllers.API
         {
             var entity = Repository.GetById(id);
 
-            if (entity == null)
-            {                
-                var message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+            if (entity != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, entity);
+            var message = $"No {GenericTypeName} with ID = {id}";
+            return ErrorMsg(HttpStatusCode.NotFound, message);
         }
 
         #endregion
@@ -177,13 +173,13 @@ namespace WebUI.Controllers.API
 
             if (toDelete == null)
             {
-                message = string.Format("No {0} with ID = {1}", GenericTypeName, id);
+                message = $"No {GenericTypeName} with ID = {id}";
                 return ErrorMsg(HttpStatusCode.NotFound, message);
             }
             try
             {
                 Repository.Delete(toDelete);
-                message = string.Format("{0} with ID = {1} was deleted", GenericTypeName, id);
+                message = $"{GenericTypeName} with ID = {id} was deleted";
                 return ErrorMsg(HttpStatusCode.OK, message);
             }
             catch (Exception ex)
@@ -200,7 +196,7 @@ namespace WebUI.Controllers.API
 
             if (oldEntity == null)
             {
-                return ErrorMsg(HttpStatusCode.NotFound, string.Format("No {0} with ID = {1}", GenericTypeName, entity.ID));
+                return ErrorMsg(HttpStatusCode.NotFound, $"No {GenericTypeName} with ID = {entity.ID}");
             }
             try
             {
