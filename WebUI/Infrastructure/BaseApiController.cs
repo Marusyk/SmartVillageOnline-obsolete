@@ -32,7 +32,7 @@ namespace WebUI.Infrastructure
         {
             var error = new HttpError()
             {
-                Message = $"code: { statusCode}",
+                Message = $"code: {statusCode}",
                 MessageDetail = errorMsg
             };            
             return Request.CreateResponse(statusCode, error);
@@ -77,12 +77,13 @@ namespace WebUI.Infrastructure
         {
             var entity = Repository.GetAll();
 
-            if (!entity.Any() || entity == null)
+            if (entity != null && entity.Any())
             {
-                var message = $"{GenericTypeName}: No content";
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, entity);
+
+            var message = $"{GenericTypeName}: No content";
+            return ErrorMsg(HttpStatusCode.NoContent, message);
         }
 
         [HttpGet]
@@ -90,24 +91,23 @@ namespace WebUI.Infrastructure
         {            
             var propertyList = "0".Equals(entities) ? GetJoinedPropertyList() : entities;
             var includeProperties = propertyList.Split(',');
-            T entity;
 
             try
             {
-                entity = Repository.GetSingleIncluding(id, includeProperties);
-                
-                if (entity == null)
+                var entity = Repository.GetSingleIncluding(id, includeProperties);
+
+                if (entity != null)
                 {
-                    var message = $"No {GenericTypeName} with ID = {id}";
-                    return ErrorMsg(HttpStatusCode.NotFound, message);
+                    return Request.CreateResponse(HttpStatusCode.OK, entity);
                 }
             }
             catch (Exception ex)
             {
                 return ErrorMsg(HttpStatusCode.InternalServerError, ex.Message);
-            }            
+            }
 
-            return Request.CreateResponse(HttpStatusCode.OK, entity);                
+            var message = $"No {GenericTypeName} with ID = {id}";
+            return ErrorMsg(HttpStatusCode.NoContent, message);
         }
 
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
@@ -123,7 +123,7 @@ namespace WebUI.Infrastructure
             if (!paginatedEntities.Any())
             {
                 var message = $"{GenericTypeName}: No content";
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+                return ErrorMsg(HttpStatusCode.NoContent, message);
             }
 
             var response = Request.CreateResponse(HttpStatusCode.OK, paginatedEntities);
@@ -144,7 +144,7 @@ namespace WebUI.Infrastructure
             }
 
             var message = $"No {GenericTypeName} with ID = {id}";
-            return ErrorMsg(HttpStatusCode.NotFound, message);
+            return ErrorMsg(HttpStatusCode.NoContent, message);
         }
 
         #endregion
