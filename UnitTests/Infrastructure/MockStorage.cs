@@ -1,7 +1,9 @@
-﻿using Domain.Abstract;
+﻿using System;
+using Domain.Abstract;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace UnitTests.Infrastructure
 {
@@ -53,11 +55,17 @@ namespace UnitTests.Infrastructure
             _mock.Setup(m => m.Delete(It.IsAny<T>()))
                 .Callback<T>(c => _entitiesList.Remove(c));
 
-            // Paginate
-            // TODO: 
-            // FindBy()
-            //mock.Setup(m => m.FindBy(f => f.LastUpdUS == It.IsAny<string>()))
-            //    .Returns(EntitiesList.AsQueryable());
+            // FindBy
+            _mock.Setup(m => m.FindBy(x => x.ID == It.IsAny<int>()))
+                .Returns(_entitiesList.Where(x => x.ID == It.IsAny<int>()).AsQueryable());
+
+            // TODO: Paginate()
+        }
+
+        public void SetupFindBy(Expression<Func<IRepository<T>, IQueryable<T>>> predicateRepository, Func<T, bool> predicateWhere)
+        {
+            _mock.Setup(predicateRepository)
+                .Returns(_entitiesList.Where(predicateWhere).AsQueryable());
         }
 
         public IRepository<T> ReturnMock()

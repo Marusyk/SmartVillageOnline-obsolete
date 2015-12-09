@@ -1,6 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using WebUI.Controllers.API;
 using UnitTests.Infrastructure;
 
@@ -14,18 +17,23 @@ namespace UnitTests
             // creating  fake Repository
             var houses = new List<House>
              {
-                 new House {ID = 1, BuildNr = "01", HouseNr = "001" },
-                 new House {ID = 2, BuildNr = "02", HouseNr = "002" },
-                 new House {ID = 3, BuildNr = "03", HouseNr = "003" },
-                 new House {ID = 4, BuildNr = "04", HouseNr = "004" },
-                 new House {ID = 5, BuildNr = "05", HouseNr = "005" }
+                 new House {ID = 1, BuildNr = "01", HouseNr = "001", Year = 2015 },
+                 new House {ID = 2, BuildNr = "02", HouseNr = "002", Year = 2015 },
+                 new House {ID = 3, BuildNr = "03", HouseNr = "003", Year = 2015 },
+                 new House {ID = 4, BuildNr = "04", HouseNr = "004", Year = 2015 },
+                 new House {ID = 5, BuildNr = "05", HouseNr = "005", Year = 2015 }
              };
 
             // create a mock storage and pass list of houses
-            var mockStorage = new MockStorage<House>(houses);
+            var mockStorage = new MockStorage<House>(houses); 
+            // default setup
+            mockStorage.SetupMock();
+            // Here is a bit black magic. We need to configure FindBy method because House.Get() used FindBy by default           
+            mockStorage.SetupFindBy(x1 => x1.FindBy(x2 => x2.Year == DateTime.Now.Year), x => x.Year == DateTime.Now.Year);
 
             // get Mock Repository
-            var moq = mockStorage.SetupAndReturnMock();
+            var moq = mockStorage.ReturnMock();
+            //mockStorage.SetupFindBy(x => x.ID == 1);
 
             // create Controller with Mock
             var controller = new HouseController(moq);
@@ -49,7 +57,19 @@ namespace UnitTests
         [TestMethod]
         public void House_Can_Insert()
         {
-            Insert();
+            // Arrange
+            var entity = new House() { ID = 10, LastUpdUS = "TEST", Year = DateTime.Now.Year};
+
+            // Act
+            var resultInsert = Controller.Post(entity);
+            var resultSelect = Controller.GetById(10).ContentToEntity<House>();
+            var resultTotalCount = Controller.Get().ContentToQueryable<House>();
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
+            Assert.AreEqual(10, resultSelect.ID);
+            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual("TEST", resultSelect.LastUpdUS);
         }
 
         [TestMethod]
