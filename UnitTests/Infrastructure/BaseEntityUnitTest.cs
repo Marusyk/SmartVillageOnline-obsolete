@@ -57,8 +57,10 @@ namespace UnitTests.Infrastructure
 
         public virtual void GetById()
         {
+            // Arrange
+            const int idValue = 1;
             // Action
-            var result = GetById(1);
+            var result = GetById(idValue);
 
             // Accert
             Assert.IsNotNull(result);
@@ -67,17 +69,19 @@ namespace UnitTests.Infrastructure
         public virtual void Insert()
         {
             // Arrange
-            var entity = new T() { ID = 10, LastUpdUS = "TEST" };
+            const int idValue = 10;
+            var entity = new T() { ID = idValue, LastUpdUS = "TEST" };
 
             // Act
+            var totalCountBefore = Controller.Get().ContentToQueryable<T>().Count();
             var resultInsert = Controller.Post(entity);
-            var resultSelect = GetById(10);
-            var resultTotalCount = Controller.Get().ContentToQueryable<T>();
+            var resultSelect = GetById(idValue);
+            var totalCountAfter = Controller.Get().ContentToQueryable<T>().Count();
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
-            Assert.AreEqual(10, resultSelect.ID);
-            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual(idValue, resultSelect.ID);
+            Assert.AreEqual(totalCountBefore + 1, totalCountAfter);
             Assert.AreEqual("TEST", resultSelect.LastUpdUS);
         }
 
@@ -101,15 +105,17 @@ namespace UnitTests.Infrastructure
         public void Remove()
         {
             // Arrange
-            var entity = GetById(1);
+            const int idValue = 1;
+            var entity = GetById(idValue);
 
             //Action
+            var totalCountBefore = Controller.Get().ContentToQueryable<T>().Count();
             var resultDelete = Controller.Delete(entity.ID);
-            var resultSelect = Controller.Get().ContentToQueryable<T>();
+            var totalCountAfter = Controller.Get().ContentToQueryable<T>().Count();
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultDelete.StatusCode);
-            Assert.AreEqual(4, resultSelect.Count());
+            Assert.AreEqual(totalCountBefore - 1, totalCountAfter);
         }
 
         private T GetById(int id)
