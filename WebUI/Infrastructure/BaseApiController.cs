@@ -190,20 +190,20 @@ namespace WebUI.Infrastructure
         #endregion
 
         #region PUT
-        public virtual HttpResponseMessage Put([FromBody]T entity)
+        public virtual HttpResponseMessage Put(int id, [FromBody]T entity)
         {
-            var oldEntity = Repository.GetById(entity.ID);
+            //var oldEntity = Repository.GetById(id);
 
-            if (oldEntity == null)
-            {
-                return ErrorMsg(HttpStatusCode.NotFound, $"No {GenericTypeName} with ID = {entity.ID}");
-            }
+            //if (oldEntity == null)
+            //{
+            //    return ErrorMsg(HttpStatusCode.NotFound, $"No {GenericTypeName} with ID = {id}");
+            //}
             try
             {
-                oldEntity = entity;
-                oldEntity.LastUpdDT = DateTime.Now;
-                Repository.Edit(oldEntity);
-                return Request.CreateResponse(HttpStatusCode.OK, oldEntity);
+                entity.ID = id;
+                entity.LastUpdDT = DateTime.Now;
+                Repository.Edit(entity);
+                return Request.CreateResponse(HttpStatusCode.OK, entity);
             }
             catch (Exception ex)
             {

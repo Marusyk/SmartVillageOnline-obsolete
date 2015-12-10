@@ -28,7 +28,7 @@ namespace WebUI.Controllers.API
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        public override HttpResponseMessage Put([FromBody]SYS_Dictionary entity)
+        public override HttpResponseMessage Put(int id, [FromBody]SYS_Dictionary entity)
         {
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }

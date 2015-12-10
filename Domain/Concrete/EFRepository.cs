@@ -36,10 +36,7 @@ namespace Domain.Concrete
             }
         }
 
-        public virtual IQueryable<T> GetAll()
-        {
-            return Entities;
-        }
+        public virtual IQueryable<T> GetAll() => Entities;
 
         public virtual IQueryable<T> All => GetAll();
 
@@ -114,9 +111,8 @@ namespace Domain.Concrete
                 {
                     throw new ArgumentNullException(nameof(entity));
                 }
-
-                DbEntityEntry dbEntityEntry = _context.Entry(entity);
-                dbEntityEntry.State = EntityState.Modified;
+                _context.Entry(entity).State = EntityState.Modified;
+                _context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {

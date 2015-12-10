@@ -21,7 +21,7 @@ namespace WebUI.Infrastructure
         HttpResponseMessage Delete(int id);
 
         // Update the entity
-        HttpResponseMessage Put([FromBody]T entity);
+        HttpResponseMessage Put(int id, [FromBody]T entity);
 
     }
 }

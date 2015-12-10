@@ -88,7 +88,7 @@ namespace UnitTests.Infrastructure
             entity.LastUpdUS = "TEST";
 
             //Action                                 
-            var resultUpdate = Controller.Put(entity);
+            var resultUpdate = Controller.Put(1, entity);
             var resultSelect = GetById(1);
 
             //Assert
