@@ -142,8 +142,13 @@ namespace Domain.Concrete
                     throw new ArgumentNullException(nameof(entity));
                 }
 
-                DbEntityEntry dbEntityEntry = _context.Entry(entity);
-                dbEntityEntry.State = EntityState.Deleted;
+                var attachedEntity = _context.ChangeTracker.Entries<T>().FirstOrDefault(e => e.Entity.ID == entity.ID);
+                if (attachedEntity != null)
+                {
+                    _context.Entry(attachedEntity.Entity).State = EntityState.Detached;
+                }
+
+                _context.Entry(entity).State = EntityState.Deleted;
             }
             catch (DbEntityValidationException dbEx)
             {

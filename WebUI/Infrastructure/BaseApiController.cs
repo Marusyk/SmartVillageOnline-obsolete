@@ -179,7 +179,8 @@ namespace WebUI.Infrastructure
             try
             {
                 Repository.Delete(toDelete);
-                message = $"{GenericTypeName} with ID = {id} was deleted";
+                var deleted = Repository.Save();
+                message = $"{GenericTypeName} with ID = {id} was " + (deleted ? "deleted" : "not deleted");
                 return ErrorMsg(HttpStatusCode.OK, message);
             }
             catch (Exception ex)
