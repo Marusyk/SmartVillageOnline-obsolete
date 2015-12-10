@@ -155,7 +155,7 @@ namespace WebUI.Infrastructure
             try
             { 
                 Repository.Add(entity);
-                return Request.CreateResponse(HttpStatusCode.Created, entity);             
+                return Request.CreateResponse(HttpStatusCode.Created, Repository.Save() ? entity : null);             
             }
             catch (Exception ex)
             {
