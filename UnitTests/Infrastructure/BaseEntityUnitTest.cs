@@ -84,16 +84,17 @@ namespace UnitTests.Infrastructure
         public void Edit()
         {
             // Arrange
-            var entity = GetById(1);
+            const int idValue = 1;
+            var entity = GetById(idValue);
             entity.LastUpdUS = "TEST";
 
             //Action                                 
-            var resultUpdate = Controller.Put(1, entity);
-            var resultSelect = GetById(1);
+            var resultUpdate = Controller.Put(idValue, entity);
+            var resultSelect = GetById(idValue);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, resultUpdate.StatusCode);
-            Assert.AreEqual(1, resultSelect.ID);
+            Assert.AreEqual(idValue, resultSelect.ID);
             Assert.AreEqual("TEST", resultSelect.LastUpdUS);
         }
 
