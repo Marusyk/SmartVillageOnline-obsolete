@@ -58,17 +58,19 @@ namespace UnitTests
         public void House_Can_Insert()
         {
             // Arrange
-            var entity = new House() { ID = 10, LastUpdUS = "TEST", Year = DateTime.Now.Year};
+            const int idValue = 10;
+            var entity = new House() { ID = idValue, LastUpdUS = "TEST", Year = DateTime.Now.Year};
 
             // Act
+            var totalCountBefore = Controller.Get().ContentToQueryable<House>().Count();
             var resultInsert = Controller.Post(entity);
-            var resultSelect = Controller.GetById(10).ContentToEntity<House>();
-            var resultTotalCount = Controller.Get().ContentToQueryable<House>();
+            var resultSelect = Controller.GetById(idValue).ContentToEntity<House>();
+            var totalCountAfter = Controller.Get().ContentToQueryable<House>().Count();
 
             // Assert
             Assert.AreEqual(HttpStatusCode.Created, resultInsert.StatusCode);
-            Assert.AreEqual(10, resultSelect.ID);
-            Assert.AreEqual(6, resultTotalCount.Count());
+            Assert.AreEqual(idValue, resultSelect.ID);
+            Assert.AreEqual(totalCountBefore + 1, totalCountAfter);
             Assert.AreEqual("TEST", resultSelect.LastUpdUS);
         }
 
