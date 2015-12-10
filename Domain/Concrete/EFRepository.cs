@@ -111,8 +111,17 @@ namespace Domain.Concrete
                 {
                     throw new ArgumentNullException(nameof(entity));
                 }
+
+                // set date of creation
+                entity.LastUpdDT = DateTime.Now;
+
+                var attachedEntity = _context.ChangeTracker.Entries<T>().FirstOrDefault(e => e.Entity.ID == entity.ID);
+                if (attachedEntity != null)
+                {
+                    _context.Entry(attachedEntity.Entity).State = EntityState.Detached;
+                }
+
                 _context.Entry(entity).State = EntityState.Modified;
-                _context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -146,10 +155,7 @@ namespace Domain.Concrete
             }
         }
 
-        public virtual void Save()
-        {
-            _context.SaveChanges();
-        }
+        public virtual bool Save() => _context.SaveChanges() != 0;        
 
         public void ExecProcedure(string name, Dictionary<string, string> parameters = null)
         {

@@ -25,7 +25,7 @@ namespace Domain.Abstract
         void Add(T entity);
         void Edit(T entity);
         void Delete(T entity);
-        void Save();
+        bool Save();
         
         void ExecProcedure(string name, Dictionary<string, string> parameters = null);
     }
