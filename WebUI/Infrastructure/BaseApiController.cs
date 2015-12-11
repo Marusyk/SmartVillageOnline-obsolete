@@ -117,6 +117,7 @@ namespace WebUI.Infrastructure
             return ErrorMsg(HttpStatusCode.NoContent, message);
         }
 
+        [EnableQuery]
         public virtual HttpResponseMessage Get(int pageNo, int pageSize)
         {
             var localPageNo = NormalizePageNo(pageNo);
