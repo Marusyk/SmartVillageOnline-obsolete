@@ -69,6 +69,12 @@ namespace WebUI.Infrastructure
             }
             return string.Join(",", propertyNames);
         }
+
+        private Uri GetCreatedEntityLink(int id)
+        {
+            return new Uri(Url.Link("DefaultApi", new { id }));
+        }
+
         #endregion
 
         #region GET
@@ -155,7 +161,9 @@ namespace WebUI.Infrastructure
             try
             { 
                 Repository.Add(entity);
-                return Request.CreateResponse(HttpStatusCode.Created, Repository.Save() ? entity : null);             
+                var response = Request.CreateResponse(HttpStatusCode.Created, Repository.Save() ? entity : null);
+                response.Headers.Location = GetCreatedEntityLink(entity.ID);
+                return response;
             }
             catch (Exception ex)
             {
