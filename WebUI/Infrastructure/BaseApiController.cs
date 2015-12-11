@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.OData;
 using Domain;
 using Domain.Abstract;
 
@@ -78,7 +79,7 @@ namespace WebUI.Infrastructure
         #endregion
 
         #region GET
-
+        [EnableQuery]
         public virtual HttpResponseMessage Get()
         {
             var entity = Repository.GetAll();
