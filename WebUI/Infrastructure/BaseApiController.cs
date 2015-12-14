@@ -125,9 +125,6 @@ namespace WebUI.Infrastructure
 
             var paginatedEntities = Repository.Paginate(localPageNo, localPageSize, x => x.ID);
 
-            var total = paginatedEntities.TotalCount;
-            var pageCount = paginatedEntities.TotalPageCount;
-
             if (!paginatedEntities.Any())
             {
                 var message = $"{GenericTypeName}: No content";
@@ -137,8 +134,8 @@ namespace WebUI.Infrastructure
             var response = Request.CreateResponse(HttpStatusCode.OK, paginatedEntities);
             response.Headers.Add("X-Paging-PageNo", localPageNo.ToString());
             response.Headers.Add("X-Paging-PageSize", localPageSize.ToString());
-            response.Headers.Add("X-Paging-PageCount", pageCount.ToString());
-            response.Headers.Add("X-Paging-TotalRecordCount", total.ToString());
+            response.Headers.Add("X-Paging-PageCount", paginatedEntities.TotalPageCount.ToString());
+            response.Headers.Add("X-Paging-TotalRecordCount", paginatedEntities.TotalCount.ToString());
             return response;
         }
 
@@ -163,7 +160,14 @@ namespace WebUI.Infrastructure
             try
             { 
                 Repository.Add(entity);
-                var response = Request.CreateResponse(HttpStatusCode.Created, Repository.Save() ? entity : null);
+                var saveResult = Repository.Save();
+
+                if (!saveResult)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+
+                var response = Request.CreateResponse(HttpStatusCode.Created, entity);
                 response.Headers.Location = GetCreatedEntityLink(entity.ID);
                 return response;
             }
@@ -178,19 +182,17 @@ namespace WebUI.Infrastructure
         #region DELETE
         public virtual HttpResponseMessage Delete(int id)
         {
-            string message;
             var toDelete = Repository.GetById(id);
 
             if (toDelete == null)
             {
-                message = $"No {GenericTypeName} with ID = {id}";
-                return ErrorMsg(HttpStatusCode.NotFound, message);
+                return ErrorMsg(HttpStatusCode.NotFound, $"No {GenericTypeName} with ID = {id}");
             }
             try
             {
                 Repository.Delete(toDelete);
-                var deleted = Repository.Save();
-                message = $"{GenericTypeName} with ID = {id} was " + (deleted ? "deleted" : "not deleted");
+                var saveResult = Repository.Save();
+                var message = $"{GenericTypeName} with ID = {id} was " + (saveResult ? "deleted" : "not deleted");
                 return ErrorMsg(HttpStatusCode.OK, message);
             }
             catch (Exception ex)
@@ -213,7 +215,11 @@ namespace WebUI.Infrastructure
             {
                 entity.ID = id;
                 Repository.Edit(entity);
-                return Request.CreateResponse(HttpStatusCode.OK, Repository.Save() ? entity : oldEntity);
+                var saveResult = Repository.Save();
+
+                return saveResult ? 
+                    Request.CreateResponse(HttpStatusCode.OK, entity) : 
+                    Request.CreateResponse(HttpStatusCode.NotModified, oldEntity);                
             }
             catch (Exception ex)
             {
