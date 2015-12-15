@@ -113,9 +113,9 @@
       <Project>{8a9d157d-d6b7-4854-8aac-875faef4f14c}</Project>
       <Name>SV.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebUI\WebUI.csproj">
+    <ProjectReference Include="..\SV.WebUI\SV.WebUI.csproj">
       <Project>{ce46dc36-cc7d-4097-90c3-454ecdf3d837}</Project>
-      <Name>WebUI</Name>
+      <Name>SV.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
