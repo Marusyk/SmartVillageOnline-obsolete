@@ -109,9 +109,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
+    <ProjectReference Include="..\SV.Domain\SV.Domain.csproj">
       <Project>{8a9d157d-d6b7-4854-8aac-875faef4f14c}</Project>
-      <Name>Domain</Name>
+      <Name>SV.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebUI\WebUI.csproj">
       <Project>{ce46dc36-cc7d-4097-90c3-454ecdf3d837}</Project>

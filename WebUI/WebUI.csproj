@@ -343,9 +343,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
+    <ProjectReference Include="..\SV.Domain\SV.Domain.csproj">
       <Project>{8a9d157d-d6b7-4854-8aac-875faef4f14c}</Project>
-      <Name>Domain</Name>
+      <Name>SV.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
