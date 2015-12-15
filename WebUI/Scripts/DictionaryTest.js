@@ -4,7 +4,7 @@ function GetAllEntities() {
     jQuery.support.cors = true;
     var Dict = $('#sysDictList :selected').text();
     $.ajax({
-        url: 'http://localhost:3761/api/' + Dict,
+        url: 'http://localhost:7081/api/' + Dict,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -21,7 +21,7 @@ function GetEntity() {
     var id = $('#txtId').val();
     var Dict = $('#sysDictList :selected').text();
     $.ajax({
-        url: 'http://localhost:3761/api/' + Dict + '/' + id,
+        url: 'http://localhost:7081/api/' + Dict + '/' + id,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -65,7 +65,7 @@ function AddEntity() {
 
 
     $.ajax({
-        url: 'http://localhost:3761/api/' + Dict,
+        url: 'http://localhost:7081/api/' + Dict,
         type: 'POST',
         data: JSON.stringify(entities),
         contentType: "application/json;charset=utf-8",
@@ -84,7 +84,7 @@ function DeleteEntity() {
     var id = $('#txtdelId').val()
 
     $.ajax({
-        url: 'http://localhost:3761/api/' + Dict + '/' + id,
+        url: 'http://localhost:7081/api/' + Dict + '/' + id,
         type: 'DELETE',
         contentType: "application/json;charset=utf-8",
         success: function (data) {
@@ -124,7 +124,7 @@ function GetDictionary() {
     jQuery.support.cors = true;
     $.ajax({
         type: "get",
-        url: "http://localhost:3761/api/Dictionary",
+        url: "http://localhost:7081/api/Dictionary",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         data: {},
@@ -143,7 +143,7 @@ function GetRelatedEntities(name, comp) {
     jQuery.support.cors = true;
     $.ajax({
         type: "get",
-        url: "http://localhost:3761/api/" + name,
+        url: "http://localhost:7081/api/" + name,
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         data: {},
