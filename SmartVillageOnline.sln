@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.Domain", "SV.Domain\SV.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{CE46DC36-CC7D-4097-90C3-454ECDF3D837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{66763E06-B3B9-4D54-A853-BE195F7A7949}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.UnitTests", "SV.UnitTests\SV.UnitTests.csproj", "{66763E06-B3B9-4D54-A853-BE195F7A7949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
