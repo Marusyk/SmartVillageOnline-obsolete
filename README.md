@@ -1,5 +1,6 @@
 # SmartVillage-Online <br>
 test deploy on http://deploy-test.apphb.com/ <br>
+Build status: [![Build status](https://ci.appveyor.com/api/projects/status/7v3tbraaq5ijgkts?svg=true)](https://ci.appveyor.com/project/Marusyk/smartvillageonline)<br><br>
 **І. What is Smart Village?** <br>
 Система «Розумне село» є єдиною, здатною до масштабування та  адаптації, інформаційною системою, що призначена для автоматизації  діяльності   сільських  і  селищних  рад  по  веденню погосподарських книг,  статистичного  обліку  землі, нерухомості, транспорту,  свійських  тварин  і  худоби  у  відповідності  до норм  законодавства України, а саме [Наказу Держкомстату від 08.12.10 р. № 491 про затвердження нової Інструкції з ведення погосподарського обліку в сільських, селищних та міських радах.](http://zakon.rada.gov.ua/cgi-bin/laws/main.cgi?nreg=z0009-11) <br>
 Більше інофрмації на офсайті: http://sisoftware.biz/products/smart-village/
